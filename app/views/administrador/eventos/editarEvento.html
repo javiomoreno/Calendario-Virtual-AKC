@@ -1,0 +1,137 @@
+<div>
+    <menu-admin></menu-admin>
+</div>
+<!-- /section:basics/navbar.layout -->
+<div class="main-container" id="main-container">
+    <div id="sidebar" class="sidebar responsive">
+        <submenu-admin></submenu-admin>
+    </div>
+
+    <!-- /section:basics/sidebar -->
+    <div class="main-content">
+        <div class="main-content-inner">
+            <div class="breadcrumbs" id="breadcrumbs">
+                <ul class="breadcrumb">
+                    <li>
+                        <i class="ace-icon fa fa-home home-icon"></i>
+                        <a href="#/admin">Inicio</a>
+                    </li>
+                    <li class="active">Gestionar Eventos</li>
+                </ul>
+            </div>
+            <div class="page-content">
+                <div class="col-sm-12">
+                    <uib-tabset>
+                        <uib-tab>
+                            <uib-tab-heading>
+                                <i class="glyphicon glyphicon-plus"></i> Editar Evento
+                            </uib-tab-heading>
+                            <form name="form" ng-controller="NuevoEventoController" ng-init="id = evento.id">
+                                <div class="form-group col-sm-12 col-sm-6 col-lg-6">
+                                    <label for="nombre">Nombre de Evento</label>
+                                    <input type="text" class="form-control"  placeholder="Introduce el nombre del Evento"
+                                           id="nombre" ng-model="evento.nombre" required/>
+                                </div>
+                                <div class="form-group col-sm-12 col-sm-6 col-lg-6">
+                                    <label for="tipoEvento">Tipo de Evento</label>
+                                    <select class="form-control" style="width:250px" name="tipoEvento" id="tipoEvento" ng-model="evento.tipoEvento" required>
+                                        <option value="">Seleccione Tipo de Evento</option>
+                                        <option ng-selected="evento.tipoEvento == option.id"  ng-repeat="option in vectorTipoEvento" value="{{option.id}}">{{option.name}}</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-sm-12 col-lg-6">
+                                    <div class="col-md-6">
+                                        <label for="fechaInicio">Fecha inicio</label>
+                                        <p class="input-group">
+                                            <input type="text" class="form-control" uib-datepicker-popup="dd/MM/yyyy"
+                                                   ng-model="evento.fechaInicio" is-open="status.opened" min-date="minDate"
+                                                   max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)"
+                                                   ng-required="true" close-text="Close" id="fechaInicio" required/>
+											  <span class="input-group-btn">
+												<button type="button" class="btn btn-primary" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+											  </span>
+                                        </p>
+                                    </div>
+                                    <uib-timepicker ng-model="evento.horaInicio" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" required></uib-timepicker>
+                                </div>
+                                <div class="form-group col-sm-12 col-lg-6">
+                                    <div class="col-md-6">
+                                        <label for="fechaFin">Fecha fin</label>
+                                        <p class="input-group">
+                                            <input type="text" class="form-control" uib-datepicker-popup="dd-MMMM-yyyy"
+                                                   ng-model="evento.fechaFin" is-open="status.opened" min-date="minDate"
+                                                   max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)"
+                                                   ng-required="true" close-text="Close" id="fechaFin" required/>
+											  <span class="input-group-btn">
+												<button type="button" class="btn btn-primary" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+											  </span>
+                                        </p>
+                                    </div>
+                                    <uib-timepicker ng-model="evento.horaFin" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" required></uib-timepicker>
+                                </div>
+                                <div class="form-group col-sm-12 col-lg-4">
+                                    <label for="repeticion">Repetición</label>
+                                    <select class="form-control" style="width:200px" name="repeticion" id="repeticion" ng-model="evento.repeticion" required>
+                                        <option value="">Seleccione Periodicidad</option>
+                                        <option ng-selected="evento.repeticion == option.id" ng-repeat="option in vectorRepeticion" value="{{option.id}}">{{option.name}}</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-sm-12 col-lg-4">
+                                    <label for="importancia">Importancia</label>
+                                    <select class="form-control" style="width:200px" name="importancia" id="importancia" ng-model="evento.importancia" required>
+                                        <option value="">Seleccione Importancia</option>
+                                        <option ng-selected="evento.importancia == option.id" ng-repeat="option in vectorImportancia" value="{{option.id}}">{{option.name}}</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-sm-12 col-lg-4">
+                                    <label for="icono">Icono de Evento</label>
+                                    <select class="form-control" id="icono" style="width:200px" ng-model="evento.icono" required>
+                                        <option value="">Seleccione Icono</option>
+                                        <option value="1">Baja</option>
+                                        <option value="2">Media</option>
+                                        <option value="3">Alta</option>
+                                    </select>
+                                </div>
+                                <button class="btn btn-primary" ng-click="editarEvento(id)">Guardar</button>
+                            </form><!-- /.col -->
+                </div>
+                </uib-tab>
+                </uib-tabset>
+            </div>
+        </div><!-- /.page-content -->
+    </div>
+</div><!-- /.main-content -->
+
+<div class="footer">
+    <div class="footer-inner">
+        <!-- #section:basics/footer -->
+        <div class="footer-content">
+				<span class="bigger-120">
+					<span class="blue bolder">Ace</span>
+					Application &copy; 2013-2014
+				</span>
+
+            &nbsp; &nbsp;
+				<span class="action-buttons">
+					<a href="#">
+                        <i class="ace-icon fa fa-twitter-square light-blue bigger-150"></i>
+                    </a>
+
+					<a href="#">
+                        <i class="ace-icon fa fa-facebook-square text-primary bigger-150"></i>
+                    </a>
+
+					<a href="#">
+                        <i class="ace-icon fa fa-rss-square orange bigger-150"></i>
+                    </a>
+				</span>
+        </div>
+
+        <!-- /section:basics/footer -->
+    </div>
+</div>
+
+<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+    <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+</a>
+</div><!-- /.main-container -->

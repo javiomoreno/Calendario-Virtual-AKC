@@ -1,0 +1,17 @@
+[
+  {
+    "id": "1",
+    "mes": "Enero",
+    "colorMensaje":"rgba(0,168,89,1)",
+    "mensaje": "Porque Cúcuta tambies es Colombia, nos vinculamos en la busqueda de recursos del estado para la solución de las grandes necesidades de la ciudad.",
+    "tema":"Gestión de Recursos"
+  },
+
+  {
+    "id": "2",
+    "mes": "Febrero",
+    "colorMensaje":"rgba(62,64,149,1)",
+    "mensaje": "De la mano con la comunidad, aportamos soluciones a las problematicas sociales y ambientales.",
+    "tema":"Estabilización de Talúdes"
+  }
+]
