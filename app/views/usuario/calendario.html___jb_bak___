@@ -1,0 +1,114 @@
+<header>
+	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand logo" rel="home" href="#" title="Aguas Kapital C&uacute;cuta">
+			        <img style="max-width:100px; margin-top: -7px;"
+			             src="img/LOGO AKC.png">
+			    </a>
+				<a href="#/" class="navbar-brand titulo">Calendario Virtual AKC</a>
+			</div>
+		</div>
+	</nav>
+</header>
+<section class="fondo-blanco">
+	<div class="container-fluid">
+		<div>
+		  <div style="margin-top: 50px;">
+			  <div class="row">
+			    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5" style="padding-right: 0px; padding-left: 0px;">
+			    	<img src="img/{{datos.mes}}/{{getRandomImagen()}}.jpg" alt="imagen" class="img-responsive imagen">
+			    	<div class="caja-externa" style="background-color:{{datos.colorMensaje}}">
+				    	<div class="caja-mensaje">
+				    		{{datos.mensaje}}
+				    		<div class="temas">
+				    			{{datos.tema}}
+				    		</div>
+				    	</div>	    	
+			    	</div>
+				</div>
+					<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 calendario" ng-controller="CalendarioController as vm">
+					  <h2 class="text-center">{{ vm.calendarTitle }}</h2>
+
+					  <div class="row">
+
+						  <div class="col-md-6 text-center">
+							  <div class="btn-group">
+
+								  <button
+										  class="btn btn-sm btn-primary"
+										  mwl-date-modifier
+										  date="vm.calendarDay"
+										  decrement="vm.calendarView">
+									  Anterior
+								  </button>
+								  <button
+										  class="btn btn-sm btn-default"
+										  mwl-date-modifier
+										  date="vm.calendarDay"
+										  set-to-today>
+									  Hoy
+								  </button>
+								  <button
+										  class="btn btn-sm btn-primary"
+										  mwl-date-modifier
+										  date="vm.calendarDay"
+										  increment="vm.calendarView">
+									  Proximo
+								  </button>
+							  </div>
+						  </div>
+
+						  <br class="visible-xs visible-sm">
+
+						  <div class="col-md-6 text-center">
+							  <div class="btn-group">
+								  <label class="btn btn-sm btn-primary" ng-model="vm.calendarView" uib-btn-radio="'year'">Año</label>
+								  <label class="btn btn-sm btn-primary" ng-model="vm.calendarView" uib-btn-radio="'month'">Mes</label>
+								  <label class="btn btn-sm btn-primary" ng-model="vm.calendarView" uib-btn-radio="'week'">Semana</label>
+								  <label class="btn btn-sm btn-primary" ng-model="vm.calendarView" uib-btn-radio="'day'">Día</label>
+							  </div>
+						  </div>
+
+					  </div>
+
+					  <br>
+					  <mwl-calendar
+							  view="vm.calendarView"
+							  current-day="vm.calendarDay"
+							  events="vm.events"
+							  cell-is-open="true">
+					  </mwl-calendar>
+				  </div>
+			  </div>
+			  <div class="row">
+			  	<div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+			  	</div>
+			  	<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 eventos">
+			  		<div class="col-xs-3">
+			  			<span class="glyphicon glyphicon-film icon-uno" aria-hidden="true"></span>
+			  			Evento 1
+			  		</div>
+			  		<div class="col-xs-3">
+			  			<span class="glyphicon glyphicon-glass icon-dos" aria-hidden="true"></span>
+			  			Evento 2
+			  		</div>
+			  		<div class="col-xs-3">
+			  			<span class="glyphicon glyphicon-star icon-tres" aria-hidden="true"></span>
+			  			Evento 3
+			  		</div>
+			  		<div class="col-xs-3">
+			  			<span class="glyphicon glyphicon-headphones icon-cuatro" aria-hidden="true"></span>
+			  			Evento 4
+			  		</div>
+			  	</div>
+			  </div>
+		  </div>
+		</div>
+
+    </div>
+</section>
+<footer>
+	
+</footer>
+

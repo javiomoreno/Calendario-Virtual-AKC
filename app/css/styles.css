@@ -31,9 +31,8 @@ a:-webkit-any-link {
 }
 
 .calendario{
-	padding-left: 0px; 
-	padding-right: 0px;
-	margin-top: 30px;
+	margin-left: -40px;
+	padding: 0px 20px 20px 20px;
 }
 
 .titulo-anho{
@@ -146,9 +145,24 @@ a:-webkit-any-link {
 	display: block;
 }
 
+.cal-month-day,  .cal-day-inmonth, .cal-day-past{
+	border-radius: 6px;
+	box-shadow: 2px 2px 2px #888888;
+	background-color: #ffffff;
+}
+
+.cal-month-box{
+	border: 0px;
+}
+
+.fondo-blanco{
+	background-color: #fff;
+}
+
 @media screen and (max-width: 991px) {
     .calendario {
     	padding-top: 90px;
+		margin-left: 0px;
     }
    .logo{
 		display: none;
@@ -158,6 +172,7 @@ a:-webkit-any-link {
 @media screen and (max-width: 468px) {
 	.calendario {
     	padding-top: 30px;
+		margin-left: 0px;
     }
 
     .caja-externa{
