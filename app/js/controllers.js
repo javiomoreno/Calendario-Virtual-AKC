@@ -4,27 +4,56 @@
       .controller('LoginController', function($scope){
 
       })
-      .controller('CalendarioController', function ($scope, $routeParams, calendarioService, moment) {
+
+
+      .controller('ImagenUsuarioController', function ($scope, $routeParams, calendarioService) {
+         var mes = $routeParams.mes;
+          $scope.mes = mes;
+          $scope.datos = {};
+          if(mes){
+            calendarioService.byMes(mes).then(function (data) {
+                $scope.datos = data;
+            });
+
+            $scope.getRandomImagen = function(){
+                return Math.floor((Math.random()*3)+1);
+            };
+          }
+      })
+      .controller('CalendarioController', function ($scope, $routeParams, calendarioService, moment, localStorageService) {
 
           var vm = this;
 
           vm.calendarView = 'month';
           vm.calendarDay = new Date();
-          vm.weekDays = ["Lunes","Martes","Miércoles","Jueves","Viernes","Sábado","Domingo"];
-
-          var mes = $routeParams.mes;
-          $scope.mes = mes;
-          $scope.datos = {};
-
-          calendarioService.byMes(mes).then(function (data) {
-              $scope.datos = data;
-          });
-
-          $scope.getRandomImagen = function(){
-              return Math.floor((Math.random()*3)+1);
-          };
+          vm.calendarTitle = moment().year();
 
           vm.isCellOpen = true;
+
+          var todosInStore = localStorageService.get('eventos');
+
+          $scope.eventos = todosInStore || [];
+
+          $scope.$watch('eventos', function(){
+              localStorageService.add('eventos', $scope.eventos);
+          }, true);
+
+
+          var ev = [];
+          for (var i = 0; i < $scope.eventos.length; i++) {
+            ev[i] = {
+              title: $scope.eventos[i].nombre,
+              type: 'important',
+              startsAt: new Date($scope.eventos[i].fechaInicio), // A javascript date object for when the event starts
+              endsAt: new Date($scope.eventos[i].fechaFin),
+              recursOn: 'year',
+              draggable: true,
+              resizable: true
+            };
+          }
+
+          vm.events = ev;
+/*
           vm.events = [
               {
                   title: 'My event title', // The title of the event
@@ -60,11 +89,36 @@
                   recursOn: 'year',
                   draggable: true,
                   resizable: true
+              }, {
+                  title: 'Este es mi Evento',
+                  type: 'important',
+                  startsAt: new Date(2015,10,30,1), // A javascript date object for when the event starts
+                  endsAt: new Date(2015,10,30,5),
+                  recursOn: 'year',
+                  draggable: true,
+                  resizable: true
               }
-          ];
+          ];*/
 
       })
-      .controller('AdministradorController', function () {
+      .controller('AdministradorController', function ($location, $scope) {
+
+        $scope.data = [];
+        $scope.holas = ["hola","chao","quetal","alo","bien"];
+        $scope.holase = ["hola","chao","quetal","alo","bien"];
+        $scope.level = 0;
+
+        $scope.Enviar = function(data){
+          console.log(data);
+        }
+
+        $scope.crearImagen = function(){
+          $location.path('/admin/imagenes/nueva');
+        };
+
+        $scope.crearEvento = function(){
+          $location.url('/admin/eventos/nuevo');
+        };
 
       })
       .controller('ImagenesController', function ($http, $scope, $filter, $routeParams, localStorageService, $uibModal, $location, $route, $rootScope) {
@@ -95,7 +149,7 @@
         }
 
           $scope.vector = [];
-          $scope.meses = ["Abril", "Agosto","Diciembre", "Enero", "Febrero", "Julio", "Junio", "Marzo", "Mayo", "Noviembre", "Octubre", "Septiembre"];
+          $scope.meses = ["Enero","Febrero","Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
           var cantEnero;
           var cantFebrero;
           var cantMarzo;
@@ -139,7 +193,7 @@
               }
 
               var otra = {
-                  'Enero': ''+cantEnero,
+                  'Enero': cantEnero,
                   'Febrero': cantFebrero,
                   'Marzo': cantMarzo,
                   'Abril': cantAbril,
@@ -176,7 +230,7 @@
           });
 
           $scope.todo = "";
-          $location.url('/admin/imagenes');
+          $location.url('/admin');
           //$route.reload();
         };
 
@@ -256,7 +310,7 @@
                       break;
                   }
               }
-              $location.path('/admin/imagenes');
+              $location.path('/admin');
               $uibModalInstance.close();
           };
 
@@ -282,7 +336,7 @@
                       break;
                   }
               }
-              $location.url('/admin/eventos');
+              $location.url('/admin');
               $uibModalInstance.close();
           };
 
@@ -293,6 +347,7 @@
       })
       .controller('EventosController', function ($http, $scope, $filter, $routeParams, localStorageService, $uibModal, $location, $route, $timeout, $rootScope) {
 
+        console.log("aqui")
           var todosInStore = localStorageService.get('eventos');
 
           $scope.eventos = todosInStore || [];
@@ -320,7 +375,7 @@
           }
 
           $scope.vector = [];
-          $scope.meses = ["Abril", "Agosto","Diciembre", "Enero", "Febrero", "Julio", "Junio", "Marzo", "Mayo", "Noviembre", "Octubre", "Septiembre"];
+          $scope.meses = ["Enero", "Febrero","Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
           var cantEnero;
           var cantFebrero;
           var cantMarzo;
@@ -409,13 +464,18 @@
                   }
               }
               $scope.todo = nuevo;
-              $scope.eventos.push({
+              var fechaI = new Date($scope.todo.fechaInicio).setHours(new Date($scope.todo.horaInicio).getHours());
+              fechaI = new Date(fechaI).setMinutes(new Date($scope.todo.horaInicio).getMinutes());
+              $scope.todo.fechaInicio = fechaI;
+              var fechaF = new Date($scope.todo.fechaFin).setHours(new Date($scope.todo.horaFin).getHours());
+              fechaF = new Date(fechaF).setMinutes(new Date($scope.todo.horaFin).getMinutes());
+              $scope.todo.fechaFin = fechaF;
+            
+               $scope.eventos.push({
                   id: (max+1),
                   nombre: $scope.todo.nombre,
-                  fechaInicio: $scope.todo.fechaInicio,
-                  horaInicio: $scope.todo.horaInicio,
-                  fechaFin: $scope.todo.fechaFin,
-                  horaFin: $scope.todo.horaFin,
+                  fechaInicio: new Date($scope.todo.fechaInicio),
+                  fechaFin: new Date($scope.todo.fechaFin),
                   tipoEvento: $scope.todo.tipoEvento,
                   repeticion: $scope.todo.repeticion,
                   importancia: $scope.todo.importancia,
@@ -423,6 +483,7 @@
               });
 
               $scope.todo = "";
+              $location.url('/admin');
           };
 
           var campos = $routeParams.campos;
@@ -438,16 +499,17 @@
               $scope.todos = [];
 
               for(var i = 0; i <$scope.eventos.length; i ++) {
-                  if (new Date($scope.eventos[i].fechaInicio).getFullYear() == $scope.anho && meses[new Date($scope.eventos[i].fechaInicio).getMonth()] == $scope.mes) {
+                  if (new Date($scope.eventos[i].fechaInicio).getFullYear() == $scope.anho && meses[(new Date($scope.eventos[i].fechaInicio).getMonth()).valueOf()] == $scope.mes) {
                       $scope.todos[contador] = $scope.eventos[i];
                       contador ++;
                   }
               }
+              console.log($scope.eventos);
 
               $scope.gridOptions = {
                   enableColumnMenus: false,
                   enableFiltering: true,
-                  enableRowSelection: false,
+                  enableRowSelection: true,
                   rowTemplate: rowTemplate(),
                   columnDefs: [
                       {field: 'id', visible: false},
@@ -456,8 +518,7 @@
                       {field: 'fechaFin', displayName: 'Fecha Fin'},
                       {field: 'repeticion', displayName: 'Periodicidad'},
                       {field: 'tipoEvento', displayName: 'Tipo de Evento'},
-                      {field: 'importancia', displayName: 'Importancia'},
-                      //{width: 100, name: 'opciones', displayName: 'Opciones', cellTemplate: '<button id="verBtn" type="button" class="btn-small btn-primary" ng-click="Ver()" title="Ver"> <i class="glyphicon glyphicon-search color-blanco"></i></button> <button id="editBtn" type="button" class="btn-small btn-primary" ng-click="Editar(row)" title="Editar"> <i class="glyphicon glyphicon-pencil color-blanco"></i></button> <button id="elimBtn" type="button" class="btn-small btn-primary" ng-click="openModal(\'sm\')" title="Eliminar"> <i class="glyphicon glyphicon-trash color-rojo"></i></button>'}
+                      {field: 'importancia', displayName: 'Importancia'}
                   ]
               };
 

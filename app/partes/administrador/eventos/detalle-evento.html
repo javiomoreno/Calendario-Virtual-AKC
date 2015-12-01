@@ -1,0 +1,75 @@
+<div class="col-sm-12">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="widget-box" ng-init="id = eventoDatos.id">
+                <div class="widget-header widget-header-flat">
+                    <h4 class="widget-title smaller">{{eventoDatos.nombre}}</h4>
+                </div>
+                <div class="widget-body">
+                    <div class="profile-user-info profile-user-info-striped">
+                        <div class="profile-info-row">
+                            <div class="profile-info-name"> Fecha Inicio </div>
+                            <div class="profile-info-value">
+                                <i class="ace-icon fa fa-bell-o bigger-110 blue"></i>
+                                <span>{{eventoDatos.fechaInicio}}</span>
+                            </div>
+                        </div>
+
+                        <div class="profile-info-row">
+                            <div class="profile-info-name"> Fecha Fin </div>
+                            <div class="profile-info-value">
+                                <i class="ace-icon fa fa-bell bigger-110 black"></i>
+                                {{eventoDatos.fechaFin}}
+                            </div>
+                        </div>
+
+                        <div class="profile-info-row">
+                            <div class="profile-info-name"> Tipo de Evento </div>
+
+                            <div class="profile-info-value">
+                                <i class="ace-icon fa fa-bullhorn bigger-110 blue"></i>
+                                {{eventoDatos.tipoEvento}}
+                            </div>
+                        </div>
+
+                        <div class="profile-info-row">
+                            <div class="profile-info-name"> Periodicidad </div>
+
+                            <div class="profile-info-value">
+                                <i class="ace-icon glyphicon glyphicon-repeat bigger-110 blue"></i>
+                                {{eventoDatos.repeticion}}
+                            </div>
+                        </div>
+
+                        <div class="profile-info-row">
+                            <div class="profile-info-name"> Importancia </div>
+
+                            <div class="profile-info-value">
+                                <i class="ace-icon fa fa-exclamation-circle bigger-110 blue"></i>
+                                {{eventoDatos.importancia}}
+                            </div>
+                        </div>
+
+                        <div class="profile-info-row">
+                            <div class="profile-info-name"> Icono </div>
+
+                            <div class="profile-info-value">
+                                <i class="ace-icon fa fa-bell bigger-110 blue"></i>
+                                {{eventoDatos.icono}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="widget-footer">
+                    <div class="row">
+                        <div class="col-lg-12 text-center">
+                            <button class="btn btn-sm btn-default">Atras</button>
+                            <button class="btn btn-sm btn-primary" ng-click="Editar(id)">Editar</button>
+                            <button class="btn btn-sm btn-danger" ng-click="openModal('sm', id)">Eliminar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

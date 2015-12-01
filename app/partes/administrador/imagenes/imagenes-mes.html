@@ -1,0 +1,39 @@
+<div class="col-sm-12">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="widget-box">
+				<div class="widget-header widget-header-flat">
+					<h4 class="widget-title smaller">{{anho}}-{{mes}}</h4>
+				</div>
+				<div class="widget-body">
+					<div class="row">
+						<span ng-repeat="imagen in todos track by $index" ng-init="id=imagen">
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+								<div class="widget-box">
+									<div class="widget-header widget-header-flat titulo-caja">
+										<h5 class="widget-title smaller">{{imagen.nombre}}</h5>
+										<div class="widget-toolbar">
+											<label>
+												<a ng-href="#/admin/imagen/vista/{{imagen.id}}" title="Ver Detalle"><i class="menu-icon fa fa-eye white"></i></a>
+											</label>
+										</div>
+									</div>
+									<div class="widget-body">
+										<div class="widget-main">
+											<dl id="dt-list-1">
+												<dt>Tema</dt>
+												<dd>{{imagen.tema}}</dd>
+												<dt>Mensaje</dt>
+												<dd>{{imagen.mensaje}}</dd>
+											</dl>
+										</div>
+									</div>
+								</div>
+							</div>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

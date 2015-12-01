@@ -50,20 +50,32 @@ app.config(function(calendarConfigProvider) {
         templateUrl: 'views/administrador/inicio.html',
         controller: 'AdministradorController'
       })
-      .when('/admin/imagen/:campos', {
+      /*.when('/admin/imagen/:campos', {
         templateUrl: 'views/administrador/imagenes/listaImagenes.html',
         controller: 'ImagenesController'
-      })
-      .when('/admin/imagen/vista/:id', {
+      })*/
+      /*.when('/admin/imagen/vista/:id', {
         templateUrl: 'views/administrador/imagenes/verImagen.html',
         controller: 'ImagenesController'
+      })*/
+      .when('/admin/imagen/vista/:id', {
+        templateUrl: 'views/administrador/imagenes/detalleImagen.html',
+        controller: 'ImagenesController'
       })
+      .when('/admin/imagen/:campos', {
+        templateUrl: 'views/administrador/imagenes/vistaImagenesMes.html',
+        controller: 'ImagenesController'
+      })
+      /*.when('/admin/imagen/editar/:id', {
+        templateUrl: 'views/administrador/imagenes/editarImagen.html',
+        controller: 'ImagenesController'
+      })*/
       .when('/admin/imagen/editar/:id', {
         templateUrl: 'views/administrador/imagenes/editarImagen.html',
         controller: 'ImagenesController'
       })
-      .when('/admin/imagenes', {
-        templateUrl: 'views/administrador/imagenes/gestionarImagenes.html',
+      .when('/admin/imagenes/nueva', {
+        templateUrl: 'views/administrador/imagenes/crearImagen.html',
         controller: 'ImagenesController'
       })
       .when('/admin/eventos', {
@@ -71,15 +83,19 @@ app.config(function(calendarConfigProvider) {
         controller: 'EventosController'
       })
       .when('/admin/evento/:campos', {
-        templateUrl: 'views/administrador/eventos/listarEventos.html',
+        templateUrl: 'views/administrador/eventos/vistaEventosMes.html',
         controller: 'EventosController'
       })
       .when('/admin/evento/vista/:id', {
-        templateUrl: 'views/administrador/eventos/verEvento.html',
+        templateUrl: 'views/administrador/eventos/detalleEvento.html',
         controller: 'EventosController'
       })
       .when('/admin/evento/editar/:id', {
         templateUrl: 'views/administrador/eventos/editarEvento.html',
+        controller: 'EventosController'
+      })
+      .when('/admin/eventos/nuevo', {
+        templateUrl: 'views/administrador/eventos/crearEvento.html',
         controller: 'EventosController'
       })
       .otherwise({
