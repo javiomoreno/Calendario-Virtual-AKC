@@ -22,18 +22,15 @@ app.config(function(calendarConfigProvider) {
   });
 
   calendarConfigProvider.setTitleFormats({
-    day: 'ddd D MMM' //this will configure the day view title to be shorter
+    day: 'ddd D MMM', //this will configure the day view title to be shorter
+    month: 'MMMM |YYYY'
   });
 
   calendarConfigProvider.setI18nStrings({
     eventsLabel: 'Events', //This will set the events label on the day view
-    timeLabel: 'Time' //This will set the time label on the time view
+    timeLabel: 'Time', //This will set the time label on the time view
+    weekNumber: 'Semana {week}'
   });
-
-  calendarConfigProvider.setDisplayAllMonthEvents(true); //This will display all events on a month view even if they're not in the current month. Default false.
-
-  calendarConfigProvider.setDisplayEventEndTimes(true); //This will display event end times on the month and year views. Default false.
-
 });
 
   app.config(['$routeProvider', function ($routeProvider) {

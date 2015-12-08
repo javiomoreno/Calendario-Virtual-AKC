@@ -31,7 +31,6 @@ a:-webkit-any-link {
 }
 
 .calendario{
-	margin-left: -40px;
 	padding: 0px 20px 20px 20px;
 }
 
@@ -147,7 +146,6 @@ a:-webkit-any-link {
 }
 
 .cal-month-day,  .cal-day-inmonth, .cal-day-past{
-	border-radius: 6px;
 	box-shadow: 2px 2px 2px #888888;
 	background-color: #ffffff;
 }
@@ -159,6 +157,38 @@ a:-webkit-any-link {
 .fondo-blanco{
 	background-color: #fff;
 }
+
+.caja-flechas{
+	padding-top: 20px;
+}
+
+.caja-mes-semana-dia{
+	padding-top: 30px;
+}
+
+.btn-mes-semana-dia{
+	border-radius: 5px 5px 0px 0px;
+	background-color: rgba(0,175,234,1) !important;
+	border-color: rgba(0,175,234,1);
+}
+
+.btn-mes-semana-dia.active, .btn-mes-semana-dia:focus{
+	background-color: rgba(0,175,234,1) !important;
+    border-color: rgba(0,175,234,1);
+}
+.titulo-fecha{
+	color: rgba(0,175,234,1);
+}
+
+.cal-day-today{
+	background: #FFC;;
+}
+
+/*.cal-row-head [class*=cal-cell]{
+	border-color: #BCD4E5;
+	border-style: 
+}*/
+
 
 /*.cal-slide-content{
 	background-color: rgba(0,169,186,1);

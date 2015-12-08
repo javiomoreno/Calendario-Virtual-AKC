@@ -38,6 +38,31 @@
         byMes: byMes
       };
 
-    }]);
+    }])
+
+    .service('upload', function ($http, $q){
+
+      this.uploadFile = function(file, nombre){
+        var deferred = $q.defer();
+        var formData = new FormData();
+
+        formData.append("nombre", nombre);
+        formData.append("file", file);
+
+        return $http.post("server.php", formData, {
+          headers: {
+            "Content-type": undefined
+          },
+          transformRequest: angular.identity
+        })
+        .success(function(res){
+          deferred.resolve(res);
+        })
+        .error(function(msg, code){
+          deferred.reject(msg);
+        })
+        return deferred.promise; 
+      }
+    });
 
 })();

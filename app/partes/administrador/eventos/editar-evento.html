@@ -1,4 +1,4 @@
-<form name="form" ng-controller="NuevoEventoController">
+<form name="form" ng-controller="NuevoEventoController" ng-init="id = evento.id">
     <div class="row">
     <div class="form-group col-sm-12 col-sm-6 col-lg-6">
         <label for="nombre">Nombre de Evento</label>
@@ -68,5 +68,5 @@
           <option value="3">Alta</option>
         </select>
     </div>
-        <button class="btn btn-primary" ng-click="editarEvento()">Editar</button>
+        <button class="btn btn-primary" ng-click="editarEvento(id)">Editar</button>
 </form><!-- /.col -->

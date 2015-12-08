@@ -20,15 +20,20 @@
             };
           }
       })
-      .controller('CalendarioController', function ($scope, $routeParams, calendarioService, moment, localStorageService) {
+      .controller('CalendarioController', function ($scope, $routeParams, calendarioService, moment, localStorageService, $uibModal) {
 
           var vm = this;
 
           vm.calendarView = 'month';
           vm.calendarDay = new Date();
-          vm.calendarTitle = moment().year();
 
-          vm.isCellOpen = true;
+          moment.locale('en', {
+            week : {
+              dow : 1 // Monday is the first day of the week
+            }
+          });
+
+          vm.isCellOpen = false;
 
           var todosInStore = localStorageService.get('eventos');
 
@@ -46,13 +51,57 @@
               type: 'important',
               startsAt: new Date($scope.eventos[i].fechaInicio), // A javascript date object for when the event starts
               endsAt: new Date($scope.eventos[i].fechaFin),
-              recursOn: 'year',
-              draggable: true,
-              resizable: true
+              recursOn: 'year'
             };
           }
 
           vm.events = ev;
+
+          function showModal(action, event) {
+            $uibModal.open({
+              templateUrl: 'modalContent.html',
+              controller: function() {
+                var vm = this;
+                vm.action = action;
+                vm.event = event;
+              },
+              controllerAs: 'vm'
+            });
+          }
+
+          function showModalOpen(dia, eventos){
+            $uibModal.open({
+              templateUrl: 'views/calendario/eventos-dia.html',
+              controller: function() {
+                var vm = this;
+                vm.dia = dia;
+                vm.eventos = eventos;
+              },
+              controllerAs: 'vm'
+            });
+          }
+
+          vm.eventClicked = function(event) {
+            showModal('Clicked', event);
+          };
+
+          vm.dayClicked = function(day, dayClickedFirstRun, $event){
+            console.log(day);
+            var eventos = [
+              {
+                nombre: "Evento",
+                hora: '15:30'
+              },
+              {
+                nombre: 'Nuevo Evento',
+                hora:'12:00'
+              }
+            ];
+            var fecha = new Date(day).getDate();
+            fecha = fecha +" de "+ new Date(day).getMonth();
+            fecha = fecha+" de "+new Date(day).getFullYear();
+            showModalOpen(fecha, eventos);
+          };
 /*
           vm.events = [
               {
@@ -121,7 +170,7 @@
         };
 
       })
-      .controller('ImagenesController', function ($http, $scope, $filter, $routeParams, localStorageService, $uibModal, $location, $route, $rootScope) {
+      .controller('ImagenesController', function ($http, $scope, $filter, $routeParams, localStorageService, $uibModal, $location, $route, $rootScope, upload) {
 
         var todosInStore = localStorageService.get('imagenes');
 
@@ -220,6 +269,9 @@
                 }
             }
           $scope.todo = nueva;
+          console.log($scope.todo);
+          var archivo = $scope.archivo;
+          console.log(archivo);
           $scope.imagenes.push({
             id: (max+1),
             nombre: $scope.todo.nombre,
@@ -228,6 +280,10 @@
             tema: $scope.todo.tema,
             mensaje: $scope.todo.mensaje
           });
+
+          upload.uploadFile(archivo, $scope.todo.nombre).then(function(res){
+            console.log(res)
+          })
 
           $scope.todo = "";
           $location.url('/admin');
@@ -347,7 +403,6 @@
       })
       .controller('EventosController', function ($http, $scope, $filter, $routeParams, localStorageService, $uibModal, $location, $route, $timeout, $rootScope) {
 
-        console.log("aqui")
           var todosInStore = localStorageService.get('eventos');
 
           $scope.eventos = todosInStore || [];
@@ -504,7 +559,6 @@
                       contador ++;
                   }
               }
-              console.log($scope.eventos);
 
               $scope.gridOptions = {
                   enableColumnMenus: false,

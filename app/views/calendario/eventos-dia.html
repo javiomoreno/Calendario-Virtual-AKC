@@ -1,0 +1,29 @@
+<div class="modal-header">
+  <h3 class="modal-title">{{ vm.dia }}</h3>
+</div>
+<div class="modal-body">
+	<span ng-if="vm.eventos.length > 0">
+		<span ng-repeat="evento in vm.eventos track by $index">
+			<ul>
+				<li>{{evento.nombre}} ({{evento.hora}})</li>
+			</ul>
+		</span>
+		<hr/>
+	</span>
+	<div class="row">
+		<div class="col-lg-12">
+			<form action="">
+				<h3>Nuevo Evento</h3>
+				<div class="form-group">
+					<input type="text" class="form-control" placeholder="Ingrese Nombre de Evento" id="nombre" ng-model="nombre"></div>
+				</div>
+				<div class="text-center">
+					<button class="btn btn-sm btn-primary" ng-click="crearEvento()">Guardar</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-danger" ng-click="$close()">Cerrar</button>
+</div>
