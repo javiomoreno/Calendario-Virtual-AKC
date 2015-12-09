@@ -95,6 +95,14 @@ app.config(function(calendarConfigProvider) {
         templateUrl: 'views/administrador/eventos/crearEvento.html',
         controller: 'EventosController'
       })
+      .when('/admin/eventoPrivado/:campos', {
+        templateUrl: 'views/administrador/eventos-privados/vistaEventosMes.html',
+        controller: 'EventosPrivadosController'
+      })
+      .when('/admin/eventoPrivado/vista/:id', {
+        templateUrl: 'views/administrador/eventos-privados/detalleEvento.html',
+        controller: 'EventosPrivadosController'
+      })
       .otherwise({
         redirectTo: '/'
       });

@@ -85,6 +85,27 @@
       };
     })
 
+    .directive('listaEventosPrivados', function () {
+      return {
+        restrict: 'E',
+        templateUrl: 'partes/administrador/eventos-privados/lista-eventos-privados.html'
+      };
+    })
+
+    .directive('eventosPrivadosMes', function () {
+      return {
+        restrict: 'E',
+        templateUrl: 'partes/administrador/eventos-privados/eventos-privados-mes.html'
+      };
+    })
+
+    .directive('detalleEventoPrivado', function () {
+      return {
+        restrict: 'E',
+        templateUrl: 'partes/administrador/eventos-privados/detalle-evento-privado.html'
+      };
+    })
+
     .directive("uploaderModel", function ($parse) {
       return {
         restrict: 'A',
