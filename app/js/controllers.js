@@ -1,10 +1,6 @@
 (function () {
 
     angular.module('calendario.controllers', ['ui.bootstrap', 'ui.grid', 'ui.grid.selection', 'bootstrap.fileField', 'mwl.calendar', 'ngTouch', 'ngAnimate'])
-      .controller('LoginController', function($scope){
-
-      })
-
 
       .controller('ImagenUsuarioController', function ($scope, $routeParams, calendarioService) {
          var mes = $routeParams.mes;
@@ -148,7 +144,6 @@
                   resizable: true
               }
           ];*/
-
       })
       .controller('AdministradorController', function ($location, $scope) {
 
@@ -294,9 +289,9 @@
           $location.path('/admin/imagen/vista/'+id);
         };
 
-      $scope.Editar = function(id){
-          $location.path('/admin/imagen/editar/'+id);
-      }
+        $scope.Editar = function(id){
+            $location.path('/admin/imagen/editar/'+id);
+        }
 
         var campos = $routeParams.campos;
 
@@ -525,6 +520,10 @@
               var fechaF = new Date($scope.todo.fechaFin).setHours(new Date($scope.todo.horaFin).getHours());
               fechaF = new Date(fechaF).setMinutes(new Date($scope.todo.horaFin).getMinutes());
               $scope.todo.fechaFin = fechaF;
+              var publicar = '2';
+              if($scope.todo.tipoEvento == 1){
+                publicar = '1';
+              }
             
                $scope.eventos.push({
                   id: (max+1),
@@ -534,6 +533,7 @@
                   tipoEvento: $scope.todo.tipoEvento,
                   repeticion: $scope.todo.repeticion,
                   importancia: $scope.todo.importancia,
+                  publicar: publicar,
                   iconoEvento: $scope.todo.iconoEvento
               });
 
@@ -660,8 +660,8 @@
                   }
               });
           }
-      })
 
+      })
       .controller('EventosPrivadosController', function ($http, $scope, $filter, $routeParams, localStorageService, $uibModal, $location, $route, $timeout, $rootScope) {
 
           var todosInStore = localStorageService.get('eventos');
@@ -781,6 +781,11 @@
               {id: '2', name: 'Privado'}
           ];
 
+          $scope.vectorPublicar = [
+              {id: '1', name: 'Publicar'},
+              {id: '2', name: 'No Publicar'}
+          ];
+
           var campos = $routeParams.campos;
 
           if(campos){
@@ -812,7 +817,8 @@
                       {field: 'fechaFin', displayName: 'Fecha Fin'},
                       {field: 'repeticion', displayName: 'Periodicidad'},
                       {field: 'tipoEvento', displayName: 'Tipo de Evento'},
-                      {field: 'importancia', displayName: 'Importancia'}
+                      {field: 'importancia', displayName: 'Importancia'},
+                      {field: 'publicar', displayName: 'Publicar'}
                   ]
               };
 
@@ -825,7 +831,8 @@
                       'fechaFin': new Date($scope.todos[i].fechaFin).getDate()+"/"+((new Date($scope.todos[i].fechaFin).getMonth().valueOf())+1)+"/"+new Date($scope.todos[i].fechaFin).getFullYear(),
                       'repeticion': $scope.vectorRepeticion[($scope.todos[i].repeticion.valueOf())-1].name,
                       'tipoEvento': $scope.vectorTipoEvento[($scope.todos[i].tipoEvento.valueOf())-1].name,
-                      'importancia': $scope.vectorImportancia[($scope.todos[i].importancia.valueOf())-1].name
+                      'importancia': $scope.vectorImportancia[($scope.todos[i].importancia.valueOf())-1].name,
+                      'publicar': $scope.vectorPublicar[($scope.todos[i].publicar.valueOf())-1].name
                   }
               }
 
@@ -882,7 +889,8 @@
                   'fechaFin': new Date(datos.fechaFin).getDate()+"/"+((new Date(datos.fechaFin).getMonth().valueOf())+1)+"/"+new Date(datos.fechaFin).getFullYear(),
                   'repeticion': $scope.vectorRepeticion[(datos.repeticion.valueOf())-1].name,
                   'tipoEvento': $scope.vectorTipoEvento[(datos.tipoEvento.valueOf())-1].name,
-                  'importancia': $scope.vectorImportancia[(datos.importancia.valueOf())-1].name
+                  'importancia': $scope.vectorImportancia[(datos.importancia.valueOf())-1].name,
+                  'publicar': $scope.vectorPublicar[(datos.publicar.valueOf())-1].name
               }
           }
 
@@ -909,8 +917,8 @@
                   }
               });
           }
-      })
 
+      })
       .controller('CambiarTipoModalController', function ($scope, $uibModalInstance, idCambiar, localStorageService, $location, $route){
           var todosInStore = localStorageService.get('eventos');
 
@@ -925,7 +933,7 @@
           $scope.Cambiar = function () {
               for(var i = 0; i < $scope.eventos.length; i ++){
                   if($scope.eventos[i].id == idCambiar){
-                      $scope.eventos[i].tipoEvento = 1;
+                      $scope.eventos[i].publicar = 1;
                       break;
                   }
               }
@@ -936,9 +944,8 @@
           $scope.Cancelar = function () {
               $uibModalInstance.dismiss('no');
           };
+
       })
-
-
       .controller('NuevoEventoController', function ($scope, $log) {
           $scope.today = function() {
               $scope.dt = new Date();
