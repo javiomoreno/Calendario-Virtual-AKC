@@ -4,6 +4,15 @@ body{
 	font-family: "Roboto";
 }
 
+.banner{
+	padding-right: 0px;
+    padding-left: 0px;
+    margin-right: auto;
+    margin-left: auto;
+	height: 135px;
+	background-color: #fff;
+}
+
 .titulo-caja{
 	background-color: #438EB9;
 	color: #fff !important;
