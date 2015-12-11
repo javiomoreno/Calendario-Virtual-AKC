@@ -17,7 +17,10 @@
 		  <div style="margin-top: 50px;">
 			  <div class="row">
 			    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-2" style="padding-right: 0px; padding-left: 0px;" ng-controller="ImagenUsuarioController">
-			    	<img src="img/{{datos.mes}}/1.jpg" alt="imagen" class="img-responsive imagen">
+			    <div class="maxIzquierda" ng-click="abrirImagenIzquierda()">
+					
+			    </div>
+			    	<img src="img/Enero/1.jpg" alt="imagen" class="imagen-izquierda" width="200px" height="620px">
 			    	<div class="caja-externa" style="background-color:{{datos.colorMensaje}}">
 				    	<div class="caja-mensaje">
 				    		{{datos.mensaje}}

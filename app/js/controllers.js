@@ -15,6 +15,10 @@
                 return Math.floor((Math.random()*3)+1);
             };
           }
+
+          $scope.abrirImagenIzquierda = function(){
+            console.log("abrir imagen");
+          }
       })
       .controller('CalendarioController', function ($scope, $routeParams, calendarioService, moment, localStorageService, $uibModal) {
 
@@ -98,7 +102,7 @@
             fecha = fecha+" de "+new Date(day).getFullYear();
             showModalOpen(fecha, eventos);
           };
-/*
+        /*
           vm.events = [
               {
                   title: 'My event title', // The title of the event
@@ -264,21 +268,15 @@
                 }
             }
           $scope.todo = nueva;
-          console.log($scope.todo);
-          var archivo = $scope.archivo;
-          console.log(archivo);
           $scope.imagenes.push({
             id: (max+1),
             nombre: $scope.todo.nombre,
             mes: $scope.todo.mes,
             anho: $scope.todo.anho,
             tema: $scope.todo.tema,
-            mensaje: $scope.todo.mensaje
+            mensaje: $scope.todo.mensaje,
+            archivo: $scope.todo.archivo
           });
-
-          upload.uploadFile(archivo, $scope.todo.nombre).then(function(res){
-            console.log(res)
-          })
 
           $scope.todo = "";
           $location.url('/admin');
@@ -293,7 +291,7 @@
             $location.path('/admin/imagen/editar/'+id);
         }
 
-        var campos = $routeParams.campos;
+        var campos = $routeParams.camposImagen;
 
         if(campos){
             var vector = [];
@@ -312,7 +310,7 @@
             }
         }
         else{
-          var id = $routeParams.id;
+          var id = $routeParams.idImagen;
           $scope.datos = [];
           for (var i = 0; i < $scope.imagenes.length; i++) {
             if($scope.imagenes[i].id == id)
@@ -541,7 +539,7 @@
               $location.url('/admin');
           };
 
-          var campos = $routeParams.campos;
+          var campos = $routeParams.camposEvento;
 
           if(campos){
               var vector = [];
@@ -592,13 +590,13 @@
               $scope.gridOptions.data = datos;
           }
           else{
-              var id = $routeParams.id;
+              var id = $routeParams.idEvento;
               $scope.datos = [];
               for (var i = 0; i < $scope.eventos.length; i++) {
                   if($scope.eventos[i].id == id)
                   {
                       $scope.datos[0] = $scope.eventos[i];
-                      break;
+                      break;Evento
                   }
               };
 
@@ -624,7 +622,7 @@
               $location.url('/admin/evento/vista/'+row.entity.id);
           };
 
-          var idVer = $routeParams.id;
+          var idVer = $routeParams.idEvento;
           if(idVer){
             var datos = {};
               $scope.eventoDatos = {};
@@ -786,7 +784,7 @@
               {id: '2', name: 'No Publicar'}
           ];
 
-          var campos = $routeParams.campos;
+          var campos = $routeParams.camposEventoPrivado;
 
           if(campos){
               var vector = [];
@@ -839,7 +837,7 @@
               $scope.gridOptions.data = datos;
           }
           else{
-              var id = $routeParams.id;
+              var id = $routeParams.idEventoPrivado;
               $scope.datos = [];
               for (var i = 0; i < $scope.eventos.length; i++) {
                   if($scope.eventos[i].id == id)
@@ -871,7 +869,7 @@
               $location.url('/admin/eventoPrivado/vista/'+row.entity.id);
           };
 
-          var idVer = $routeParams.id;
+          var idVer = $routeParams.idEventoPrivado;
           if(idVer){
             var datos = {};
               $scope.eventoDatos = {};
@@ -892,16 +890,20 @@
                   'importancia': $scope.vectorImportancia[(datos.importancia.valueOf())-1].name,
                   'publicar': $scope.vectorPublicar[(datos.publicar.valueOf())-1].name
               }
+              if(datos.publicar == 1){
+                $scope.checkboxModel = {
+                   value : true
+                 };
+              }
+              else{
+                $scope.checkboxModel = {
+                   value : false
+                 };
+              }
           }
 
-          $scope.checkboxModel = {
-             value1 : false
-           };
-
           $scope.cambiar = function(idCambiar) {
-            if($scope.checkboxModel.value1 == true){
               openCambiar('sm', idCambiar);
-            }
           }
 
           function openCambiar(size, idCambiar) {
@@ -928,12 +930,15 @@
               localStorageService.add('eventos', $scope.eventos);
           }, true);
 
-          console.log(idCambiar);
-
           $scope.Cambiar = function () {
               for(var i = 0; i < $scope.eventos.length; i ++){
                   if($scope.eventos[i].id == idCambiar){
-                      $scope.eventos[i].publicar = 1;
+                      if($scope.eventos[i].publicar == 1){
+                        $scope.eventos[i].publicar = 2;
+                      }
+                      else{
+                        $scope.eventos[i].publicar = 1;
+                      }
                       break;
                   }
               }

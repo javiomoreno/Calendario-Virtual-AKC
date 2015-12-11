@@ -39,7 +39,7 @@ app.config(function(calendarConfigProvider) {
         templateUrl: 'views/login.html',
         controller: 'LoginController'
       })
-      .when('/mes/:mes', {
+      .when('/calendario', {
         templateUrl: 'views/usuario/calendario.html',
         controller: 'CalendarioController'
       })
@@ -55,11 +55,11 @@ app.config(function(calendarConfigProvider) {
         templateUrl: 'views/administrador/imagenes/verImagen.html',
         controller: 'ImagenesController'
       })*/
-      .when('/admin/imagen/vista/:id', {
+      .when('/admin/imagen/vista/:idImagen', {
         templateUrl: 'views/administrador/imagenes/detalleImagen.html',
         controller: 'ImagenesController'
       })
-      .when('/admin/imagen/:campos', {
+      .when('/admin/imagen/:camposImagen', {
         templateUrl: 'views/administrador/imagenes/vistaImagenesMes.html',
         controller: 'ImagenesController'
       })
@@ -67,7 +67,7 @@ app.config(function(calendarConfigProvider) {
         templateUrl: 'views/administrador/imagenes/editarImagen.html',
         controller: 'ImagenesController'
       })*/
-      .when('/admin/imagen/editar/:id', {
+      .when('/admin/imagen/editar/:idImagen', {
         templateUrl: 'views/administrador/imagenes/editarImagen.html',
         controller: 'ImagenesController'
       })
@@ -79,15 +79,15 @@ app.config(function(calendarConfigProvider) {
         templateUrl: 'views/administrador/eventos/gestionarEventos.html',
         controller: 'EventosController'
       })
-      .when('/admin/evento/:campos', {
+      .when('/admin/evento/:camposEvento', {
         templateUrl: 'views/administrador/eventos/vistaEventosMes.html',
         controller: 'EventosController'
       })
-      .when('/admin/evento/vista/:id', {
+      .when('/admin/evento/vista/:idEvento', {
         templateUrl: 'views/administrador/eventos/detalleEvento.html',
         controller: 'EventosController'
       })
-      .when('/admin/evento/editar/:id', {
+      .when('/admin/evento/editar/:idEvento', {
         templateUrl: 'views/administrador/eventos/editarEvento.html',
         controller: 'EventosController'
       })
@@ -95,11 +95,11 @@ app.config(function(calendarConfigProvider) {
         templateUrl: 'views/administrador/eventos/crearEvento.html',
         controller: 'EventosController'
       })
-      .when('/admin/eventoPrivado/:campos', {
+      .when('/admin/eventoPrivado/:camposEventoPrivado', {
         templateUrl: 'views/administrador/eventos-privados/vistaEventosMes.html',
         controller: 'EventosPrivadosController'
       })
-      .when('/admin/eventoPrivado/vista/:id', {
+      .when('/admin/eventoPrivado/vista/:idEventoPrivado', {
         templateUrl: 'views/administrador/eventos-privados/detalleEvento.html',
         controller: 'EventosPrivadosController'
       })

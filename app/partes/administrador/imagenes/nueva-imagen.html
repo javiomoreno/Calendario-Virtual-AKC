@@ -49,7 +49,8 @@
 	  </div>
 	  <div class="form-group col-lg-12">
 	  	<label for="archivo">Archivo</label>
-		<input uploader-model="archivo" type="file" placeholder="Please select file" class="form-control ng-isolate-scope" accept="image/*">
+		<!--<input uploader-model="archivo" type="file" placeholder="Please select file" class="form-control ng-isolate-scope" accept="image/*">-->
+		<input fileread="imagen.archivo" type="file" placeholder="Please select file" class="form-control" accept="image/*"  />
    	</div>
 	<div class="form-group col-lg-12 text-center">
   		<button class="btn btn-primary" ng-click="guardarImagen(imagen)">Guardar</button>
