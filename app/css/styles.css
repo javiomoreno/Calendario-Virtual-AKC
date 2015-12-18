@@ -40,7 +40,7 @@ a:-webkit-any-link {
 }
 
 .calendario{
-	padding: 0px 20px 20px 20px;
+	padding: 20px 20px 20px 20px;
 }
 
 .titulo-anho{
@@ -212,6 +212,20 @@ a:-webkit-any-link {
     opacity: 0.8;
     cursor: pointer;
 }
+
+.imagenVista { 
+    max-width: 300px;
+    height: auto;
+}
+
+/*
+.fc-row.fc-week.fc-widget-content{
+	height: 90px !important;
+}
+
+td.fc-widget-content{
+	height: 540px !important;
+	}*/
 
 /*.cal-row-head [class*=cal-cell]{
 	border-color: #BCD4E5;

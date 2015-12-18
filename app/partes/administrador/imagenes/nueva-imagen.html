@@ -47,10 +47,27 @@
 	    <textarea class="form-control" id="mensaje" 
            placeholder="Mensaje" ng-model="imagen.mensaje" value="hola"></textarea>
 	  </div>
-	  <div class="form-group col-lg-12">
-	  	<label for="archivo">Archivo</label>
+	  <div class="form-group col-lg-12" style="text-align: -webkit-center;">
+	  	<div style="width:400px; margin:12px;">
+			<h3 class="header blue smaller lighter">
+				Cargar Archivo
+			</h3>
+			<label class="ace-file-input ace-file-multiple">
+				<input fileread="imagen.archivo" type="file" placeholder="Please select file" class="form-control" accept="image/*"/>
+				<span ng-if="imagen.archivo == null" class="ace-file-container" data-title="Seleccione el archivo">
+					<span  class="ace-file-name" data-title="No hay Achivo ...">
+						<i class=" ace-icon fa fa-upload"></i>
+					</span>
+				</span>
+				<span ng-if="imagen.archivo != null" class="ace-file-container">
+					<img src="{{imagen.archivo}}" class="imagenVista" alt="">
+				</span>
+				<a class="remove" href="#">
+					<i class=" ace-icon fa fa-times"></i>
+				</a>
+			</label>
+		</div>
 		<!--<input uploader-model="archivo" type="file" placeholder="Please select file" class="form-control ng-isolate-scope" accept="image/*">-->
-		<input fileread="imagen.archivo" type="file" placeholder="Please select file" class="form-control" accept="image/*"  />
    	</div>
 	<div class="form-group col-lg-12 text-center">
   		<button class="btn btn-primary" ng-click="guardarImagen(imagen)">Guardar</button>

@@ -13,7 +13,7 @@ app.config(['localStorageServiceProvider', function(localStorageServiceProvider)
   localStorageServiceProvider.setPrefix('ls');
 }]);
 
-app.config(function(calendarConfigProvider) {
+/*app.config(function(calendarConfigProvider) {
 
   calendarConfigProvider.setDateFormatter('moment'); // use either moment or angular to format dates on the calendar. Default angular. Setting this will override any date formats you have already set.
 
@@ -31,7 +31,7 @@ app.config(function(calendarConfigProvider) {
     timeLabel: 'Time', //This will set the time label on the time view
     weekNumber: 'Semana {week}'
   });
-});
+});*/
 
   app.config(['$routeProvider', function ($routeProvider) {
     $routeProvider

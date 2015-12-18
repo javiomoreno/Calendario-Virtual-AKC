@@ -1,6 +1,6 @@
 (function () {
 
-    angular.module('calendario.controllers', ['ui.bootstrap', 'ui.grid', 'ui.grid.selection', 'bootstrap.fileField', 'mwl.calendar', 'ngTouch', 'ngAnimate'])
+    angular.module('calendario.controllers', ['ui.bootstrap', 'ui.grid', 'ui.grid.selection', 'ui.calendar'])
 
       .controller('ImagenUsuarioController', function ($scope, $routeParams, calendarioService) {
          var mes = $routeParams.mes;
@@ -20,12 +20,13 @@
             console.log("abrir imagen");
           }
       })
-      .controller('CalendarioController', function ($scope, $routeParams, calendarioService, moment, localStorageService, $uibModal) {
+      /*.controller('CalendarioController', function ($scope, $routeParams, calendarioService, moment, localStorageService, $uibModal) {
 
           var vm = this;
 
           vm.calendarView = 'month';
           vm.calendarDay = new Date();
+          vm.calendarTitle = {};
 
           moment.locale('en', {
             week : {
@@ -51,7 +52,7 @@
               type: 'important',
               startsAt: new Date($scope.eventos[i].fechaInicio), // A javascript date object for when the event starts
               endsAt: new Date($scope.eventos[i].fechaFin),
-              recursOn: 'year'
+              recursOn: 'year'evento
             };
           }
 
@@ -148,6 +149,166 @@
                   resizable: true
               }
           ];*/
+      //})
+      .controller('CalendarioController', function ($scope, $routeParams, calendarioService, localStorageService, $uibModal){
+
+        var date = new Date();
+        var d = date.getDate();
+        var m = date.getMonth();
+        var y = date.getFullYear();
+        var contador = 0;
+
+        var vectorColores = ['#118484', '#268A25', '#8C0404']
+
+        $scope.eventSources = [];
+        $scope.events = [];
+
+        var todosInStore = localStorageService.get('eventos');
+
+        $scope.eventos = todosInStore || [];
+
+        $scope.$watch('eventos', function(){
+            localStorageService.add('eventos', $scope.eventos);
+        }, true);
+
+
+        for (var i = 0; i < $scope.eventos.length; i++) {
+          if($scope.eventos[i].publicar == 1){
+            var idEvento = $scope.eventos[i].id;
+            $scope.events[contador] = {
+                id: $scope.eventos[i].id,
+                color: vectorColores[$scope.eventos[i].importancia-1],
+                title: $scope.eventos[i].nombre,
+                start: new Date($scope.eventos[i].fechaInicio), // A javascript date object for when the event starts
+                end: new Date($scope.eventos[i].fechaFin)
+              };
+              contador++;
+            if($scope.eventos[i].repeticion == 4){
+              for (var j = 1; j < 11; j++) {
+                $scope.events[contador] = {
+                  id: idEvento,
+                  color: vectorColores[$scope.eventos[i].importancia-1],
+                  title: $scope.eventos[i].nombre,
+                  start: new Date($scope.eventos[i].fechaInicio).setFullYear(new Date($scope.eventos[i].fechaInicio).getFullYear()+j), // A javascript date object for when the event starts
+                  end: new Date($scope.eventos[i].fechaFin).setFullYear(new Date($scope.eventos[i].fechaFin).getFullYear()+j)
+                };
+                contador ++;
+              };              
+            }
+            else if($scope.eventos[i].repeticion == 3){
+              for (var j = 1; j < 121; j++) {
+                $scope.events[contador] = {
+                  id: idEvento,
+                  color: vectorColores[$scope.eventos[i].importancia-1],
+                  title: $scope.eventos[i].nombre,
+                  start: new Date($scope.eventos[i].fechaInicio).setMonth(new Date($scope.eventos[i].fechaInicio).getMonth()+j), // A javascript date object for when the event starts
+                  end: new Date($scope.eventos[i].fechaFin).setMonth(new Date($scope.eventos[i].fechaFin).getMonth()+j)
+                };
+                contador ++;
+              };              
+            }
+            else if($scope.eventos[i].repeticion == 2){
+              for (var j = 1; j < 521; j++) {
+                $scope.events[contador] = {
+                  id: idEvento,
+                  color: vectorColores[$scope.eventos[i].importancia-1],
+                  title: $scope.eventos[i].nombre,
+                  start: new Date($scope.eventos[i].fechaInicio).setDate(new Date($scope.eventos[i].fechaInicio).getDate()+(j*7)), // A javascript date object for when the event starts
+                  end: new Date($scope.eventos[i].fechaFin).setDate(new Date($scope.eventos[i].fechaFin).getDate()+(j*7))
+                };
+                contador ++;
+              };              
+            }
+          }
+        }
+
+        $scope.diaClick = function(event, element, view ){
+          
+            var eventosLista = [];
+            var cont = 0;
+            var fechaToda = new Date(event._d).setTime( new Date(event._d).getTime()+1*24*60*60*1000);
+            var fecha = $scope.uiConfig.calendar.dayNames[new Date(fechaToda).getDay()];
+            fecha = fecha +" "+ new Date(fechaToda).getDate();
+            fecha = fecha +" de "+ $scope.uiConfig.calendar.monthNames[new Date(fechaToda).getMonth()];
+            fecha = fecha+" de "+new Date(fechaToda).getFullYear();
+
+            for (var i = 0; i < $scope.eventos.length; i++) {
+              if(new Date($scope.eventos[i].fechaInicio).getDate() == new Date(fechaToda).getDate() && new Date($scope.eventos[i].fechaInicio).getMonth() == new Date(fechaToda).getMonth() && new Date($scope.eventos[i].fechaInicio).getFullYear() == new Date(fechaToda).getFullYear() && $scope.eventos[i].publicar == 1){
+                  eventosLista[cont] = {
+                    nombre: $scope.eventos[i].nombre,
+                    hora: new Date($scope.eventos[i].fechaInicio).getHours()+":"+new Date($scope.eventos[i].fechaInicio).getMinutes(),
+                  };
+                  cont ++;
+              }
+            };
+
+            showModalOpen(fecha, eventosLista);
+        };
+
+        $scope.eventClick = function( date, jsEvent, view){
+            var evento = {};
+            for (var i = 0; i < $scope.eventos.length; i++) {
+              if($scope.eventos[i].id == date.id){
+                  evento = {
+                    nombre: $scope.eventos[i].nombre,
+                    detalle: $scope.uiConfig.calendar.dayNamesShort[new Date($scope.eventos[i].fechaInicio).getDay()]+", "+ new Date($scope.eventos[i].fechaInicio).getDate()+" de "+$scope.uiConfig.calendar.monthNames[new Date($scope.eventos[i].fechaInicio).getMonth()] ,
+                  };
+              }
+            }
+
+            showModalOpenEvento(evento, "sm");
+        };
+
+        function showModalOpenEvento(evento, size){
+          $uibModal.open({
+              templateUrl: 'views/calendario/evento.html',
+              size: size,
+              controller: function() {
+                var vm = this;
+                vm.nombre = evento.nombre;
+                vm.detalle = evento.detalle;
+              },
+              controllerAs: 'vm'
+            });
+        }
+
+        function showModalOpen(dia, eventos){
+            $uibModal.open({
+              templateUrl: 'views/calendario/eventos-dia.html',
+              controller: function() {
+                var vm = this;
+                vm.dia = dia;
+                vm.eventos = eventos;
+              },
+              controllerAs: 'vm'
+            });
+          }
+
+        $scope.uiConfig = {
+          calendar:{
+            monthYearFormat: 'MMMM |YYYY',
+            height: 450,
+            editable: true,
+            header:{
+              left: 'prev,next',
+              center: 'title',
+              right: 'month agendaWeek agendaDay'
+            },
+            dayClick: $scope.diaClick,
+            eventClick: $scope.eventClick,
+            buttonText: {
+              month: 'Mes',
+              week: 'Semana',
+              day: 'Día'
+            },
+          }
+        };
+
+        $scope.uiConfig.calendar.dayNames = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+        $scope.uiConfig.calendar.dayNamesShort = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"];
+        $scope.uiConfig.calendar.monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+        $scope.uiConfig.calendar.monthNamesShort = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
+        $scope.eventSources = [$scope.events];
       })
       .controller('AdministradorController', function ($location, $scope) {
 
@@ -424,6 +585,7 @@
 
           $scope.vector = [];
           $scope.meses = ["Enero", "Febrero","Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+          console.log($scope.meses)
           var cantEnero;
           var cantFebrero;
           var cantMarzo;
@@ -976,6 +1138,10 @@
               $scope.status.opened = true;
           };
 
+          $scope.open2 = function($event) {
+              $scope.status2.opened = true;
+          };
+
           $scope.setDate = function(year, month, day) {
               $scope.dt = new Date(year, month, day);
           };
@@ -989,6 +1155,10 @@
           $scope.format = $scope.formats[0];
 
           $scope.status = {
+              opened: false
+          };
+
+          $scope.status2 = {
               opened: false
           };
 

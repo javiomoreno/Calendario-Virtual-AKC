@@ -50,81 +50,9 @@
 			    	</div>
 				</div>
 				<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 calendario" ng-controller="CalendarioController as vm">
-				  
-
-				  <div class="row">
-					  <div class="col-md-3 text-center caja-flechas">
-						  <div class="btn-group">
-
-							  <button
-									  class="btn btn-sm btn-primary "
-									  mwl-date-modifier
-									  date="vm.calendarDay"
-									  decrement="vm.calendarView">
-								  <
-							  </button>
-							  <!--<button
-									  class="btn btn-sm btn-default"
-									  mwl-date-modifier
-									  date="vm.calendarDay"
-									  set-to-today>
-								  Hoy
-							  </button>-->
-							  <button
-									  class="btn btn-sm btn-primary"
-									  mwl-date-modifier
-									  date="vm.calendarDay"
-									  increment="vm.calendarView">
-								  >
-							  </button>
-						  </div>
-					  </div>
-						<div class="col-md-5 text-center">
-							<h2 class="text-center titulo-fecha">{{ vm.calendarTitle }}</h2>
-						</div>
-					  <div class="col-md-4 text-center caja-mes-semana-dia">
-					  	<label class="btn btn-sm btn-mes-semana-dia btn-primary" ng-model="vm.calendarView" uib-btn-radio="'month'">Mes</label>
-					  	<label class="btn btn-sm btn-primary btn-mes-semana-dia" ng-model="vm.calendarView" uib-btn-radio="'week'">Semana</label>
-					  	<label class="btn btn-sm btn-primary btn-mes-semana-dia" ng-model="vm.calendarView" uib-btn-radio="'day'">Día</label>
-						  <!--<div class="btn-group">
-							  <label class="btn btn-sm btn-primary" ng-model="vm.calendarView" uib-btn-radio="'year'">Año</label>
-							  <label class="btn btn-sm btn-mes-semana-dia btn-primary" ng-model="vm.calendarView" uib-btn-radio="'month'">Mes</label>
-							  <label class="btn btn-sm btn-primary btn-mes-semana-dia" ng-model="vm.calendarView" uib-btn-radio="'week'">Semana</label>
-							  <label class="btn btn-sm btn-primary btn-mes-semana-dia" ng-model="vm.calendarView" uib-btn-radio="'day'">Día</label
-						  </div>-->
-					  </div>
-
-				  </div>
-
-				  <br>
-				  <mwl-calendar
-						  view="vm.calendarView"
-						  current-day="vm.calendarDay"
-						  events="vm.events"
-						  view-title="vm.calendarTitle"
-						  cssClass: 'a-css-class-name'
-						  on-event-click="vm.eventClicked(calendarEvent)"
-						  is-open='false'
-						  cell-is-open="vm.isCellOpen">
-				  </mwl-calendar>
+				  <div ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources"></div> 
 				</div>
-				<script type="text/ng-template" id="modalContent.html">
-		            <div class="modal-header">
-		              <h3 class="modal-title">Event action occurred!</h3>
-		            </div>
-		            <div class="modal-body">
-		              <p>Action: <pre>{{ vm.action }}</pre></p>
-		              <p>Event: <pre>{{ vm.event | json }}</pre></p>
-		            </div>
-		            <div class="modal-footer">
-		              <button class="btn btn-primary" ng-click="$close()">OK</button>
-		            </div>
-		          </script>
-				<div class="col-lg-3">
-					hola
-				</div>
-			  </div>
-			  <div class="row">
+			  <!--<div class="row">
 			  	<div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
 			  	</div>
 			  	<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 eventos">
@@ -145,7 +73,7 @@
 			  			Evento 4
 			  		</div>
 			  	</div>
-			  </div>
+			  </div>-->
 		  </div>
 		</div>
 
