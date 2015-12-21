@@ -34,11 +34,11 @@
 	<div class="container-fluid">
 		<div>
 		  <div>
-			  <div class="row">
+		  	<div class="row">
 			    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-2" style="padding-right: 0px; padding-left: 0px;">
-			    <div class="maxIzquierda" ng-click="abrirImagenIzquierda()">
-			    </div>
-			    	<img src="img/{{mes}}-{{anho}}/{{foto}}.jpg" alt="imagen" class="imagen-izquierda" width="200px" height="620px">
+				    <div class="maxIzquierda" ng-click="abrirImagenIzquierda()">
+				    </div>
+			    	<img src="{{foto}}" alt="imagen" class="imagen-izquierda" width="200px" height="620px">
 			    	<div class="caja-externa" style="background-color:{{datos.colorMensaje}}">
 				    	<div class="caja-mensaje">
 				    		{{datos.mensaje}}
@@ -52,34 +52,27 @@
 				  <div ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources">
 				  </div> 
 				</div>
-			  <!--<div class="row">
-			  	<div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
-			  	</div>
-			  	<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 eventos">
-			  		<div class="col-xs-3">
-			  			<span class="glyphicon glyphicon-film icon-uno" aria-hidden="true"></span>
-			  			Evento 1
-			  		</div>
-			  		<div class="col-xs-3">
-			  			<span class="glyphicon glyphicon-glass icon-dos" aria-hidden="true"></span>
-			  			Evento 2
-			  		</div>
-			  		<div class="col-xs-3">
-			  			<span class="glyphicon glyphicon-star icon-tres" aria-hidden="true"></span>
-			  			Evento 3
-			  		</div>
-			  		<div class="col-xs-3">
-			  			<span class="glyphicon glyphicon-headphones icon-cuatro" aria-hidden="true"></span>
-			  			Evento 4
-			  		</div>
-			  	</div>
-			  </div>-->
+				<div class="col-lg-3">
+					<div class="maxDerecha" ng-click="abrirImagenDerecha()">
+				    </div>
+				    <img src="img/{{mes}}-{{anho}}/obra.png" alt="imagen" class="imagen-derecha" width="300px" height="200px">
+				    <img src="img/{{mes}}-{{anho}}/temaobra.png" alt="imagen" class="tema-obra" width="250px" height="40px">
+				    <img src="img/vaso.png" alt="imagen" class="vaso" width="300px" height="440px">				    
+				</div>
+			</div>
 		  </div>
 		</div>
-
     </div>
 </section>
-<footer>
-	
+<footer class="fondo-blanco">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-lg-12 text-center">
+				<img src="img/facebook.png" alt="">
+				<img src="img/twitter.png" alt="">
+				<img src="img/youtube.png" alt="">
+			</div>
+		</div>
+	</div>	
 </footer>
 

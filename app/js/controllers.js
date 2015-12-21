@@ -174,6 +174,26 @@
         }, true);
 
 
+        var todosInStore = localStorageService.get('imagenes');
+
+        $scope.imagenes = todosInStore || [];
+
+        $scope.$watch('imagenes', function(){
+          localStorageService.add('imagenes', $scope.imagenes);
+        }, true);
+
+        $rootScope.vectorImagenes = [];
+          var cont = 0;
+        for (var i = 0; i < $scope.imagenes.length; i++) {
+          if($scope.imagenes[i].tipo == 1){
+            $rootScope.vectorImagenes[cont] = $scope.imagenes[i];
+            cont ++;
+          }
+        }
+
+        $rootScope.contador = cont;
+
+
         for (var i = 0; i < $scope.eventos.length; i++) {
           if($scope.eventos[i].publicar == 1){
             var idEvento = $scope.eventos[i].id;
@@ -213,6 +233,7 @@
               for (var j = 1; j < 521; j++) {
                 $scope.events[contador] = {
                   id: idEvento,
+                  icon:'party',
                   color: vectorColores[$scope.eventos[i].importancia-1],
                   title: $scope.eventos[i].nombre,
                   start: new Date($scope.eventos[i].fechaInicio).setDate(new Date($scope.eventos[i].fechaInicio).getDate()+(j*7)), // A javascript date object for when the event starts
@@ -223,6 +244,7 @@
             }
           }
         }
+
 
         $scope.diaClick = function(event, element, view ){
           
@@ -315,7 +337,17 @@
                 $rootScope.mes = new Date(fecha).getMonth();
                 $rootScope.anho = new Date(fecha).getFullYear();
               }
-              $rootScope.foto = Math.floor((Math.random()*3)+1);
+              var imagenes = [];
+              var conta = 0;
+              var mes = $scope.uiConfig.calendar.monthNames[$rootScope.mes];
+
+              for (var i = 0; i < $rootScope.vectorImagenes.length; i++) {
+                if($rootScope.vectorImagenes[i].mes == mes && $rootScope.vectorImagenes[i].anho == $rootScope.anho){
+                  imagenes[conta] = $rootScope.vectorImagenes[i].archivo;
+                  conta ++
+                }
+              };
+              $rootScope.foto = imagenes[Math.floor((Math.random()*conta))];
             }
           }
         };
