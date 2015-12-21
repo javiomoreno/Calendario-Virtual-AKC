@@ -50,10 +50,24 @@
       };
     })
 
+    .directive('elegirTipolista', function () {
+      return {
+        restrict: 'E',
+        templateUrl: 'partes/administrador/imagenes/elegir-tipolista.html'
+      };
+    })
+
     .directive('listaImagenes', function () {
       return {
         restrict: 'E',
         templateUrl: 'partes/administrador/imagenes/lista-imagenes.html'
+      };
+    })
+
+    .directive('listaIconos', function () {
+      return {
+        restrict: 'E',
+        templateUrl: 'partes/administrador/imagenes/iconos/lista-iconos.html'
       };
     })
 
@@ -71,6 +85,21 @@
       };
     })
 
+    .directive('detalleIcono', function () {
+      return {
+        restrict: 'E',
+        templateUrl: 'partes/administrador/imagenes/iconos/detalle-icono.html'
+      };
+    })
+
+    .directive('editarIcono', function () {
+      return {
+        restrict: 'E',
+        templateUrl: 'partes/administrador/imagenes/iconos/editar-icono.html'
+      };
+    })
+
+
     .directive('editarImagen', function () {
       return {
         restrict: 'E',
@@ -78,10 +107,31 @@
       };
     })
 
+    .directive('elegirTipo', function () {
+      return {
+        restrict: 'E',
+        templateUrl: 'partes/administrador/imagenes/elegir-tipo.html'
+      };
+    })
+
     .directive('nuevaImagen', function () {
       return {
         restrict: 'E',
         templateUrl: 'partes/administrador/imagenes/nueva-imagen.html'
+      };
+    })
+
+    .directive('nuevoIcono', function () {
+      return {
+        restrict: 'E',
+        templateUrl: 'partes/administrador/imagenes/iconos/nuevo-icono.html'
+      };
+    })
+
+    .directive('nuevaObra', function () {
+      return {
+        restrict: 'E',
+        templateUrl: 'partes/administrador/imagenes/nueva-obra.html'
       };
     })
 

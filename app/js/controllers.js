@@ -16,9 +16,7 @@
             };
           }
 
-          $scope.abrirImagenIzquierda = function(){
-            console.log("abrir imagen");
-          }
+          
       })
       /*.controller('CalendarioController', function ($scope, $routeParams, calendarioService, moment, localStorageService, $uibModal) {
 
@@ -150,13 +148,17 @@
               }
           ];*/
       //})
-      .controller('CalendarioController', function ($scope, $routeParams, calendarioService, localStorageService, $uibModal){
+      .controller('CalendarioController', function ($scope, $rootScope, $routeParams, calendarioService, localStorageService, $uibModal, uiCalendarConfig){
 
         var date = new Date();
         var d = date.getDate();
         var m = date.getMonth();
         var y = date.getFullYear();
         var contador = 0;
+
+        $rootScope.mes = {};
+        $rootScope.anho = {};
+        $rootScope.foto = {};
 
         var vectorColores = ['#118484', '#268A25', '#8C0404']
 
@@ -287,7 +289,7 @@
         $scope.uiConfig = {
           calendar:{
             monthYearFormat: 'MMMM |YYYY',
-            height: 450,
+            height: 500,
             editable: true,
             header:{
               left: 'prev,next',
@@ -301,14 +303,35 @@
               week: 'Semana',
               day: 'Día'
             },
+            viewRender: function(view, element) {
+              var dias = Math.floor((new Date(view.end).getTime() - new Date(view.start).getTime()) / (1000 * 60 * 60 * 24));
+              if(dias == 42){ 
+                var fecha = new Date(view.start).setDate(new Date(view.start).getDate() + 15);
+                $rootScope.mes = new Date(fecha).getMonth();
+                $rootScope.anho = new Date(fecha).getFullYear();
+              }
+              else{
+                var fecha = new Date(view.start).setDate(new Date(view.start).getDate() + 1);
+                $rootScope.mes = new Date(fecha).getMonth();
+                $rootScope.anho = new Date(fecha).getFullYear();
+              }
+              $rootScope.foto = Math.floor((Math.random()*3)+1);
+            }
           }
         };
+
+        console.log($scope.uiConfig.calendar.header.title)
 
         $scope.uiConfig.calendar.dayNames = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
         $scope.uiConfig.calendar.dayNamesShort = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"];
         $scope.uiConfig.calendar.monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
         $scope.uiConfig.calendar.monthNamesShort = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
         $scope.eventSources = [$scope.events];
+
+        $scope.abrirImagenIzquierda = function(){
+            console.log("abrir imagen");
+          }
+
       })
       .controller('AdministradorController', function ($location, $scope) {
 
@@ -329,6 +352,65 @@
           $location.url('/admin/eventos/nuevo');
         };
 
+      })
+      .controller('IconosController', function ($http, $scope, $filter, $routeParams, localStorageService, $uibModal, $location, $route, $rootScope, upload) {
+
+        var todosInStore = localStorageService.get('imagenes');
+
+        $scope.imagenes = todosInStore || [];
+
+        $scope.$watch('imagenes', function(){
+          localStorageService.add('imagenes', $scope.imagenes);
+        }, true);
+
+        $scope.vector = [];
+          var cont = 0;
+        for (var i = 0; i < $scope.imagenes.length; i++) {
+          if($scope.imagenes[i].tipo == 2){
+            $scope.vector[cont] = $scope.imagenes[i];
+            cont ++;
+          }
+        }
+
+        $scope.contador = cont;
+
+        var id = $routeParams.idIcono;
+        if(id){
+          $scope.datos = [];
+          for (var i = 0; i < $scope.imagenes.length; i++) {
+            if($scope.imagenes[i].id == id)
+            {
+              $scope.datos[0] = $scope.imagenes[i];
+              break;
+            }
+          };
+
+          $scope.icono = $scope.datos[0];
+        }
+
+        $scope.Editar = function(id){
+            $location.path('/admin/icono/editar/'+id);
+        };
+
+        $scope.editarIcono = function(id){
+            $location.path('/admin/icono/vista/'+id);
+        };
+
+        $scope.openModal = function (size, idEliminar)
+          {
+              $scope.idEliminar = idEliminar;
+              var modalInstance = $uibModal.open({
+                  templateUrl: 'views/administrador/imagenes/iconos/eliminar.html',
+                  controller: 'ModalControllerIconos',
+                  size: size,
+                  resolve: {
+                      idEliminar : function(){
+                          return $scope.idEliminar;
+                      }
+                  }
+              });
+          }
+          
       })
       .controller('ImagenesController', function ($http, $scope, $filter, $routeParams, localStorageService, $uibModal, $location, $route, $rootScope, upload) {
 
@@ -351,7 +433,7 @@
               break;
             }
           }
-          if(banderaAnho === "false"){
+          if(banderaAnho === "false" && $scope.imagenes[i].tipo == '1'){
             $scope.anhos[contador] = $scope.imagenes[i].anho;
               contador++;
           }
@@ -431,11 +513,35 @@
           $scope.todo = nueva;
           $scope.imagenes.push({
             id: (max+1),
-            nombre: $scope.todo.nombre,
+            tipo: '1',
             mes: $scope.todo.mes,
             anho: $scope.todo.anho,
             tema: $scope.todo.tema,
             mensaje: $scope.todo.mensaje,
+            archivo: $scope.todo.archivo
+          });
+
+          $scope.todo = "";
+          $location.url('/admin');
+          //$route.reload();
+        };
+
+        $scope.guardarIcono = function(nueva){
+            var max = 0;
+            for(var i = 0; i< $scope.imagenes.length; i ++){
+                if($scope.imagenes[i].id > max){
+                    max = $scope.imagenes[i].id;
+                }
+            }
+          $scope.todo = nueva;
+          console.log($scope.todo)
+          $scope.imagenes.push({
+            id: (max+1),
+            tipo: '2',
+            mes: null,
+            anho: null,
+            tema: null,
+            mensaje: $scope.todo.fuente,
             archivo: $scope.todo.archivo
           });
 
@@ -529,6 +635,32 @@
           };
 
       })
+      .controller('ModalControllerIconos', function ($scope, $uibModalInstance, idEliminar, localStorageService, $location, $route){
+
+          var todosInStore = localStorageService.get('imagenes');
+
+          $scope.imagenes = todosInStore || [];
+
+          $scope.$watch('imagenes', function(){
+              localStorageService.add('imagenes', $scope.imagenes);
+          }, true);
+
+          $scope.Eliminar = function () {
+              for(var i = 0; i < $scope.imagenes.length; i ++){
+                  if($scope.imagenes[i].id == idEliminar){
+                      $scope.imagenes.splice(i, 1);
+                      break;
+                  }
+              }
+              $location.path('/admin');
+              $uibModalInstance.close();
+          };
+
+          $scope.Cancelar = function () {
+              $uibModalInstance.dismiss('no');
+          };
+
+      })
       .controller('ModalControllerEventos', function ($scope, $uibModalInstance, idEliminar, localStorageService, $location, $route){
 
           var todosInStore = localStorageService.get('eventos');
@@ -582,6 +714,25 @@
                   contador ++;
               }
           }
+
+          var todosInStore = localStorageService.get('imagenes');
+
+          $scope.iconos = todosInStore || [];
+
+          $scope.$watch('imagenes', function(){
+            localStorageService.add('imagenes', $scope.iconos);
+          }, true);
+
+          $scope.vectorIconos = [];
+            var cont = 0;
+          for (var i = 0; i < $scope.iconos.length; i++) {
+            if($scope.iconos[i].tipo == 2){
+              $scope.vectorIconos[cont] = $scope.iconos[i];
+              cont ++;
+            }
+          }
+
+          $scope.contador = cont;
 
           $scope.vector = [];
           $scope.meses = ["Enero", "Febrero","Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
@@ -694,7 +845,7 @@
                   repeticion: $scope.todo.repeticion,
                   importancia: $scope.todo.importancia,
                   publicar: publicar,
-                  iconoEvento: $scope.todo.iconoEvento
+                  iconoEvento: $scope.todo.icono
               });
 
               $scope.todo = "";
@@ -795,6 +946,12 @@
                       break;
                   }
               }
+
+              for (var i = 0; i < $scope.vectorIconos.length; i++) {
+                if($scope.vectorIconos[i].id == datos.iconoEvento){
+                  var icono = $scope.vectorIconos[i].archivo;
+                }
+              };
               $scope.eventoDatos = {
                   'id': datos.id,
                   'nombre': datos.nombre,
@@ -802,7 +959,8 @@
                   'fechaFin': new Date(datos.fechaFin).getDate()+"/"+((new Date(datos.fechaFin).getMonth().valueOf())+1)+"/"+new Date(datos.fechaFin).getFullYear(),
                   'repeticion': $scope.vectorRepeticion[(datos.repeticion.valueOf())-1].name,
                   'tipoEvento': $scope.vectorTipoEvento[(datos.tipoEvento.valueOf())-1].name,
-                  'importancia': $scope.vectorImportancia[(datos.importancia.valueOf())-1].name
+                  'importancia': $scope.vectorImportancia[(datos.importancia.valueOf())-1].name,
+                  'iconoEvento': icono
               }
           }
 

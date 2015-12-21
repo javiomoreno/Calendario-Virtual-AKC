@@ -13,26 +13,6 @@ app.config(['localStorageServiceProvider', function(localStorageServiceProvider)
   localStorageServiceProvider.setPrefix('ls');
 }]);
 
-/*app.config(function(calendarConfigProvider) {
-
-  calendarConfigProvider.setDateFormatter('moment'); // use either moment or angular to format dates on the calendar. Default angular. Setting this will override any date formats you have already set.
-
-  calendarConfigProvider.setDateFormats({
-    hour: 'HH:mm' // this will configure times on the day view to display in 24 hour format rather than the default of 12 hour
-  });
-
-  calendarConfigProvider.setTitleFormats({
-    day: 'ddd D MMM', //this will configure the day view title to be shorter
-    month: 'MMMM |YYYY'
-  });
-
-  calendarConfigProvider.setI18nStrings({
-    eventsLabel: 'Events', //This will set the events label on the day view
-    timeLabel: 'Time', //This will set the time label on the time view
-    weekNumber: 'Semana {week}'
-  });
-});*/
-
   app.config(['$routeProvider', function ($routeProvider) {
     $routeProvider
       .when('/login', {
@@ -47,14 +27,6 @@ app.config(['localStorageServiceProvider', function(localStorageServiceProvider)
         templateUrl: 'views/administrador/inicio.html',
         controller: 'AdministradorController'
       })
-      /*.when('/admin/imagen/:campos', {
-        templateUrl: 'views/administrador/imagenes/listaImagenes.html',
-        controller: 'ImagenesController'
-      })*/
-      /*.when('/admin/imagen/vista/:id', {
-        templateUrl: 'views/administrador/imagenes/verImagen.html',
-        controller: 'ImagenesController'
-      })*/
       .when('/admin/imagen/vista/:idImagen', {
         templateUrl: 'views/administrador/imagenes/detalleImagen.html',
         controller: 'ImagenesController'
@@ -63,10 +35,6 @@ app.config(['localStorageServiceProvider', function(localStorageServiceProvider)
         templateUrl: 'views/administrador/imagenes/vistaImagenesMes.html',
         controller: 'ImagenesController'
       })
-      /*.when('/admin/imagen/editar/:id', {
-        templateUrl: 'views/administrador/imagenes/editarImagen.html',
-        controller: 'ImagenesController'
-      })*/
       .when('/admin/imagen/editar/:idImagen', {
         templateUrl: 'views/administrador/imagenes/editarImagen.html',
         controller: 'ImagenesController'
@@ -102,6 +70,14 @@ app.config(['localStorageServiceProvider', function(localStorageServiceProvider)
       .when('/admin/eventoPrivado/vista/:idEventoPrivado', {
         templateUrl: 'views/administrador/eventos-privados/detalleEvento.html',
         controller: 'EventosPrivadosController'
+      })
+      .when('/admin/icono/vista/:idIcono', {
+        templateUrl: 'views/administrador/imagenes/iconos/detalleIcono.html',
+        controller: 'IconosController'
+      })
+      .when('/admin/icono/editar/:idIcono', {
+        templateUrl: 'views/administrador/imagenes/iconos/editarIcono.html',
+        controller: 'IconosController'
       })
       .otherwise({
         redirectTo: '/'

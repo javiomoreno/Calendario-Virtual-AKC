@@ -1,0 +1,43 @@
+<div class="col-md-8 col-lg-9">
+  <h2>Lista de Iconos</h2>
+</div>
+<div class="col-md-4 col-lg-3">
+  <button class="btn btn-sm btn-primary" ng-click="crearImagen()"><i class="menu-icon fa fa-plus"></i> Nuevo Icono</button>
+</div>
+<div class="col-sm-12" ng-controller="IconosController">
+	<div class="row" ng-if="contador > 0">
+		<div class="col-lg-12">
+			<div class="widget-box">
+				<div class="widget-header widget-header-flat">
+					<h4 class="widget-title smaller">Iconos</h4>
+				</div>
+				<div class="widget-body">
+					<div class="row">
+						<span ng-repeat="opcion in vector">
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+								<div class="widget-box">
+									<div class="widget-header widget-header-flat titulo-caja">
+										<h5 class="widget-title smaller">{{opcion.tema}}</h5>
+										<div class="widget-toolbar">
+											<label>
+												<a ng-href="#/admin/icono/vista/{{opcion.id}}" title="Ver Detalle"><i class="menu-icon fa fa-eye white"></i></a>
+											</label>
+										</div>
+									</div>
+									<div class="widget-body">
+										<div class="widget-main">
+											<dl id="dt-list-1">
+												<dt>Mensaje</dt>
+												<dd>{{opcion.mensaje}}</dd>
+											</dl>
+										</div>
+									</div>
+								</div>
+							</div>
+						</span>
+					</div>					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

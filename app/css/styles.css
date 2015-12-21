@@ -4,6 +4,13 @@ body{
 	font-family: "Roboto";
 }
 
+input[type="radio"] {
+    display: none;
+}
+input[type="radio"]:checked + label {
+    border: 1px solid red;
+}
+
 .banner{
 	padding-right: 0px;
     padding-left: 0px;
@@ -150,7 +157,7 @@ a:-webkit-any-link {
 }
 
 .pestanha{
-	float: right;
+	float: left;
 	padding-left: 5px;
 	display: block;
 }
@@ -216,6 +223,15 @@ a:-webkit-any-link {
 .imagenVista { 
     max-width: 300px;
     height: auto;
+}
+
+.modal-content{
+	border-radius: 10px;
+}
+
+.modal-footer{
+	border-bottom-right-radius: 10px;
+	border-bottom-left-radius: 10px;
 }
 
 /*

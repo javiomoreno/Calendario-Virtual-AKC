@@ -1,9 +1,6 @@
 <form name="form" ng-controller="ImagenesController">
-	<div class="form-group col-sm-12 col-lg-6" ng-init="anho = imagen.anho; mes = imagen.mes">
+	<div class="form-group col-sm-12 col-lg-6 blue" ng-init="anho = imagen.anho; mes = imagen.mes">
 	    <label for="mes">Mes</label>
-	    <!--<select class="form-control" id="mes" name="mes" style="width:160px" ng-model="imagen.mes"
-	    	ng-options="anhos.name for anhos in vectorAnhos.availableOptions track by anhos.id">
-		</select>-->
 	    <select class="form-control" id="mes" style="width:160px" ng-model="imagen.mes">
 	      <option value="">Seleccione un Mes</option>
 		  <option value="Enero">Enero</option>
@@ -20,7 +17,7 @@
 		  <option value="Diciembre">Diciembre</option>
 		</select>
 	</div>
-	<div class="form-group col-sm-12 col-lg-6">
+	<div class="form-group col-sm-12 col-lg-6 blue">
 	    <label for="anho">Año </label>
 	    <select class="form-control" id="anho" style="width:160px" ng-model="imagen.anho">
 	      <option value="">Seleccione un Año</option>
@@ -32,42 +29,36 @@
 		  <option value="2020">2020</option>
 		</select>
 	</div>
-  	<div class="form-group col-sm-12 col-lg-6">
-	    <label for="nombre">Nombre Imagen</label>
-	    <input type="text" class="form-control" id="nombre"
-           placeholder="Introduce el nombre de la Imagen" ng-model="imagen.nombre">
-	  </div>
-	  <div class="form-group col-sm-12 col-lg-6">
-	    <label for="tema">Titulo de Tema</label>
-	    <input type="text" class="form-control" id="tema" 
-           placeholder="Titulo de Tema" ng-model="imagen.tema"/>
-	  </div>
-	  <div class="form-group col-lg-12">
-	    <label for="mensaje">Mensaje</label>
-	    <textarea class="form-control" id="mensaje" 
-           placeholder="Mensaje" ng-model="imagen.mensaje" value="hola"></textarea>
-	  </div>
-	  <div class="form-group col-lg-12" style="text-align: -webkit-center;">
-	  	<div style="width:400px; margin:12px;">
-			<h3 class="header blue smaller lighter">
-				Cargar Archivo
-			</h3>
-			<label class="ace-file-input ace-file-multiple">
-				<input fileread="imagen.archivo" type="file" placeholder="Please select file" class="form-control" accept="image/*"/>
-				<span ng-if="imagen.archivo == null" class="ace-file-container" data-title="Seleccione el archivo">
-					<span  class="ace-file-name" data-title="No hay Achivo ...">
-						<i class=" ace-icon fa fa-upload"></i>
-					</span>
+	<div class="form-group col-sm-12 col-lg-6 blue">
+	<label for="tema">Titulo de Tema</label>
+	<input type="text" class="form-control" id="tema" 
+	   placeholder="Titulo de Tema" ng-model="imagen.tema"/>
+	</div>
+	<div class="form-group col-lg-12 blue">
+	<label for="mensaje">Mensaje</label>
+	<textarea class="form-control" id="mensaje" 
+	   placeholder="Mensaje" ng-model="imagen.mensaje" value="hola"></textarea>
+	</div>
+	<div class="form-group col-lg-12" style="text-align: -webkit-center;">
+		<div style="width:400px; margin:12px;">
+		<h3 class="header blue smaller lighter">
+			Cargar Archivo
+		</h3>
+		<label class="ace-file-input ace-file-multiple">
+			<input fileread="imagen.archivo" type="file" placeholder="Please select file" class="form-control" accept="image/*"/>
+			<span ng-if="imagen.archivo == null" class="ace-file-container" data-title="Seleccione el archivo">
+				<span  class="ace-file-name" data-title="No hay Achivo ...">
+					<i class=" ace-icon fa fa-upload"></i>
 				</span>
-				<span ng-if="imagen.archivo != null" class="ace-file-container">
-					<img src="{{imagen.archivo}}" class="imagenVista" alt="">
-				</span>
-				<a class="remove" href="#">
-					<i class=" ace-icon fa fa-times"></i>
-				</a>
-			</label>
-		</div>
-		<!--<input uploader-model="archivo" type="file" placeholder="Please select file" class="form-control ng-isolate-scope" accept="image/*">-->
+			</span>
+			<span ng-if="imagen.archivo != null" class="ace-file-container">
+				<img src="{{imagen.archivo}}" class="imagenVista" alt="">
+			</span>
+			<a class="remove" href="#">
+				<i class=" ace-icon fa fa-times"></i>
+			</a>
+		</label>
+	</div>
    	</div>
 	<div class="form-group col-lg-12 text-center">
   		<button class="btn btn-primary" ng-click="guardarImagen(imagen)">Guardar</button>

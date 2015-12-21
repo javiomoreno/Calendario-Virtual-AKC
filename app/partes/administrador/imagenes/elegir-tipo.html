@@ -1,0 +1,18 @@
+<div class="form-group col-sm-12 col-lg-12 header blue smaller lighter">
+    <label for="tipo">Tipo de Imagen</label>
+    <select class="form-control" id="tipo" style="width:250px" ng-model="tipo.select">
+      <option value="">Seleccione un Tipo de Imagen</option>
+	  <option value="1">Imagen</option>
+	  <option value="2">Icono</option>
+	  <option value="3">Obra de Arte</option>
+	</select>
+</div>
+<span ng-if="tipo.select == 1">
+	<nueva-imagen></nueva-imagen>
+</span>
+<span ng-if="tipo.select == 2">
+	<nuevo-icono></nuevo-icono>
+</span>
+<span ng-if="tipo.select == 3">
+	<nueva-obra></nueva-obra>
+</span>

@@ -1,3 +1,9 @@
+<div class="col-md-8 col-lg-9">
+  <h2>Lista de Imágenes</h2>
+</div>
+<div class="col-md-4 col-lg-3">
+  <button class="btn btn-sm btn-primary" ng-click="crearImagen()"><i class="menu-icon fa fa-plus"></i> Nueva Imagen</button>
+</div>
 <div class="col-sm-12" ng-controller="ImagenesController">
 	<span ng-repeat="opcion in vector | orderBy: 'anho'">
 		<div class="row">

@@ -32,11 +32,6 @@
 		  <option value="2020">2020</option>
 		</select>
 	</div>
-  	<div class="form-group col-sm-12 col-lg-6">
-	    <label for="nombre">Nombre Imagen</label>
-	    <input type="text" class="form-control" id="nombre"
-           placeholder="Introduce el nombre de la Imagen" ng-model="imagen.nombre">
-	  </div>
 	  <div class="form-group col-sm-12 col-lg-6">
 	    <label for="tema">Titulo de Tema</label>
 	    <input type="text" class="form-control" id="tema" 
@@ -47,10 +42,26 @@
 	    <textarea class="form-control" id="mensaje" 
            placeholder="Mensaje" ng-model="imagen.mensaje"></textarea>
 	  </div>
-	  <div class="form-group col-lg-12">
-	  	<label for="archivo">Archivo</label>
-		<input fileread="imagen.archivo" type="file" placeholder="Please select file" class="form-control" accept="image/*"  />
-   	</div>
+	  <div class="form-group col-lg-12" style="text-align: -webkit-center;">
+		<div style="width:400px; margin:12px;">
+		<h3 class="header blue smaller lighter">
+			Cargar Archivo
+		</h3>
+		<label class="ace-file-input ace-file-multiple">
+			<input fileread="imagen.archivo" type="file" placeholder="Please select file" class="form-control" accept="image/*"/>
+			<span ng-if="imagen.archivo == null" class="ace-file-container" data-title="Seleccione el archivo">
+				<span  class="ace-file-name" data-title="No hay Achivo ...">
+					<i class=" ace-icon fa fa-upload"></i>
+				</span>
+			</span>
+			<span ng-if="imagen.archivo != null" class="ace-file-container">
+				<img src="{{imagen.archivo}}" class="imagenVista" alt="">
+			</span>
+			<a class="remove" href="#">
+				<i class=" ace-icon fa fa-times"></i>
+			</a>
+		</label>
+	</div>
 	<div class="form-group col-lg-12">
   		<button class="btn btn-primary" ng-click="editarImagen(id)">Editar</button>
   	</div>
