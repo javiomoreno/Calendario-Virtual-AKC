@@ -314,7 +314,7 @@
             height: 500,
             editable: true,
             header:{
-              left: 'prev,next',
+              left: 'prev, next',
               center: 'title',
               right: 'month agendaWeek agendaDay'
             },
@@ -325,6 +325,10 @@
               week: 'Semana',
               day: 'Día'
             },
+            buttonIcons: {
+              prev: 'boton-izquierdo',
+              next: 'boton-derecho'
+            }, 
             viewRender: function(view, element) {
               var dias = Math.floor((new Date(view.end).getTime() - new Date(view.start).getTime()) / (1000 * 60 * 60 * 24));
               if(dias == 42){ 
