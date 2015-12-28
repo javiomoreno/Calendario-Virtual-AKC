@@ -95,7 +95,7 @@ a:-webkit-any-link {
 
 .fondo-derecha{
 	background-size: 100% 620px;
-	background-image: url('../img/fondo base obras.png');
+	background-image: url('../img/fondo-base-obras.png');
 	background-repeat: no-repeat;
 }
 
@@ -371,6 +371,38 @@ button[type="button"].fc-agendaWeek-button{
 	float: right;
 	text-align: -webkit-right;
     padding-right: 0px;
+}
+
+.icono-vista-previa{
+	float: right;
+	margin-top: -50px;
+}
+
+.icono > .fc-content > .fc-time, .icono > .fc-content > .fc-title{
+	display: none;
+}
+
+.icono{
+	float: right;
+	vertical-align: bottom;
+	width: 20px;
+	height: 20px;
+}
+
+.primero{
+	background-image: url('../img/iconos/icono1.png');
+	background-size: 20px 20px;
+	background-repeat: no-repeat;
+	background-color: transparent !important;
+	margin-top: 24px !important;
+}
+
+.segundo{
+	background-image: url('../img/iconos/icono2.png');
+	background-size: 20px 20px;
+	background-repeat: no-repeat;
+	background-color: transparent !important;
+	margin-top: 24px !important;
 }
 
 /*Imagenes derecha*/

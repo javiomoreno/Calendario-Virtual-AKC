@@ -20,16 +20,19 @@
 										<h5 class="widget-title smaller">{{opcion.tema}}</h5>
 										<div class="widget-toolbar">
 											<label>
-												<a ng-href="#/admin/icono/vista/{{opcion.id}}" title="Ver Detalle"><i class="menu-icon fa fa-eye white"></i></a>
+												<a ng-href="#/admin/icono/vista/{{opcion.id}}" title="Editar"><i class="glyphicon glyphicon-pencil"></i></a>
 											</label>
 										</div>
 									</div>
 									<div class="widget-body">
 										<div class="widget-main">
 											<dl id="dt-list-1">
-												<dt>Mensaje</dt>
+												<dt>Fuente</dt>
 												<dd>{{opcion.mensaje}}</dd>
 											</dl>
+											<div class="icono-vista-previa">
+												<img src="{{opcion.archivo}}" alt="" width="50px" height="50px">
+											</div>
 										</div>
 									</div>
 								</div>
