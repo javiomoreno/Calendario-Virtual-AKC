@@ -18,137 +18,7 @@
 
           
       })
-      /*.controller('CalendarioController', function ($scope, $routeParams, calendarioService, moment, localStorageService, $uibModal) {
-
-          var vm = this;
-
-          vm.calendarView = 'month';
-          vm.calendarDay = new Date();
-          vm.calendarTitle = {};
-
-          moment.locale('en', {
-            week : {
-              dow : 1 // Monday is the first day of the week
-            }
-          });
-
-          vm.isCellOpen = false;
-
-          var todosInStore = localStorageService.get('eventos');
-
-          $scope.eventos = todosInStore || [];
-
-          $scope.$watch('eventos', function(){
-              localStorageService.add('eventos', $scope.eventos);
-          }, true);
-
-
-          var ev = [];
-          for (var i = 0; i < $scope.eventos.length; i++) {
-            ev[i] = {
-              title: $scope.eventos[i].nombre,
-              type: 'important',
-              startsAt: new Date($scope.eventos[i].fechaInicio), // A javascript date object for when the event starts
-              endsAt: new Date($scope.eventos[i].fechaFin),
-              recursOn: 'year'evento
-            };
-          }
-
-          vm.events = ev;
-
-          function showModal(action, event) {
-            $uibModal.open({
-              templateUrl: 'modalContent.html',
-              controller: function() {
-                var vm = this;
-                vm.action = action;
-                vm.event = event;
-              },
-              controllerAs: 'vm'
-            });
-          }
-
-          function showModalOpen(dia, eventos){
-            $uibModal.open({
-              templateUrl: 'views/calendario/eventos-dia.html',
-              controller: function() {
-                var vm = this;
-                vm.dia = dia;
-                vm.eventos = eventos;
-              },
-              controllerAs: 'vm'
-            });
-          }
-
-          vm.eventClicked = function(event) {
-            showModal('Clicked', event);
-          };
-
-          vm.dayClicked = function(day, dayClickedFirstRun, $event){
-            console.log(day);
-            var eventos = [
-              {
-                nombre: "Evento",
-                hora: '15:30'
-              },
-              {
-                nombre: 'Nuevo Evento',
-                hora:'12:00'
-              }
-            ];
-            var fecha = new Date(day).getDate();
-            fecha = fecha +" de "+ new Date(day).getMonth();
-            fecha = fecha+" de "+new Date(day).getFullYear();
-            showModalOpen(fecha, eventos);
-          };
-        /*
-          vm.events = [
-              {
-                  title: 'My event title', // The title of the event
-                  type: 'info', // The type of the event (determines its color). Can be important, warning, info, inverse, success or special
-                  startsAt: moment().startOf('week').subtract(2, 'days').add(8, 'hours').toDate(),
-                  endsAt: moment().startOf('week').add(1, 'week').add(9, 'hours').toDate(),
-                  editable: false, // If edit-event-html is set and this field is explicitly set to false then dont make it editable.
-                  deletable: false, // If delete-event-html is set and this field is explicitly set to false then dont make it deleteable
-                  draggable: true, //Allow an event to be dragged and dropped
-                  resizable: true, //Allow an event to be resizable
-                  incrementsBadgeTotal: true, //If set to false then will not count towards the badge total amount on the month and year view
-                  recursOn: 'year', // If set the event will recur on the given period. Valid values are year or month
-                  cssClass: 'a-css-class-name' //A CSS class (or more, just separate with spaces) that will be added to the event when it is displayed on each view. Useful for marking an event as selected / active etc
-              }, {
-                  title: 'An event',
-                  type: 'warning',
-                  startsAt: moment().startOf('week').subtract(2, 'days').add(8, 'hours').toDate(),
-                  endsAt: moment().startOf('week').add(1, 'week').add(9, 'hours').toDate(),
-                  draggable: true,
-                  resizable: true
-              }, {
-                  title: '<i class="glyphicon glyphicon-asterisk"></i> <span class="text-primary">Another event</span>, with a <i>html</i> title',
-                  type: 'info',
-                  startsAt: moment().subtract(1, 'day').toDate(),
-                  endsAt: moment().add(5, 'days').toDate(),
-                  draggable: true,
-                  resizable: true
-              }, {
-                  title: 'This is a really long event title that occurs on every year',
-                  type: 'important',
-                  startsAt: moment().startOf('day').add(7, 'hours').toDate(),
-                  endsAt: moment().startOf('day').add(19, 'hours').toDate(),
-                  recursOn: 'year',
-                  draggable: true,
-                  resizable: true
-              }, {
-                  title: 'Este es mi Evento',
-                  type: 'important',
-                  startsAt: new Date(2015,10,30,1), // A javascript date object for when the event starts
-                  endsAt: new Date(2015,10,30,5),
-                  recursOn: 'year',
-                  draggable: true,
-                  resizable: true
-              }
-          ];*/
-      //})
-      .controller('CalendarioController', function ($scope, $rootScope, $routeParams, calendarioService, localStorageService, $uibModal, uiCalendarConfig){
+      .controller('CalendarioController', function ($scope, $compile, $rootScope, $routeParams, calendarioService, localStorageService, $uibModal, uiCalendarConfig){
 
         var date = new Date();
         var d = date.getDate();
@@ -166,7 +36,6 @@
         $scope.events = [];
 
         var todosInStore = localStorageService.get('eventos');
-
         $scope.eventos = todosInStore || [];
 
         $scope.$watch('eventos', function(){
@@ -192,7 +61,6 @@
         }
 
         $rootScope.contador = cont;
-
 
         for (var i = 0; i < $scope.eventos.length; i++) {
           if($scope.eventos[i].publicar == 1){
@@ -221,6 +89,7 @@
               for (var j = 1; j < 121; j++) {
                 $scope.events[contador] = {
                   id: idEvento,
+                  className: 'icono segundo',
                   color: vectorColores[$scope.eventos[i].importancia-1],
                   title: $scope.eventos[i].nombre,
                   start: new Date($scope.eventos[i].fechaInicio).setMonth(new Date($scope.eventos[i].fechaInicio).getMonth()+j), // A javascript date object for when the event starts
@@ -233,7 +102,7 @@
               for (var j = 1; j < 521; j++) {
                 $scope.events[contador] = {
                   id: idEvento,
-                  icon:'party',
+                  className: 'icono primero',
                   color: vectorColores[$scope.eventos[i].importancia-1],
                   title: $scope.eventos[i].nombre,
                   start: new Date($scope.eventos[i].fechaInicio).setDate(new Date($scope.eventos[i].fechaInicio).getDate()+(j*7)), // A javascript date object for when the event starts
@@ -245,6 +114,11 @@
           }
         }
 
+        $scope.eventRender = function( event, element, view ) { 
+            element.attr({'tooltip': (event.title +' '+new Date(event.start).getHours() +':'+(new Date(event.start).getMinutes()<10?'0':'') + new Date(event.start).getMinutes() ),
+                         'tooltip-append-to-body': true});
+            $compile(element)($scope);
+        };
 
         $scope.diaClick = function(event, element, view ){
           
@@ -252,15 +126,23 @@
             var cont = 0;
             var fechaToda = new Date(event._d).setTime( new Date(event._d).getTime()+1*24*60*60*1000);
             var fecha = $scope.uiConfig.calendar.dayNames[new Date(fechaToda).getDay()];
+            var bandera = false;
             fecha = fecha +" "+ new Date(fechaToda).getDate();
             fecha = fecha +" de "+ $scope.uiConfig.calendar.monthNames[new Date(fechaToda).getMonth()];
             fecha = fecha+" de "+new Date(fechaToda).getFullYear();
 
-            for (var i = 0; i < $scope.eventos.length; i++) {
-              if(new Date($scope.eventos[i].fechaInicio).getDate() == new Date(fechaToda).getDate() && new Date($scope.eventos[i].fechaInicio).getMonth() == new Date(fechaToda).getMonth() && new Date($scope.eventos[i].fechaInicio).getFullYear() == new Date(fechaToda).getFullYear() && $scope.eventos[i].publicar == 1){
+            for (var i = 0; i < $scope.events.length; i++) {
+              var bandera = false;
+              for (var j = 0; j < $scope.eventos.length; j++) {
+                if($scope.eventos[j].id = $scope.events[i].id){
+                  bandera = true;
+                  break;
+                }
+              };
+              if(new Date($scope.events[i].start).getDate() == new Date(fechaToda).getDate() && new Date($scope.events[i].start).getMonth() == new Date(fechaToda).getMonth() && new Date($scope.events[i].start).getFullYear() == new Date(fechaToda).getFullYear() && bandera == true){
                   eventosLista[cont] = {
-                    nombre: $scope.eventos[i].nombre,
-                    hora: new Date($scope.eventos[i].fechaInicio).getHours()+":"+new Date($scope.eventos[i].fechaInicio).getMinutes(),
+                    nombre: $scope.events[i].title,
+                    hora: new Date($scope.events[i].start).getHours()+":"+new Date($scope.events[i].start).getMinutes(),
                   };
                   cont ++;
               }
@@ -271,12 +153,14 @@
 
         $scope.eventClick = function( date, jsEvent, view){
             var evento = {};
+            evento = {
+              nombre: date.title,
+              detalle: $scope.uiConfig.calendar.dayNamesShort[new Date(date.start).getDay()]+", "+ new Date(date.start).getDate()+" de "+$scope.uiConfig.calendar.monthNames[new Date(date.start).getMonth()]+". Hora: "+new Date(date.start).getHours()+":"+(new Date(date.start).getMinutes()<10?'0':'') + new Date(date.start).getMinutes()
+            };
             for (var i = 0; i < $scope.eventos.length; i++) {
               if($scope.eventos[i].id == date.id){
-                  evento = {
-                    nombre: $scope.eventos[i].nombre,
-                    detalle: $scope.uiConfig.calendar.dayNamesShort[new Date($scope.eventos[i].fechaInicio).getDay()]+", "+ new Date($scope.eventos[i].fechaInicio).getDate()+" de "+$scope.uiConfig.calendar.monthNames[new Date($scope.eventos[i].fechaInicio).getMonth()] ,
-                  };
+                  
+                  break;
               }
             }
 
@@ -320,6 +204,7 @@
             },
             dayClick: $scope.diaClick,
             eventClick: $scope.eventClick,
+            eventRender: $scope.eventRender,
             buttonText: {
               month: 'Mes',
               week: 'Semana',
@@ -355,8 +240,6 @@
             }
           }
         };
-
-        console.log($scope.uiConfig.calendar.header.title)
 
         $scope.uiConfig.calendar.dayNames = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
         $scope.uiConfig.calendar.dayNamesShort = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"];
@@ -476,7 +359,6 @@
         }
 
           $scope.vector = [];
-          $scope.meses = ["Enero","Febrero","Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
           var cantEnero;
           var cantFebrero;
           var cantMarzo;
@@ -519,20 +401,56 @@
                   }
               }
 
-              var otra = {
-                  'Enero': cantEnero,
-                  'Febrero': cantFebrero,
-                  'Marzo': cantMarzo,
-                  'Abril': cantAbril,
-                  'Mayo': cantMayo,
-                  'Junio': cantJunio,
-                  'Julio': cantJulio,
-                  'Agosto': cantAgosto,
-                  'Septiembre': cantSeptiembre,
-                  'Octubre': cantOctubre,
-                  'Noviembre': cantNoviembre,
-                  'Diciembre': cantDiciembre
-              };
+              var otra = [
+                  {
+                    mes: 'Enero',
+                    cant: cantEnero
+                  },
+                  {
+                    mes: 'Febrero',
+                    cant: cantFebrero
+                  },
+                  {
+                    mes: 'Marzo',
+                    cant: cantMarzo
+                  },
+                  {
+                    mes: 'Abril',
+                    cant: cantAbril
+                  },
+                  {
+                    mes: 'Mayo',
+                    cant: cantMayo
+                  },
+                  {
+                    mes: 'Junio',
+                    cant: cantJunio,
+                  },
+                  {
+                    mes: 'Julio',
+                    cant: cantJulio
+                  },
+                  {
+                    mes: 'Agosto',
+                    cant: cantAgosto
+                  },
+                  {
+                    mes: 'Septiembre',
+                    cant: cantSeptiembre
+                  },
+                  {
+                    mes: 'Octubre',
+                    cant: cantOctubre
+                  },
+                  {
+                    mes: 'Noviembre',
+                    cant: cantNoviembre,
+                  },
+                  {
+                    mes: 'Diciembre',
+                    cant: cantDiciembre
+                  }                  
+              ];
               $scope.vector[i] = {
                   'anho': $scope.anhos[i],
                   'meses': otra
@@ -570,7 +488,6 @@
                 }
             }
           $scope.todo = nueva;
-          console.log($scope.todo)
           $scope.imagenes.push({
             id: (max+1),
             tipo: '2',
@@ -771,8 +688,6 @@
           $scope.contador = cont;
 
           $scope.vector = [];
-          $scope.meses = ["Enero", "Febrero","Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-          console.log($scope.meses)
           var cantEnero;
           var cantFebrero;
           var cantMarzo;
@@ -815,20 +730,56 @@
                   }
               }
 
-              var otra = {
-                  'Enero': cantEnero,
-                  'Febrero': cantFebrero,
-                  'Marzo': cantMarzo,
-                  'Abril': cantAbril,
-                  'Mayo': cantMayo,
-                  'Junio': cantJunio,
-                  'Julio': cantJulio,
-                  'Agosto': cantAgosto,
-                  'Septiembre': cantSeptiembre,
-                  'Octubre': cantOctubre,
-                  'Noviembre': cantNoviembre,
-                  'Diciembre': cantDiciembre
-              };
+              var otra = [
+                  {
+                    mes: 'Enero',
+                    cant: cantEnero
+                  },
+                  {
+                    mes: 'Febrero',
+                    cant: cantFebrero
+                  },
+                  {
+                    mes: 'Marzo',
+                    cant: cantMarzo
+                  },
+                  {
+                    mes: 'Abril',
+                    cant: cantAbril
+                  },
+                  {
+                    mes: 'Mayo',
+                    cant: cantMayo
+                  },
+                  {
+                    mes: 'Junio',
+                    cant: cantJunio,
+                  },
+                  {
+                    mes: 'Julio',
+                    cant: cantJulio
+                  },
+                  {
+                    mes: 'Agosto',
+                    cant: cantAgosto
+                  },
+                  {
+                    mes: 'Septiembre',
+                    cant: cantSeptiembre
+                  },
+                  {
+                    mes: 'Octubre',
+                    cant: cantOctubre
+                  },
+                  {
+                    mes: 'Noviembre',
+                    cant: cantNoviembre,
+                  },
+                  {
+                    mes: 'Diciembre',
+                    cant: cantDiciembre
+                  }                  
+              ];
               $scope.vector[i] = {
                   'anho': $scope.anhos[i],
                   'meses': otra
@@ -937,6 +888,7 @@
               }
 
               $scope.gridOptions.data = datos;
+              console.log(datos)
           }
           else{
               var id = $routeParams.idEvento;
@@ -951,6 +903,8 @@
 
               $scope.todos = $scope.datos[0];
               $scope.evento = $scope.datos[0];
+
+              console.log($scope.evento)
           }
 
           $scope.Editar = function(id){
@@ -1088,20 +1042,56 @@
                   }
               }
 
-              var otra = {
-                  'Enero': cantEnero,
-                  'Febrero': cantFebrero,
-                  'Marzo': cantMarzo,
-                  'Abril': cantAbril,
-                  'Mayo': cantMayo,
-                  'Junio': cantJunio,
-                  'Julio': cantJulio,
-                  'Agosto': cantAgosto,
-                  'Septiembre': cantSeptiembre,
-                  'Octubre': cantOctubre,
-                  'Noviembre': cantNoviembre,
-                  'Diciembre': cantDiciembre
-              };
+              var otra = [
+                  {
+                    mes: 'Enero',
+                    cant: cantEnero
+                  },
+                  {
+                    mes: 'Febrero',
+                    cant: cantFebrero
+                  },
+                  {
+                    mes: 'Marzo',
+                    cant: cantMarzo
+                  },
+                  {
+                    mes: 'Abril',
+                    cant: cantAbril
+                  },
+                  {
+                    mes: 'Mayo',
+                    cant: cantMayo
+                  },
+                  {
+                    mes: 'Junio',
+                    cant: cantJunio,
+                  },
+                  {
+                    mes: 'Julio',
+                    cant: cantJulio
+                  },
+                  {
+                    mes: 'Agosto',
+                    cant: cantAgosto
+                  },
+                  {
+                    mes: 'Septiembre',
+                    cant: cantSeptiembre
+                  },
+                  {
+                    mes: 'Octubre',
+                    cant: cantOctubre
+                  },
+                  {
+                    mes: 'Noviembre',
+                    cant: cantNoviembre,
+                  },
+                  {
+                    mes: 'Diciembre',
+                    cant: cantDiciembre
+                  }                  
+              ];
 
               var numero = 0;
               if(cantEnero + cantFebrero + cantMarzo + cantAbril + cantMayo + cantJunio + cantJulio + cantAgosto + cantSeptiembre + cantOctubre + cantNoviembre + cantDiciembre == 0){

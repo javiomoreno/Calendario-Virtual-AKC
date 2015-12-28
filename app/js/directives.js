@@ -60,7 +60,7 @@
     .directive('listaImagenes', function () {
       return {
         restrict: 'E',
-        templateUrl: 'partes/administrador/imagenes/lista-imagenes.html'
+        templateUrl: 'partes/administrador/imagenes/imagenes/lista-imagenes.html'
       };
     })
 
@@ -74,14 +74,14 @@
     .directive('imagenesMes', function () {
       return {
         restrict: 'E',
-        templateUrl: 'partes/administrador/imagenes/imagenes-mes.html'
+        templateUrl: 'partes/administrador/imagenes/imagenes/imagenes-mes.html'
       };
     })
 
     .directive('detalleImagen', function () {
       return {
         restrict: 'E',
-        templateUrl: 'partes/administrador/imagenes/detalle-imagen.html'
+        templateUrl: 'partes/administrador/imagenes/imagenes/detalle-imagen.html'
       };
     })
 
@@ -103,7 +103,7 @@
     .directive('editarImagen', function () {
       return {
         restrict: 'E',
-        templateUrl: 'partes/administrador/imagenes/editar-imagen.html'
+        templateUrl: 'partes/administrador/imagenes/imagenes/editar-imagen.html'
       };
     })
 
@@ -117,7 +117,7 @@
     .directive('nuevaImagen', function () {
       return {
         restrict: 'E',
-        templateUrl: 'partes/administrador/imagenes/nueva-imagen.html'
+        templateUrl: 'partes/administrador/imagenes/imagenes/nueva-imagen.html'
       };
     })
 
@@ -131,7 +131,7 @@
     .directive('nuevaObra', function () {
       return {
         restrict: 'E',
-        templateUrl: 'partes/administrador/imagenes/nueva-obra.html'
+        templateUrl: 'partes/administrador/imagenes/obras/nueva-obra.html'
       };
     })
 
