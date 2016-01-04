@@ -389,7 +389,14 @@ button[type="button"].fc-agendaWeek-button{
 	height: 20px;
 }
 
-.primero{
+.icono > .abajo{
+	float: left;
+	vertical-align: bottom;
+	width: 20px;
+	height: 20px;
+}
+
+._0{
 	background-image: url('../img/iconos/icono1.png');
 	background-size: 20px 20px;
 	background-repeat: no-repeat;
@@ -397,12 +404,17 @@ button[type="button"].fc-agendaWeek-button{
 	margin-top: 24px !important;
 }
 
-.segundo{
+._1{
 	background-image: url('../img/iconos/icono2.png');
 	background-size: 20px 20px;
 	background-repeat: no-repeat;
 	background-color: transparent !important;
 	margin-top: 24px !important;
+}
+
+.nombre-icono{
+	padding-left: 20px;
+    padding-top: 25px;
 }
 
 /*Imagenes derecha*/

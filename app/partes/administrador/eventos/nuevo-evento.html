@@ -67,7 +67,7 @@
 			<span ng-repeat="opcion in vectorIconos track by $index">
 				<div class="button col-lg-2">
 				    <input type="radio" ng-model="evento.icono" ng-value="{{opcion.id}}" id="{{opcion.id}}"/>
-				    <label for="{{opcion.id}}"><img src="{{opcion.archivo}}" alt="" width="50px" height="50px"></label>
+				    <label for="{{opcion.id}}"><img src="{{opcion.icono.archivo}}" alt="" width="50px" height="50px"></label>
 				</div>
 			</span>
 		</div>

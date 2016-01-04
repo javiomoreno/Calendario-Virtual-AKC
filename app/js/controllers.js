@@ -52,10 +52,19 @@
         }, true);
 
         $rootScope.vectorImagenes = [];
+        $rootScope.vectorIconos = [];
+        $rootScope.vectorIconosMes = [];
           var cont = 0;
         for (var i = 0; i < $scope.imagenes.length; i++) {
           if($scope.imagenes[i].tipo == 1){
             $rootScope.vectorImagenes[cont] = $scope.imagenes[i];
+            cont ++;
+          }
+        }
+        cont = 0;
+        for (var i = 0; i < $scope.imagenes.length; i++) {
+          if($scope.imagenes[i].tipo == 2){
+            $rootScope.vectorIconos[cont] = $scope.imagenes[i];
             cont ++;
           }
         }
@@ -65,7 +74,30 @@
         for (var i = 0; i < $scope.eventos.length; i++) {
           if($scope.eventos[i].publicar == 1){
             var idEvento = $scope.eventos[i].id;
-            $scope.events[contador] = {
+            if ($scope.eventos[i].iconoEvento == 0){
+              $scope.events[contador] = {
+                id: $scope.eventos[i].id,
+                className: 'icono _0',
+                color: vectorColores[$scope.eventos[i].importancia-1],
+                title: $scope.eventos[i].nombre,
+                start: new Date($scope.eventos[i].fechaInicio), // A javascript date object for when the event starts
+                end: new Date($scope.eventos[i].fechaFin)
+              };
+              contador++;
+            }
+            else if ($scope.eventos[i].iconoEvento == 1){
+              $scope.events[contador] = {
+                id: $scope.eventos[i].id,
+                className: 'icono _1',
+                color: vectorColores[$scope.eventos[i].importancia-1],
+                title: $scope.eventos[i].nombre,
+                start: new Date($scope.eventos[i].fechaInicio), // A javascript date object for when the event starts
+                end: new Date($scope.eventos[i].fechaFin)
+              };
+              contador++;
+            }
+            else{
+              $scope.events[contador] = {
                 id: $scope.eventos[i].id,
                 color: vectorColores[$scope.eventos[i].importancia-1],
                 title: $scope.eventos[i].nombre,
@@ -73,42 +105,113 @@
                 end: new Date($scope.eventos[i].fechaFin)
               };
               contador++;
+            }
             if($scope.eventos[i].repeticion == 4){
               for (var j = 1; j < 11; j++) {
-                $scope.events[contador] = {
-                  id: idEvento,
-                  color: vectorColores[$scope.eventos[i].importancia-1],
-                  title: $scope.eventos[i].nombre,
-                  start: new Date($scope.eventos[i].fechaInicio).setFullYear(new Date($scope.eventos[i].fechaInicio).getFullYear()+j), // A javascript date object for when the event starts
-                  end: new Date($scope.eventos[i].fechaFin).setFullYear(new Date($scope.eventos[i].fechaFin).getFullYear()+j)
-                };
-                contador ++;
+                if ($scope.eventos[i].iconoEvento == 0){
+                  $scope.events[contador] = {
+                    id: $scope.eventos[i].id,
+                    className: 'icono _0',
+                    color: vectorColores[$scope.eventos[i].importancia-1],
+                    title: $scope.eventos[i].nombre,
+                    start: new Date($scope.eventos[i].fechaInicio).setFullYear(new Date($scope.eventos[i].fechaInicio).getFullYear()+j), // A javascript date object for when the event starts
+                    end: new Date($scope.eventos[i].fechaFin).setFullYear(new Date($scope.eventos[i].fechaFin).getFullYear()+j)
+                  };
+                  contador++;
+                }
+                else if ($scope.eventos[i].iconoEvento == 1){
+                  $scope.events[contador] = {
+                    id: $scope.eventos[i].id,
+                    className: 'icono _1',
+                    color: vectorColores[$scope.eventos[i].importancia-1],
+                    title: $scope.eventos[i].nombre,
+                    start: new Date($scope.eventos[i].fechaInicio).setFullYear(new Date($scope.eventos[i].fechaInicio).getFullYear()+j), // A javascript date object for when the event starts
+                    end: new Date($scope.eventos[i].fechaFin).setFullYear(new Date($scope.eventos[i].fechaFin).getFullYear()+j)
+                  };
+                  contador++;
+                }
+                else{
+                  $scope.events[contador] = {
+                    id: $scope.eventos[i].id,
+                    color: vectorColores[$scope.eventos[i].importancia-1],
+                    title: $scope.eventos[i].nombre,
+                    start: new Date($scope.eventos[i].fechaInicio).setFullYear(new Date($scope.eventos[i].fechaInicio).getFullYear()+j), // A javascript date object for when the event starts
+                    end: new Date($scope.eventos[i].fechaFin).setFullYear(new Date($scope.eventos[i].fechaFin).getFullYear()+j)
+                  };
+                  contador++;
+                }
               };              
             }
             else if($scope.eventos[i].repeticion == 3){
               for (var j = 1; j < 121; j++) {
-                $scope.events[contador] = {
-                  id: idEvento,
-                  className: 'icono segundo',
-                  color: vectorColores[$scope.eventos[i].importancia-1],
-                  title: $scope.eventos[i].nombre,
-                  start: new Date($scope.eventos[i].fechaInicio).setMonth(new Date($scope.eventos[i].fechaInicio).getMonth()+j), // A javascript date object for when the event starts
+                if ($scope.eventos[i].iconoEvento == 0){
+                  $scope.events[contador] = {
+                    id: $scope.eventos[i].id,
+                    className: 'icono _0',
+                    color: vectorColores[$scope.eventos[i].importancia-1],
+                    title: $scope.eventos[i].nombre,
+                    start: new Date($scope.eventos[i].fechaInicio).setMonth(new Date($scope.eventos[i].fechaInicio).getMonth()+j), // A javascript date object for when the event starts
                   end: new Date($scope.eventos[i].fechaFin).setMonth(new Date($scope.eventos[i].fechaFin).getMonth()+j)
-                };
-                contador ++;
+                  };
+                  contador++;
+                }
+                else if ($scope.eventos[i].iconoEvento == 1){
+                  $scope.events[contador] = {
+                    id: $scope.eventos[i].id,
+                    className: 'icono _1',
+                    color: vectorColores[$scope.eventos[i].importancia-1],
+                    title: $scope.eventos[i].nombre,
+                    start: new Date($scope.eventos[i].fechaInicio).setMonth(new Date($scope.eventos[i].fechaInicio).getMonth()+j), // A javascript date object for when the event starts
+                  end: new Date($scope.eventos[i].fechaFin).setMonth(new Date($scope.eventos[i].fechaFin).getMonth()+j)
+                  };
+                  contador++;
+                }
+                else{
+                  $scope.events[contador] = {
+                    id: $scope.eventos[i].id,
+                    color: vectorColores[$scope.eventos[i].importancia-1],
+                    title: $scope.eventos[i].nombre,
+                    start: new Date($scope.eventos[i].fechaInicio).setMonth(new Date($scope.eventos[i].fechaInicio).getMonth()+j), // A javascript date object for when the event starts
+                  end: new Date($scope.eventos[i].fechaFin).setMonth(new Date($scope.eventos[i].fechaFin).getMonth()+j)
+                  };
+                  contador++;
+                }
               };              
             }
             else if($scope.eventos[i].repeticion == 2){
               for (var j = 1; j < 521; j++) {
-                $scope.events[contador] = {
-                  id: idEvento,
-                  className: 'icono primero',
-                  color: vectorColores[$scope.eventos[i].importancia-1],
-                  title: $scope.eventos[i].nombre,
-                  start: new Date($scope.eventos[i].fechaInicio).setDate(new Date($scope.eventos[i].fechaInicio).getDate()+(j*7)), // A javascript date object for when the event starts
-                  end: new Date($scope.eventos[i].fechaFin).setDate(new Date($scope.eventos[i].fechaFin).getDate()+(j*7))
-                };
-                contador ++;
+                if ($scope.eventos[i].iconoEvento == 0){
+                  $scope.events[contador] = {
+                    id: $scope.eventos[i].id,
+                    className: 'icono _0',
+                    color: vectorColores[$scope.eventos[i].importancia-1],
+                    title: $scope.eventos[i].nombre,
+                    start: new Date($scope.eventos[i].fechaInicio).setDate(new Date($scope.eventos[i].fechaInicio).getDate()+(j*7)), // A javascript date object for when the event starts
+                    end: new Date($scope.eventos[i].fechaFin).setDate(new Date($scope.eventos[i].fechaFin).getDate()+(j*7))
+                  };
+                  contador++;
+                }
+                else if ($scope.eventos[i].iconoEvento == 1){
+                  $scope.events[contador] = {
+                    id: $scope.eventos[i].id,
+                    className: 'icono _1',
+                    color: vectorColores[$scope.eventos[i].importancia-1],
+                    title: $scope.eventos[i].nombre,
+                    start: new Date($scope.eventos[i].fechaInicio).setDate(new Date($scope.eventos[i].fechaInicio).getDate()+(j*7)), // A javascript date object for when the event starts
+                    end: new Date($scope.eventos[i].fechaFin).setDate(new Date($scope.eventos[i].fechaFin).getDate()+(j*7))
+                  };
+                  contador++;
+                }
+                else{
+                  $scope.events[contador] = {
+                    id: $scope.eventos[i].id,
+                    color: vectorColores[$scope.eventos[i].importancia-1],
+                    title: $scope.eventos[i].nombre,
+                    start: new Date($scope.eventos[i].fechaInicio).setDate(new Date($scope.eventos[i].fechaInicio).getDate()+(j*7)), // A javascript date object for when the event starts
+                    end: new Date($scope.eventos[i].fechaFin).setDate(new Date($scope.eventos[i].fechaFin).getDate()+(j*7))
+                  };
+                  contador++;
+                }
               };              
             }
           }
@@ -236,6 +339,33 @@
                   conta ++
                 }
               };
+
+              $rootScope.vectorIconosMes = [];
+              var contador = 0;
+              var bandera = false;
+              var vector = [];
+
+              for (var i = 0; i < $scope.events.length; i++) {
+                if(new Date($scope.events[i].start).getMonth() == $rootScope.mes && new Date($scope.events[i].start).getFullYear() == $rootScope.anho && $scope.events[i].className){
+                  vector = []
+                  vector = $scope.events[i].className.split(" ");
+                  for (var j = 0; j < $rootScope.vectorIconosMes.length; j++) {
+                    bandera = false;
+                    if($rootScope.vectorIconosMes[j].clase == $scope.events[i].className){
+                      bandera = true;
+                      break;
+                    }
+                  };
+                  if(bandera == false){
+                    var posicion = vector[1].replace('_','');
+                    $rootScope.vectorIconosMes[contador] = {
+                      clase: $scope.events[i].className,
+                      nombre: $rootScope.vectorIconos[posicion].mensaje
+                    };
+                    contador ++;
+                  }
+                }                
+              };
               $rootScope.foto = imagenes[Math.floor((Math.random()*conta))];
             }
           }
@@ -305,6 +435,10 @@
           };
 
           $scope.icono = $scope.datos[0];
+        }
+
+        $scope.Atras = function(){
+          $location.path('/admin');
         }
 
         $scope.Editar = function(id){
@@ -680,7 +814,10 @@
             var cont = 0;
           for (var i = 0; i < $scope.iconos.length; i++) {
             if($scope.iconos[i].tipo == 2){
-              $scope.vectorIconos[cont] = $scope.iconos[i];
+              $scope.vectorIconos[cont] = {
+               id: cont,
+               icono: $scope.iconos[i]
+              }
               cont ++;
             }
           }
@@ -823,7 +960,7 @@
                 publicar = '1';
               }
             
-               $scope.eventos.push({
+              $scope.eventos.push({
                   id: (max+1),
                   nombre: $scope.todo.nombre,
                   fechaInicio: new Date($scope.todo.fechaInicio),
@@ -834,6 +971,33 @@
                   publicar: publicar,
                   iconoEvento: $scope.todo.icono
               });
+
+              /*Publicar Evento en Google Calendar*/
+                  URL postUrl = new URL("http://www.google.com/calendar/feeds/javiomoreno@gmail.com/private/full");
+                  EventEntry myEntry = new EventEntry();
+
+                  myEntry.setTitle(new PlainTextConstruct("TITULO DEL EVENTO"));
+                  myEntry.setContent(new PlainTextConstruct("DESCRIPCION DEL EVENTO"));
+
+                  Person author = new Person("Javier Moreno", null, "javiomoreno@gmail.com");
+                  myEntry.getAuthors().add(author);
+
+                  DateTime startTime = DateTime.parseDateTime(new Date($scope.todo.fechaInicio),);
+                  DateTime endTime = DateTime.parseDateTime(new Date($scope.todo.fechaFin),);
+                  When eventTimes = new When();
+                  eventTimes.setStartTime(startTime);
+                  eventTimes.setEndTime(endTime);
+                  myEntry.addTime(eventTimes);
+                  myEntry.
+
+                  myEntry.addLocation(new Where("","","Sant Feliu de Codines, Carrer Fonteta"));
+
+                  CalendarService myService = new CalendarService("gdata-WordGoogleCalendarTest");
+                  myService.setUserCredentials("javiomoreno", "Elchuta19");
+
+                  // Send the request and receive the response:
+                  EventEntry insertedEntry = myService.insert(postUrl, myEntry);
+                  //Fin Agregar Evento
 
               $scope.todo = "";
               $location.url('/admin');
@@ -907,6 +1071,11 @@
               console.log($scope.evento)
           }
 
+
+          $scope.Atras = function(){
+              $location.path('/admin/eventos');
+          }
+
           $scope.Editar = function(id){
               $location.path('/admin/evento/editar/'+id);
           }
@@ -939,7 +1108,7 @@
 
               for (var i = 0; i < $scope.vectorIconos.length; i++) {
                 if($scope.vectorIconos[i].id == datos.iconoEvento){
-                  var icono = $scope.vectorIconos[i].archivo;
+                  var icono = $scope.vectorIconos[i].icono.archivo;
                 }
               };
               $scope.eventoDatos = {
