@@ -609,6 +609,7 @@
             archivo: $scope.todo.archivo
           });
 
+          $rootScope.vista = "imagen";
           $scope.todo = "";
           $location.url('/admin');
           //$route.reload();
@@ -973,6 +974,7 @@
               });
 
               /*Publicar Evento en Google Calendar*/
+              /*
                   URL postUrl = new URL("http://www.google.com/calendar/feeds/javiomoreno@gmail.com/private/full");
                   EventEntry myEntry = new EventEntry();
 
@@ -998,7 +1000,9 @@
                   // Send the request and receive the response:
                   EventEntry insertedEntry = myService.insert(postUrl, myEntry);
                   //Fin Agregar Evento
+              */
 
+              $rootScope.vista = "evento";
               $scope.todo = "";
               $location.url('/admin');
           };
@@ -1052,7 +1056,6 @@
               }
 
               $scope.gridOptions.data = datos;
-              console.log(datos)
           }
           else{
               var id = $routeParams.idEvento;
@@ -1067,12 +1070,11 @@
 
               $scope.todos = $scope.datos[0];
               $scope.evento = $scope.datos[0];
-
-              console.log($scope.evento)
           }
 
 
           $scope.Atras = function(){
+              $rootScope.vista = "evento";
               $location.path('/admin/eventos');
           }
 
