@@ -335,7 +335,7 @@
 
               for (var i = 0; i < $rootScope.vectorImagenes.length; i++) {
                 if($rootScope.vectorImagenes[i].mes == mes && $rootScope.vectorImagenes[i].anho == $rootScope.anho){
-                  imagenes[conta] = $rootScope.vectorImagenes[i].archivo;
+                  imagenes[conta] = $rootScope.vectorImagenes[i];
                   conta ++
                 }
               };
@@ -377,11 +377,27 @@
         $scope.uiConfig.calendar.monthNamesShort = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
         $scope.eventSources = [$scope.events];
 
-        $scope.abrirImagenIzquierda = function(){
+        $scope.abrirImagenIzquierda = function(foto){
             console.log("abrir imagen");
-          }
+            console.log("foto: ",foto.id);
+            showModalOpenFotoIzquierda(foto, 'md');
+        }
+
+        function showModalOpenFotoIzquierda(foto, size){
+            $uibModal.open({
+                templateUrl: 'partes/calendario/imagen-izquierda.html',
+                size: size,
+                controller: function() {
+                  var vm = this;
+                  vm.archivo = foto.archivo;
+                  vm.mensaje = foto.mensaje;
+                },
+                controllerAs: 'vm'
+              });
+        }
 
       })
+
       .controller('AdministradorController', function ($location, $scope) {
 
         $scope.data = [];
