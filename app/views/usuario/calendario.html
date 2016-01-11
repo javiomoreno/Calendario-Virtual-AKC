@@ -25,9 +25,9 @@
 		  <div>
 		  	<div class="row">
 			    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-2" style="padding-right: 0px; padding-left: 0px;">
-				    <div class="maxIzquierda" ng-click="abrirImagenIzquierda()">
+				    <div class="maxIzquierda" ng-click="abrirImagenIzquierda(foto)">
 				    </div>
-			    	<img src="{{foto}}" alt="imagen" class="imagen-izquierda" width="200px" height="620px">
+			    	<img src="{{foto.archivo}}" alt="imagen" class="imagen-izquierda" width="200px" height="620px">
 			    	<div class="caja-externa">
 				    	<img src="img/frase institucional.png" alt="" width="160px" height="120px">  	
 			    	</div>
@@ -76,4 +76,3 @@
 		</div>
 	</div>	
 </footer>
-

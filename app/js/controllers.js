@@ -335,7 +335,7 @@
 
               for (var i = 0; i < $rootScope.vectorImagenes.length; i++) {
                 if($rootScope.vectorImagenes[i].mes == mes && $rootScope.vectorImagenes[i].anho == $rootScope.anho){
-                  imagenes[conta] = $rootScope.vectorImagenes[i].archivo;
+                  imagenes[conta] = $rootScope.vectorImagenes[i];
                   conta ++
                 }
               };
@@ -377,11 +377,27 @@
         $scope.uiConfig.calendar.monthNamesShort = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
         $scope.eventSources = [$scope.events];
 
-        $scope.abrirImagenIzquierda = function(){
+        $scope.abrirImagenIzquierda = function(foto){
             console.log("abrir imagen");
-          }
+            console.log("foto: ",foto.id);
+            showModalOpenFotoIzquierda(foto, 'md');
+        }
+
+        function showModalOpenFotoIzquierda(foto, size){
+            $uibModal.open({
+                templateUrl: 'partes/calendario/imagen-izquierda.html',
+                size: size,
+                controller: function() {
+                  var vm = this;
+                  vm.archivo = foto.archivo;
+                  vm.mensaje = foto.mensaje;
+                },
+                controllerAs: 'vm'
+              });
+        }
 
       })
+<<<<<<< HEAD
       .controller('AdministradorController', function ($location, $timeout, $scope, servicioBackend, allTipoImagen, calendarioService) {
 
         /*allTipoImagen.query().$promise.then(function(data){
@@ -404,6 +420,10 @@
               };
             }, 3000);
         });
+=======
+
+      .controller('AdministradorController', function ($location, $scope) {
+>>>>>>> 9f6f81fd0df3f500f524293cf53c3b10b51ee0a0
 
         $scope.cargarValores = function(){
           $scope.opciones = $scope.opciones;
@@ -643,6 +663,7 @@
             archivo: $scope.todo.archivo
           });
 
+          $rootScope.vista = "imagen";
           $scope.todo = "";
           $location.url('/admin');
           //$route.reload();
@@ -1057,8 +1078,14 @@
 
                   // Send the request and receive the response:
                   EventEntry insertedEntry = myService.insert(postUrl, myEntry);
+<<<<<<< HEAD
                   //Fin Agregar Evento*/
+=======
+                  //Fin Agregar Evento
+              */
+>>>>>>> 9f6f81fd0df3f500f524293cf53c3b10b51ee0a0
 
+              $rootScope.vista = "evento";
               $scope.todo = "";
               $location.url('/admin');
           };
@@ -1130,6 +1157,7 @@
 
 
           $scope.Atras = function(){
+              $rootScope.vista = "evento";
               $location.path('/admin/eventos');
           }
 

@@ -417,6 +417,21 @@ button[type="button"].fc-agendaWeek-button{
     padding-top: 25px;
 }
 
+.modal-img-izquierda{
+	background-color: transparent;
+}
+
+.modal-open, .modal{
+	background-color: rgba(255, 255, 255, 0.60);
+}
+
+.modal-md{
+	width: 500px !important;
+}
+
+.modal-sm{
+	width: 300px !important;
+}
 /*Imagenes derecha*/
 
 
