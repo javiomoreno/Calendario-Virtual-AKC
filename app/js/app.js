@@ -5,8 +5,8 @@
     'calendario.controllers',
     'calendario.directives',
     'calendario.services',
-    'LocalStorageModule'
-
+    'LocalStorageModule',
+    'ngResource'
   ]);
 
 app.config(['localStorageServiceProvider', function(localStorageServiceProvider){

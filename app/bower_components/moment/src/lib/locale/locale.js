@@ -32,4 +32,4 @@ import { hooks } from '../utils/hooks';
 hooks.lang = deprecate('moment.lang is deprecated. Use moment.locale instead.', getSetGlobalLocale);
 hooks.langData = deprecate('moment.langData is deprecated. Use moment.localeData instead.', getLocale);
 
-import './es';
+import './en';

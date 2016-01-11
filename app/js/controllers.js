@@ -74,7 +74,7 @@
         for (var i = 0; i < $scope.eventos.length; i++) {
           if($scope.eventos[i].publicar == 1){
             var idEvento = $scope.eventos[i].id;
-            if ($scope.eventos[i].iconoEvento == 0){
+            if ($scope.eventos[i].iconoEvento == 3){
               $scope.events[contador] = {
                 id: $scope.eventos[i].id,
                 className: 'icono _0',
@@ -85,7 +85,7 @@
               };
               contador++;
             }
-            else if ($scope.eventos[i].iconoEvento == 1){
+            else if ($scope.eventos[i].iconoEvento == 4){
               $scope.events[contador] = {
                 id: $scope.eventos[i].id,
                 className: 'icono _1',
@@ -108,7 +108,7 @@
             }
             if($scope.eventos[i].repeticion == 4){
               for (var j = 1; j < 11; j++) {
-                if ($scope.eventos[i].iconoEvento == 0){
+                if ($scope.eventos[i].iconoEvento == 3){
                   $scope.events[contador] = {
                     id: $scope.eventos[i].id,
                     className: 'icono _0',
@@ -119,7 +119,7 @@
                   };
                   contador++;
                 }
-                else if ($scope.eventos[i].iconoEvento == 1){
+                else if ($scope.eventos[i].iconoEvento == 4){
                   $scope.events[contador] = {
                     id: $scope.eventos[i].id,
                     className: 'icono _1',
@@ -144,7 +144,7 @@
             }
             else if($scope.eventos[i].repeticion == 3){
               for (var j = 1; j < 121; j++) {
-                if ($scope.eventos[i].iconoEvento == 0){
+                if ($scope.eventos[i].iconoEvento == 3){
                   $scope.events[contador] = {
                     id: $scope.eventos[i].id,
                     className: 'icono _0',
@@ -155,7 +155,7 @@
                   };
                   contador++;
                 }
-                else if ($scope.eventos[i].iconoEvento == 1){
+                else if ($scope.eventos[i].iconoEvento == 4){
                   $scope.events[contador] = {
                     id: $scope.eventos[i].id,
                     className: 'icono _1',
@@ -180,7 +180,7 @@
             }
             else if($scope.eventos[i].repeticion == 2){
               for (var j = 1; j < 521; j++) {
-                if ($scope.eventos[i].iconoEvento == 0){
+                if ($scope.eventos[i].iconoEvento == 3){
                   $scope.events[contador] = {
                     id: $scope.eventos[i].id,
                     className: 'icono _0',
@@ -191,7 +191,7 @@
                   };
                   contador++;
                 }
-                else if ($scope.eventos[i].iconoEvento == 1){
+                else if ($scope.eventos[i].iconoEvento == 4){
                   $scope.events[contador] = {
                     id: $scope.eventos[i].id,
                     className: 'icono _1',
@@ -382,12 +382,32 @@
           }
 
       })
-      .controller('AdministradorController', function ($location, $scope) {
+      .controller('AdministradorController', function ($location, $timeout, $scope, servicioBackend, allTipoImagen, calendarioService) {
 
-        $scope.data = [];
-        $scope.holas = ["hola","chao","quetal","alo","bien"];
-        $scope.holase = ["hola","chao","quetal","alo","bien"];
-        $scope.level = 0;
+        /*allTipoImagen.query().$promise.then(function(data){
+          $scope.datosServicio = data;
+        })
+        calendarioService.all().then(function (data) {
+            $scope.datosServicio = data;
+        });*/
+
+        $scope.opciones = [];
+
+        servicioBackend.allTipoImagen()
+          .then(function(data) {
+            $timeout(function() {
+              for (var i = 0; i < data.length; i++) {
+                $scope.opciones[i] = {
+                  select: i,
+                  opcion: data[i].tbvalor
+                }
+              };
+            }, 3000);
+        });
+
+        $scope.cargarValores = function(){
+          $scope.opciones = $scope.opciones;
+        }
 
         $scope.Enviar = function(data){
           console.log(data);
@@ -465,7 +485,21 @@
           }
           
       })
-      .controller('ImagenesController', function ($http, $scope, $filter, $routeParams, localStorageService, $uibModal, $location, $route, $rootScope, upload) {
+      .controller('ImagenesController', function ($http, $scope, $timeout, $filter, $routeParams, servicioBackend, localStorageService, $uibModal, $location, $route, $rootScope) {
+
+        $scope.opciones = [];
+
+        servicioBackend.allTipoImagen()
+          .then(function(data) {
+            $timeout(function() {
+              for (var i = 0; i < data.length; i++) {
+                $scope.opciones[i] = {
+                  select: i,
+                  opcion: data[i].tbvalor
+                }
+              };
+            }, 2000);
+        });
 
         var todosInStore = localStorageService.get('imagenes');
 
@@ -774,7 +808,30 @@
           };
 
       })
-      .controller('EventosController', function ($http, $scope, $filter, $routeParams, localStorageService, $uibModal, $location, $route, $timeout, $rootScope) {
+      .controller('EventosController', function ($http, $scope, $filter, $routeParams, allTipoEvento, servicioBackend, localStorageService, $uibModal, $location, $route, $timeout, $rootScope) {
+
+        servicioBackend.allTipoEvento()
+          .then(function (data) {
+            $scope.datos = data;
+            console.log($scope.datos)
+        });
+        
+        /*
+        $scope.opciones = [];
+
+        for (var i = 0; i < $scope.datos.length; i++) {
+          $scope.opciones[i] = {
+            id: i,
+            opcion: $scope.datos[i].tbvalor
+          }
+        }*/
+
+        
+
+        /*allTipoEvento.query(function(data) {
+          $rootScope.opciones = data;
+          console.log($rootScope.opciones)
+        });*/
 
           var todosInStore = localStorageService.get('eventos');
 
@@ -783,6 +840,8 @@
           $scope.$watch('eventos', function(){
               localStorageService.add('eventos', $scope.eventos);
           }, true);
+
+
 
 
           $scope.anhos = [];
@@ -973,6 +1032,7 @@
               });
 
               /*Publicar Evento en Google Calendar*/
+              /*
                   URL postUrl = new URL("http://www.google.com/calendar/feeds/javiomoreno@gmail.com/private/full");
                   EventEntry myEntry = new EventEntry();
 
@@ -997,7 +1057,7 @@
 
                   // Send the request and receive the response:
                   EventEntry insertedEntry = myService.insert(postUrl, myEntry);
-                  //Fin Agregar Evento
+                  //Fin Agregar Evento*/
 
               $scope.todo = "";
               $location.url('/admin');
@@ -1052,7 +1112,6 @@
               }
 
               $scope.gridOptions.data = datos;
-              console.log(datos)
           }
           else{
               var id = $routeParams.idEvento;
@@ -1067,8 +1126,6 @@
 
               $scope.todos = $scope.datos[0];
               $scope.evento = $scope.datos[0];
-
-              console.log($scope.evento)
           }
 
 

@@ -2,11 +2,19 @@
 
   angular.module('calendario.services', [])
 
-    .factory('calendarioService', ['$http', '$q', '$window', function ($http, $q, $window) {
+  .factory('allTipoImagen', function ($resource) {
+    return $resource('http://pruebas.akc.co:8089/appexp/servlet/aextablas/tipoimag');
+  })
+
+  .factory('allTipoEvento', function ($resource) {
+    return $resource('http://pruebas.akc.co:8089/appexp/servlet/aextablas/tipoeven');
+  })
+
+    .factory('calendarioService', ['$http', '$q', '$window', '$timeout', function ($http, $q, $window, $timeout) {
       function all() {
         var deferred = $q.defer();
 
-        $http.get('calendario.json')
+        $http.get('http://pruebas.akc.co:8089/appexp/servlet/aextablas/tipoimag')
           .success(function (data) {
             deferred.resolve(data);
           });
@@ -40,29 +48,37 @@
 
     }])
 
-    .service('upload', function ($http, $q){
+    .factory('servicioBackend', ['$http', '$q', '$window', function ($http, $q, $window) {
 
-      this.uploadFile = function(file, nombre){
+      function allTipoImagen() {
         var deferred = $q.defer();
-        var formData = new FormData();
 
-        formData.append("nombre", nombre);
-        formData.append("file", file);
+        $http.get('http://pruebas.akc.co:8089/appexp/servlet/aextablas/tipoimag')
+          .success(function (data) {
+            deferred.resolve(data);
+          });
 
-        return $http.post("server.php", formData, {
-          headers: {
-            "Content-type": undefined
-          },
-          transformRequest: angular.identity
-        })
-        .success(function(res){
-          deferred.resolve(res);
-        })
-        .error(function(msg, code){
-          deferred.reject(msg);
-        })
-        return deferred.promise; 
+        return deferred.promise;
       }
-    });
+
+      function allTipoEvento() {
+        var deferred = $q.defer();
+
+        $http.get('http://pruebas.akc.co:8089/appexp/servlet/aextablas/tipoeven')
+          .success(function (data) {
+            deferred.resolve(data);
+          });
+
+        return deferred.promise;
+      }
+      
+      
+      return {
+        allTipoImagen: allTipoImagen,
+        allTipoEvento: allTipoEvento
+      };
+
+
+    }])
 
 })();
