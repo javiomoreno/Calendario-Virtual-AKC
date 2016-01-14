@@ -1,51 +1,30 @@
 <form name="form" ng-init="id = imagen.id">
-	<div class="form-group col-sm-12 col-lg-6" ng-init="anho = imagen.anho; mes = imagen.mes">
-	    <label for="mes">Mes</label>
-	    <!--<select class="form-control" id="mes" name="mes" style="width:160px" ng-model="imagen.mes"
-	    	ng-options="anhos.name for anhos in vectorAnhos.availableOptions track by anhos.id">
-		</select>-->
-	    <select class="form-control" id="mes" style="width:160px" ng-model="imagen.mes">
+	<div class="form-group col-sm-12 col-lg-6 blue" ng-init="anho = imagen.anho; mes = imagen.mes">
+	    <label for="mes">* Mes</label>
+	    <select class="form-control" id="mes" style="width:160px" ng-model="imagen.mes" ng-options="opcion.value as opcion.opcion for opcion in vecMeses" required>
 	      <option value="">Seleccione un Mes</option>
-		  <option value="Enero">Enero</option>
-		  <option value="Febrero">Febrero</option>
-		  <option value="Marzo">Marzo</option>
-		  <option value="Abril">Abril</option>
-		  <option value="Mayo">Mayo</option>
-		  <option value="Junio">Junio</option>
-		  <option value="Julio">Julio</option>
-		  <option value="Agosto">Agosto</option>
-		  <option value="Septiembre">Septiembre</option>
-		  <option value="Octubre">Octubre</option>
-		  <option value="Noviembre">Noviembre</option>
-		  <option value="Diciembre">Diciembre</option>
 		</select>
 	</div>
-	<div class="form-group col-sm-12 col-lg-6">
-	    <label for="anho">Año </label>
-	    <select class="form-control" id="anho" style="width:160px" ng-model="imagen.anho">
+	<div class="form-group col-sm-12 col-lg-6 blue">
+	    <label for="anho">* Año </label>
+	    <select class="form-control" id="anho" style="width:160px" ng-model="imagen.anho" ng-options="opcion.opcion as opcion.opcion for opcion in vecAnhos | orderBy:'opcion'" required>
 	      <option value="">Seleccione un Año</option>
-		  <option value="2015">2015</option>
-		  <option value="2016">2016</option>
-		  <option value="2017">2017</option>
-		  <option value="2018">2018</option>
-		  <option value="2019">2019</option>
-		  <option value="2020">2020</option>
 		</select>
 	</div>
-	  <div class="form-group col-sm-12 col-lg-6">
-	    <label for="tema">Titulo de Tema</label>
+	  <div class="form-group col-sm-12 col-lg-6 blue">
+	    <label for="tema">* Titulo de Tema</label>
 	    <input type="text" class="form-control" id="tema" 
            placeholder="Titulo de Tema" ng-model="imagen.tema"/>
 	  </div>
-	  <div class="form-group col-lg-12">
-	    <label for="mensaje">Mensaje</label>
+	  <div class="form-group col-lg-12 blue">
+	    <label for="mensaje">* Mensaje</label>
 	    <textarea class="form-control" id="mensaje" 
            placeholder="Mensaje" ng-model="imagen.mensaje"></textarea>
 	  </div>
 	  <div class="form-group col-lg-12" style="text-align: -webkit-center;">
 		<div style="width:400px; margin:12px;">
 		<h3 class="header blue smaller lighter">
-			Cargar Archivo
+			* Cargar Archivo
 		</h3>
 		<label class="ace-file-input ace-file-multiple">
 			<input fileread="imagen.archivo" type="file" placeholder="Please select file" class="form-control" accept="image/*"/>

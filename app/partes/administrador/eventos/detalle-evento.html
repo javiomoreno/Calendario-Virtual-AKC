@@ -4,6 +4,16 @@
             <div class="widget-box" ng-init="id = eventoDatos.id">
                 <div class="widget-header widget-header-flat">
                     <h4 class="widget-title smaller">{{eventoDatos.nombre}}</h4>
+                    <div class="widget-toolbar">
+                        <label>
+                            <small class="blue">
+                                <b>Finalizar Evento</b>
+                            </small>
+
+                            <input id="skip-validation" type="checkbox" ng-click="cambiarEstado(id)" ng-model="checkboxModel.value" class="ace ace-switch ace-switch-4" />
+                            <span class="lbl middle"></span>
+                        </label>
+                    </div>
                 </div>
                 <div class="widget-body">
                     <div class="profile-user-info profile-user-info-striped">
@@ -50,7 +60,7 @@
                             </div>
                         </div>
 
-                        <div class="profile-info-row">
+                        <div class="profile-info-row" ng-if="eventoDatos.iconoEvento != null">
                             <div class="profile-info-name"> Icono </div>
                             <div class="profile-info-value text-center">
                                 <img src="{{eventoDatos.iconoEvento}}" class="imagenVista" title="{{eventoDatos.icono}}">

@@ -64,6 +64,28 @@
       };
     })
 
+    .directive('listaObras', function () {
+      return {
+        restrict: 'E',
+        templateUrl: 'partes/administrador/imagenes/obras/lista-obras.html'
+      };
+    })
+
+    .directive('obrasMes', function () {
+      return {
+        restrict: 'E',
+        templateUrl: 'partes/administrador/imagenes/obras/obras-mes.html'
+      };
+    })
+
+    .directive('detalleObra', function () {
+      return {
+        restrict: 'E',
+        templateUrl: 'partes/administrador/imagenes/obras/detalle-obra.html'
+      };
+    })
+
+
     .directive('listaIconos', function () {
       return {
         restrict: 'E',
@@ -104,6 +126,13 @@
       return {
         restrict: 'E',
         templateUrl: 'partes/administrador/imagenes/imagenes/editar-imagen.html'
+      };
+    })
+
+    .directive('editarObra', function () {
+      return {
+        restrict: 'E',
+        templateUrl: 'partes/administrador/imagenes/obras/editar-obra.html'
       };
     })
 

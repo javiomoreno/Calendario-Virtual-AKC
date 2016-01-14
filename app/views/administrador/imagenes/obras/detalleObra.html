@@ -22,20 +22,29 @@
             <div class="page-content">
                 <div class="col-sm-12">
                     <uib-tabset class="tabs-left">
-                        <uib-tab active ="false">
+                        <uib-tab>
                           <uib-tab-heading>
                             <i class="menu-icon fa fa-desktop"></i> Imágenes
                           </uib-tab-heading>
-                          <elegir-tipolista></elegir-tipolista>
+                          <div class="col-md-8 col-lg-9">
+                              <h2>Detalle Obra</h2>
+                          </div>
+                          <div class="col-md-4 col-lg-3" ng-controller="AdministradorController">
+                              <button class="btn btn-sm btn-primary" ng-click="crearImagen()"><i class="menu-icon fa fa-plus"></i> Nueva Obra</button>
+                          </div>
+                          <detalle-obra></detalle-obra>
                         </uib-tab>
-                        <uib-tab active ="true">
+                        <uib-tab>
                           <uib-tab-heading>
                             <i class="menu-icon fa fa-calendar"></i> Eventos
                           </uib-tab-heading>
-                          <div class="col-xs-12 col-sm-6 col-md-8 col-lg-9 blue">
-                              <h2>Nuevo Evento</h2>
+                          <div class="col-xs-12 col-sm-6 col-md-8 col-lg-9">
+                              <h2>Lista de Eventos</h2>
                           </div>
-                          <nuevo-evento></nuevo-evento>
+                          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" ng-controller="AdministradorController">
+                              <button class="btn btn-sm btn-primary" ng-click="crearEvento()"><i class="menu-icon fa fa-plus"></i> Nuevo Evento</button>
+                          </div>
+                          <lista-eventos></lista-eventos>
                         </uib-tab>
                         <uib-tab>
                           <uib-tab-heading>

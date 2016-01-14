@@ -1,5 +1,14 @@
-<div class="maxIzquierda" ng-click="abrirImagenIzquierda(foto)">
-</div>
-	<img src="{{vm.archivo}}" alt="" width="500px" height="600px">
-	<p>{{vm.mensaje}}</p>
+<div class="contenido-imagen">
+	<div class="minIzquierda" ng-click="$close()">
+	</div>
+		<img src="{{vm.archivo}}" class="imagenMaxIzquierda" alt="" width="500px" height="600px">
+		<div class="caja">
+		<div class="mensajeIzquierda">
+			<div class="mensaje">
+				<p align="justify">{{vm.mensaje}}</p>
+				<p>{{vm.tema}}</p>
+			</div>
+		</div>
+		</div>
+	</div>
 </div>

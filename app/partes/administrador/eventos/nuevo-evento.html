@@ -1,26 +1,25 @@
 <form name="form" ng-controller="NuevoEventoController">
 	<div class="row">
-	<div class="form-group col-sm-12 col-sm-6 col-lg-6">
+	<div class="form-group col-sm-12 col-sm-6 col-lg-6 blue">
 		<label for="nombre">Nombre de Evento</label>
 		<input type="text" class="form-control"  placeholder="Introduce el nombre del Evento"
 			   id="nombre" ng-model="evento.nombre" required/>
 	</div>
-	<div class="form-group col-sm-12 col-sm-6 col-lg-6">
+	<div class="form-group col-sm-12 col-sm-6 col-lg-6 blue">
 		<label for="tipoEvento">Tipo de Evento</label>
-		<select class="form-control" style="width:250px" name="tipoEvento" id="tipoEvento" ng-model="evento.tipoEvento" required>
+		<select class="form-control" style="width:250px" name="tipoEvento" id="tipoEvento" ng-model="evento.tipoEvento" required ng-options="opcion.value as opcion.opcion for opcion in vecTipoEvento">
 			<option value="">Seleccione Tipo de Evento</option>
-			<option ng-repeat="option in vectorTipoEvento" value="{{option.id}}">{{option.name}}</option>
 		</select>
 	</div>
 	</div>
 	<div class="row">
-		<div class="form-group col-sm-12 col-lg-6">
+		<div class="form-group col-sm-12 col-lg-6 blue">
 			<div class="col-md-6">
 				<label for="fechaInicio">Fecha inicio</label>
 				<p class="input-group">
 				  <input type="text" class="form-control" uib-datepicker-popup="dd/MM/yyyy"
 				  ng-model="evento.fechaInicio" is-open="status.opened" min-date="minDate"
-				  max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" id="fechaInicio" />
+				  max-date="maxDate" datepicker-options="dateOptions" ng-required="true" close-text="Close" id="fechaInicio" />
 				  <span class="input-group-btn">
 					<button type="button" class="btn btn-primary" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
 				  </span>
@@ -28,22 +27,21 @@
 			</div>
 			<uib-timepicker ng-model="evento.horaInicio" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" ng-required="true"></uib-timepicker>
 		</div>
-		<div class="form-group col-sm-12 col-lg-6">
+		<div class="form-group col-sm-12 col-lg-6 blue">
 			<label for="repeticion">Repetición</label>
-			<select class="form-control" style="width:250px" name="repeticion" id="repeticion" ng-model="evento.repeticion" required>
+			<select class="form-control" style="width:250px" name="repeticion" id="repeticion" ng-model="evento.repeticion" required ng-options="opcion.value as opcion.opcion for opcion in vecRepeticion">
 				<option value="">Seleccione Periodicidad</option>
-				<option ng-repeat="option in vectorRepeticion" value="{{option.id}}">{{option.name}}</option>
 			</select>
 		</div>
 	</div>
 	<div class="row">
-		<div class="form-group col-sm-12 col-lg-6">
+		<div class="form-group col-sm-12 col-lg-6 blue">
 			<div class="col-md-6">
 				<label for="fechaFin">Fecha fin</label>
 				<p class="input-group">
 				  <input type="text" class="form-control" uib-datepicker-popup="dd/MM/yyyy"
-				  ng-model="evento.fechaFin" is-open="status2.opened" min-date="minDate"
-				  max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" id="fechaFin" />
+				  ng-model="evento.fechaInicio" is-open="status2.opened" min-date="minDate"
+				  max-date="maxDate" datepicker-options="dateOptions" ng-required="true" close-text="Close" id="fechaFin"/>
 				  <span class="input-group-btn">
 					<button type="button" class="btn btn-primary" ng-click="open2($event)"><i class="glyphicon glyphicon-calendar"></i></button>
 				  </span>
@@ -51,11 +49,10 @@
 			</div>
 			<uib-timepicker ng-model="evento.horaFin" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" ng-required="true" ></uib-timepicker>
 		</div>
-		<div class="form-group col-sm-12 col-lg-6">
+		<div class="form-group col-sm-12 col-lg-6 blue">
 			<label for="importancia">Importancia</label>
-			<select class="form-control" style="width:250px" name="importancia" id="importancia" ng-model="evento.importancia" required>
+			<select class="form-control" style="width:250px" name="importancia" id="importancia" ng-model="evento.importancia" required ng-options="opcion.value as opcion.opcion for opcion in vecImportancia">
 				<option value="">Seleccione Importancia</option>
-				<option ng-repeat="option in vectorImportancia" value="{{option.id}}">{{option.name}}</option>
 			</select>
 		</div>
 	</div>

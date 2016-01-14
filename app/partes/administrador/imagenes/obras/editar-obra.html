@@ -1,0 +1,52 @@
+<form name="form" ng-init="id = obra.id">
+	<div class="form-group col-sm-12 col-lg-6 blue" ng-init="anho = obra.anho; mes = obra.mes">
+	    <label for="mes">* Mes</label>
+	    <select class="form-control" id="mes" style="width:160px" ng-model="obra.mes" ng-options="opcion.opcion as opcion.opcion for opcion in vecMeses" required>
+	      <option value="">Seleccione un Mes</option>
+		</select>
+	</div>
+	<div class="form-group col-sm-12 col-lg-6 blue">
+	    <label for="anho">* Año </label>
+	    <select class="form-control" id="anho" style="width:160px" ng-model="obra.anho" ng-options="opcion.opcion as opcion.opcion for opcion in vecAnhos | orderBy:'opcion'" required>
+	      <option value="">Seleccione un Año</option>
+		</select>
+	</div>
+	  <div class="form-group col-sm-12 col-lg-6 blue">
+	    <label for="tema">* Titulo de Tema</label>
+	    <input type="text" class="form-control" id="tema" 
+           placeholder="Titulo de Tema" ng-model="obra.tema"/>
+	  </div>
+	  <div class="form-group col-sm-12 col-lg-6 blue">
+	    <label for="tema">* Autor</label>
+	    <input type="text" class="form-control" id="autor" 
+           placeholder="Autor de Obra de Arte" ng-model="obra.autor" required/>
+	  </div>
+	  <div class="form-group col-lg-12 blue">
+	    <label for="mensaje">Mensaje</label>
+	    <textarea class="form-control" id="mensaje" 
+           placeholder="Mensaje" ng-model="obra.mensaje"></textarea>
+	  </div>
+	  <div class="form-group col-lg-12" style="text-align: -webkit-center;">
+		<div style="width:400px; margin:12px;">
+		<h3 class="header blue smaller lighter">
+			* Cargar Archivo
+		</h3>
+		<label class="ace-file-input ace-file-multiple">
+			<input fileread="obra.archivo" type="file" placeholder="Please select file" class="form-control" accept="image/*"/>
+			<span ng-if="obra.archivo == null" class="ace-file-container" data-title="Seleccione el archivo">
+				<span  class="ace-file-name" data-title="No hay Achivo ...">
+					<i class=" ace-icon fa fa-upload"></i>
+				</span>
+			</span>
+			<span ng-if="obra.archivo != null" class="ace-file-container">
+				<img src="{{obra.archivo}}" class="imagenVista" alt="">
+			</span>
+			<a class="remove" href="#">
+				<i class=" ace-icon fa fa-times"></i>
+			</a>
+		</label>
+	</div>
+	<div class="form-group col-lg-12">
+  		<button class="btn btn-primary" ng-click="editarObra(id)">Editar</button>
+  	</div>
+</form><!-- /.col -->

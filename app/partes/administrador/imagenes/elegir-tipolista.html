@@ -1,7 +1,7 @@
-<div class="form-group col-sm-12 col-lg-12 header blue smaller lighter">
+<div class="form-group col-sm-12 col-lg-12 header blue smaller lighter" ng-controller="AdministradorController">
     <label for="tipo">Tipo de Imagen</label>
     <form action="">
-      <select ng-model="opcion" ng-options="opcion.opcion for opcion in opciones track by opcion.select">
+      <select ng-model="opcion" ng-options="opcion.opcion for opcion in opciones">
       	<option value="">Seleccione un Tipo de Imagen</option>
       </select>
      </form>

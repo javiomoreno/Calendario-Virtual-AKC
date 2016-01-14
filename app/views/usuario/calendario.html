@@ -38,17 +38,17 @@
 				  <div class="row">
 					  <span ng-repeat="opcion in vectorIconosMes track by $index">
 					  	<div class="col-lg-3">
-					  		<div class="{{opcion.clase}}" style="float:left"></div>
+					  		<div class="icono imagenIcono" style='float:left; background-image: url("{{opcion.iconoImagen}}");'></div>
 					  		<p class="nombre-icono">{{opcion.nombre}}</p>
 					  	</div>
 					  </span>
 				  </div>
 				</div>
 				<div class="col-lg-3 fondo-derecha">
-					<div class="maxDerecha" ng-click="abrirImagenDerecha()">
+					<div class="maxDerecha" ng-click="abrirIObra(obra)">
 				    </div>
 				    <div class="caja-obra">
-				    	<img src="img/{{mes}}-{{anho}}/obra-minimizada.png" alt="imagen" class="imagen-derecha" width="300px" height="200px">
+				    	<img src="{{obra.archivo}}" alt="imagen" class="imagen-derecha" width="300px" height="200px">
 				    </div>
 				    <img src="img/{{mes}}-{{anho}}/boton obra del mes.png" alt="imagen" class="tema-obra" width="250px" height="50px">
 				    <img src="img/logo salon del agua.png" alt="imagen" class="vaso" width="190px" height="260px">	

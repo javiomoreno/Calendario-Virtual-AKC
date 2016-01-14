@@ -244,6 +244,57 @@ a:-webkit-any-link {
     cursor: pointer;
 }
 
+.minIzquierda{
+	height: 35px;
+	width: 35px;
+	background-size: 35px 35px;
+	background-image: url('../img/iconos/boton minimizar turquesa.png');
+	margin-top: 20px;
+    margin-left: 230px;
+    z-index: 1;
+    opacity: 0.9;
+    cursor: pointer;
+}
+
+.imagenMaxIzquierda{
+	z-index: 0;
+	margin-top: -55px;
+}
+
+.caja{
+	overflow: hidden;
+	z-index: 2;
+    margin-top: -100px;
+    width: 300px;
+    height: 100px;
+}
+
+.mensajeIzquierda{
+	-webkit-transform: rotate(6deg);
+    color: #06087D;
+    padding-left: 70px;
+    margin-left: -40px;
+    opacity: 0.7;
+    width: 300px;
+    border-radius: 20px;
+    margin-top: 25px;
+    border-color: #A5FFE1;
+    border: 1px solid #6F7BB3;
+    height: 100px;
+    margin-right: 50px;
+    background-color: aquamarine;;
+}
+
+.mensaje{
+	-webkit-transform: rotate(-6deg);
+	padding-top: 5px;
+}
+
+.contenido-imagenDerecha{
+	    background-color: #E6E7E8;
+    border-radius: 10px;
+}
+
 .maxDerecha{
 	height: 35px;
 	width: 35px;
@@ -256,6 +307,53 @@ a:-webkit-any-link {
     opacity: 0.9;
     cursor: pointer;
     position: relative;
+}
+
+.minDerecha{
+	float: right;
+    padding-right: 50px;
+	height: 35px;
+    width: 35px;
+    background-size: 35px 35px;
+    background-image: url('../img/iconos/boton minimizar turquesa.png');
+    background-repeat: no-repeat;
+    margin-top: 20px;
+    z-index: 1;
+    opacity: 0.9;
+    cursor: pointer;
+}
+
+.imagenMaxDerecha{
+	z-index: 0;
+	margin-top: -40px;
+	padding-left: 50px;
+    padding-right: 50px;
+}
+
+.pieImagenDerecha{
+	background-image: url('../img/iconos/imagenPie.png');
+    background-repeat: no-repeat;
+    background-size: 100px 100px;
+    margin-left: 30px;
+    width: 300px;
+    height: 100px;
+    padding-left: 120px;
+}
+
+.temaObra{
+	text-transform: uppercase;
+	font-weight: bold;
+	padding-top: 15px;
+}
+
+.autorObra{
+	margin-top: -13px;
+}
+
+.mensajeObra{
+	text-transform: uppercase;
+	font-weight: bold;
+	color: #28B910;
 }
 
 .imagenVista { 
@@ -396,16 +494,7 @@ button[type="button"].fc-agendaWeek-button{
 	height: 20px;
 }
 
-._0{
-	background-image: url('../img/iconos/icono1.png');
-	background-size: 20px 20px;
-	background-repeat: no-repeat;
-	background-color: transparent !important;
-	margin-top: 24px !important;
-}
-
-._1{
-	background-image: url('../img/iconos/icono2.png');
+.imagenIcono{
 	background-size: 20px 20px;
 	background-repeat: no-repeat;
 	background-color: transparent !important;
