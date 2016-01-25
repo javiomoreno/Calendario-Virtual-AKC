@@ -6,9 +6,10 @@ calendModController.controller('CalendarioController', [
                                                       'calendarioService', 
                                                       'localStorageService', 
                                                       '$uibModal', 
+                                                      '$uibTooltip',
                                                       'uiCalendarConfig',
 
-  function ($scope, $compile, $rootScope, $routeParams, calendarioService, localStorageService, $uibModal, uiCalendarConfig){
+  function ($scope, $compile, $rootScope, $routeParams, calendarioService, localStorageService, $uibModal, $uibTooltip, uiCalendarConfig){
 
         var date = new Date();
         var d = date.getDate();
@@ -16,15 +17,68 @@ calendModController.controller('CalendarioController', [
         var y = date.getFullYear();
         var contador = 0;
 
+        $scope.busqueda = [];
+        $scope.busqueda.importancia = {}
+        $scope.busqueda.periodicidad = {}
+        $scope.busqueda.descripcion = ""
         $rootScope.mes = {};
         $rootScope.anho = {};
         $rootScope.foto = {};
         $rootScope.obra = {};
+        $scope.eventos = [];
+        $scope.events = [];
+        $scope.todosEventos = [];
+
+        $scope.vecRepeticion= [];
+        $scope.vecImportancia= [];
+
+        calendarioService.getAllRepeticion().then(function (data) {
+          for (var i = 0; i < data.length; i++) {
+            $scope.vecRepeticion[i] = {
+              select: i,
+              opcion: data[i].tbclave+" - "+data[i].tbvalor,
+              value: data[i].tbclave
+            }
+          };
+        });
+
+        calendarioService.getAllImportancia().then(function (data) {
+          for (var i = 0; i < data.length; i++) {
+            $scope.vecImportancia[i] = {
+              select: i,
+              opcion: data[i].tbclave+" - "+data[i].tbvalor,
+              value: data[i].tbclave
+            }
+          };
+        });
+
+        $scope.checkImportancia = false;
+        $scope.checkPeriodicidad = false;
+        $scope.checkDescripcion = false;
+        
+        
+        $scope.cambiarImportancia = function(){
+          if($scope.checkImportancia == true){
+            $scope.checkPeriodicidad = false;
+            $scope.checkDescripcion = false;
+          }
+        }
+
+        $scope.cambiarPeriodicidad= function(){
+          if($scope.checkPeriodicidad == true){
+            $scope.checkDescripcion = false;
+            $scope.checkImportancia = false;
+          }
+        }
+
+        $scope.cambiarDescripcion = function(){
+          if($scope.checkDescripcion == true){
+            $scope.checkPeriodicidad = false;
+            $scope.checkImportancia = false;
+          }
+        }
 
         var vectorColores = ['#118484', '#268A25', '#8C0404']
-
-        $scope.eventSources = [];
-        $scope.events = [];
 
         var todosInStore = localStorageService.get('eventos');
         $scope.eventos = todosInStore || [];
@@ -68,10 +122,72 @@ calendModController.controller('CalendarioController', [
           }
         }
 
-        $rootScope.contador = cont;
+        
 
-        console.log($scope.eventos)
+        $scope.addRemoveEventSource = function(sources,source) {
+          var canAdd = 0;
+          angular.forEach(sources,function(value, key){
+            if(sources[key] === source){
+              sources.splice(key,1);
+              canAdd = 1;
+            }
+          });
+          if(canAdd === 0){
+            sources.push(source);
+          }
+        };
 
+        /*$scope.eventSource = {
+            url: 'https://calendar.google.com/calendar/ical/javiomoreno%40gmail.com/public/basic.ics',
+            className: 'gcal-event'
+        };*/
+/*
+        $('#Calendario').fullCalendar({
+            googleCalendarApiKey: '742162438611-ierfe8lp212ojtccrtdsckf3gvrvr3mu.apps.googleusercontent.com',
+            eventSource: 
+                {
+                  googleCalendarId: 'https://calendar.google.com/calendar/ical/javiomoreno%40gmail.com/public/basic.ics',
+                  className: 'gcal-event'
+                }
+            
+        });*/
+
+        $scope.buscar = function (){
+          var cont = 0;
+          var eventosFiltrados = [];
+          uiCalendarConfig.calendars.Calendario.fullCalendar('removeEventSource', $scope.events);
+          uiCalendarConfig.calendars.Calendario.fullCalendar('refetchEvents');
+          if ($scope.checkImportancia) {
+              angular.forEach($scope.todosEventos, function(value, key){
+                if(value.importancia == $scope.busqueda.importancia.value){
+                  eventosFiltrados.push(value);
+                }
+              });
+          }
+          else if ($scope.checkPeriodicidad) {
+            angular.forEach($scope.todosEventos, function(value, key){
+              if(value.repeticion == $scope.busqueda.periodicidad.value){
+                eventosFiltrados.push(value);
+              }
+            });
+          }
+          else if ($scope.checkDescripcion) {
+            angular.forEach($scope.todosEventos, function(value, key){
+              if(value.title.toUpperCase().search($scope.busqueda.descripcion.toUpperCase()) != -1){
+                eventosFiltrados.push(value);
+              }
+            });
+          }
+          else{
+            angular.forEach($scope.todosEventos, function(value, key){
+                eventosFiltrados.push(value);
+            });
+          }
+          uiCalendarConfig.calendars["Calendario"].fullCalendar('addEventSource', eventosFiltrados);
+          uiCalendarConfig.calendars.Calendario.fullCalendar('refetchEvents');
+
+          $scope.events = eventosFiltrados;
+        }
         var bandera = true;
 
         for (var i = 0; i < $scope.eventos.length; i++) {
@@ -80,6 +196,8 @@ calendModController.controller('CalendarioController', [
             if ($scope.eventos[i].iconoEvento != undefined){
               $scope.events[contador] = {
                 id: $scope.eventos[i].id,
+                repeticion: $scope.eventos[i].repeticion,
+                importancia: $scope.eventos[i].importancia,
                 idIcono: $rootScope.vectorIconos[$scope.eventos[i].iconoEvento].id,
                 icono: $rootScope.vectorIconos[$scope.eventos[i].iconoEvento].archivo,
                 className: 'icono imagenIcono',
@@ -93,6 +211,8 @@ calendModController.controller('CalendarioController', [
             else{
               $scope.events[contador] = {
                 id: $scope.eventos[i].id,
+                repeticion: $scope.eventos[i].repeticion,
+                importancia: $scope.eventos[i].importancia,
                 color: vectorColores[$scope.eventos[i].importancia-1],
                 title: $scope.eventos[i].nombre,
                 start: new Date($scope.eventos[i].fechaInicio), // A javascript date object for when the event starts
@@ -107,7 +227,7 @@ calendModController.controller('CalendarioController', [
                 var inicio = new Date(new Date($scope.eventos[i].fechaInicio).getFullYear() + j, new Date($scope.eventos[i].fechaInicio).getMonth(), new Date($scope.eventos[i].fechaInicio).getDate(), new Date($scope.eventos[i].fechaInicio).getHours(), new Date($scope.eventos[i].fechaInicio).getMinutes());
                 var fin = new Date(new Date($scope.eventos[i].fechaFin).getFullYear() + j, new Date($scope.eventos[i].fechaFin).getMonth(), new Date($scope.eventos[i].fechaFin).getDate(), new Date($scope.eventos[i].fechaFin).getHours(), new Date($scope.eventos[i].fechaFin).getMinutes());
                 if ($scope.eventos[i].estado == 2){
-                  if(new Date(inicio) < new Date($scope.eventos[i].fechaFinalizacion)) {
+                  if(new Date(inicio) <= new Date($scope.eventos[i].fechaFinalizacion)) {
                     bandera = true;
                   }
                   else{
@@ -118,6 +238,8 @@ calendModController.controller('CalendarioController', [
                   if ($scope.eventos[i].iconoEvento != undefined){
                     $scope.events[contador] = {
                       id: $scope.eventos[i].id,
+                      repeticion: $scope.eventos[i].repeticion,
+                      importancia: $scope.eventos[i].importancia,
                       idIcono: $rootScope.vectorIconos[$scope.eventos[i].iconoEvento].id,
                       icono: $rootScope.vectorIconos[$scope.eventos[i].iconoEvento].archivo,
                       className: 'icono imagenIcono',
@@ -131,6 +253,8 @@ calendModController.controller('CalendarioController', [
                   else{
                     $scope.events[contador] = {
                       id: $scope.eventos[i].id,
+                      repeticion: $scope.eventos[i].repeticion,
+                      importancia: $scope.eventos[i].importancia,
                       color: vectorColores[$scope.eventos[i].importancia-1],
                       title: $scope.eventos[i].nombre,
                       start: inicio,
@@ -148,7 +272,7 @@ calendModController.controller('CalendarioController', [
                 var inicio = new Date(new Date($scope.eventos[i].fechaInicio).getFullYear(), new Date($scope.eventos[i].fechaInicio).getMonth() + j, new Date($scope.eventos[i].fechaInicio).getDate(), new Date($scope.eventos[i].fechaInicio).getHours(), new Date($scope.eventos[i].fechaInicio).getMinutes());
                 var fin = new Date(new Date($scope.eventos[i].fechaFin).getFullYear(), new Date($scope.eventos[i].fechaFin).getMonth() + j, new Date($scope.eventos[i].fechaFin).getDate(), new Date($scope.eventos[i].fechaFin).getHours(), new Date($scope.eventos[i].fechaFin).getMinutes());
                 if ($scope.eventos[i].estado == 2){
-                  if(new Date(inicio) < new Date($scope.eventos[i].fechaFinalizacion)) {
+                  if(new Date(inicio) <= new Date($scope.eventos[i].fechaFinalizacion)) {
                     bandera = true;
                   }
                   else{
@@ -159,6 +283,8 @@ calendModController.controller('CalendarioController', [
                   if ($scope.eventos[i].iconoEvento != undefined){
                       $scope.events[contador] = {
                       id: $scope.eventos[i].id,
+                      repeticion: $scope.eventos[i].repeticion,
+                      importancia: $scope.eventos[i].importancia,
                       idIcono: $rootScope.vectorIconos[$scope.eventos[i].iconoEvento].id,
                       icono: $rootScope.vectorIconos[$scope.eventos[i].iconoEvento].archivo,
                       className: 'icono imagenIcono',
@@ -172,6 +298,8 @@ calendModController.controller('CalendarioController', [
                   else{
                     $scope.events[contador] = {
                       id: $scope.eventos[i].id,
+                      repeticion: $scope.eventos[i].repeticion,
+                      importancia: $scope.eventos[i].importancia,
                       color: vectorColores[$scope.eventos[i].importancia-1],
                       title: $scope.eventos[i].nombre,
                       start: inicio,
@@ -188,7 +316,7 @@ calendModController.controller('CalendarioController', [
                 var inicio = new Date(new Date($scope.eventos[i].fechaInicio).getFullYear(), new Date($scope.eventos[i].fechaInicio).getMonth(), new Date($scope.eventos[i].fechaInicio).getDate() + (j*7), new Date($scope.eventos[i].fechaInicio).getHours(), new Date($scope.eventos[i].fechaInicio).getMinutes());
                 var fin = new Date(new Date($scope.eventos[i].fechaFin).getFullYear(), new Date($scope.eventos[i].fechaFin).getMonth(), new Date($scope.eventos[i].fechaFin).getDate() + (j*7), new Date($scope.eventos[i].fechaFin).getHours(), new Date($scope.eventos[i].fechaFin).getMinutes());
                 if ($scope.eventos[i].estado == 2){
-                  if(new Date(inicio) < new Date($scope.eventos[i].fechaFinalizacion)) {
+                  if(new Date(inicio) <= new Date($scope.eventos[i].fechaFinalizacion)) {
                     bandera = true;
                   }
                   else{
@@ -199,6 +327,8 @@ calendModController.controller('CalendarioController', [
                   if ($scope.eventos[i].iconoEvento != undefined){
                       $scope.events[contador] = {
                       id: $scope.eventos[i].id,
+                      repeticion: $scope.eventos[i].repeticion,
+                      importancia: $scope.eventos[i].importancia,
                       idIcono: $rootScope.vectorIconos[$scope.eventos[i].iconoEvento].id,
                       icono: $rootScope.vectorIconos[$scope.eventos[i].iconoEvento].archivo,
                       className: 'icono imagenIcono',
@@ -212,6 +342,8 @@ calendModController.controller('CalendarioController', [
                   else{
                     $scope.events[contador] = {
                       id: $scope.eventos[i].id,
+                      repeticion: $scope.eventos[i].repeticion,
+                      importancia: $scope.eventos[i].importancia,
                       color: vectorColores[$scope.eventos[i].importancia-1],
                       title: $scope.eventos[i].nombre,
                       start: inicio,
@@ -229,7 +361,7 @@ calendModController.controller('CalendarioController', [
           if(event.icono != undefined){
             element.css('background-image', "url('"+event.icono+"')");
           }
-            element.attr({'tooltip': (event.title +' '+new Date(event.start).getHours() +':'+(new Date(event.start).getMinutes()<10?'0':'') + new Date(event.start).getMinutes() ),
+            element.attr({'uib-tooltip': (event.title +' '+formatoAMPM(new Date(event.start))),
                          'tooltip-append-to-body': true});
             $compile(element)($scope);
         };
@@ -256,20 +388,22 @@ calendModController.controller('CalendarioController', [
               if(new Date($scope.events[i].start).getDate() == new Date(fechaToda).getDate() && new Date($scope.events[i].start).getMonth() == new Date(fechaToda).getMonth() && new Date($scope.events[i].start).getFullYear() == new Date(fechaToda).getFullYear() && bandera == true){
                   eventosLista[cont] = {
                     nombre: $scope.events[i].title,
-                    hora: new Date($scope.events[i].start).getHours()+":"+new Date($scope.events[i].start).getMinutes(),
+                    hora: formatoAMPM(new Date($scope.events[i].start)),
                   };
                   cont ++;
               }
             };
 
-            showModalOpen(fecha, eventosLista);
+            if (eventosLista.length != 0) {
+              showModalOpen(fecha, eventosLista);
+            };
         };
 
         $scope.eventClick = function( date, jsEvent, view){
             var evento = {};
             evento = {
               nombre: date.title,
-              detalle: $scope.uiConfig.calendar.dayNamesShort[new Date(date.start).getDay()]+", "+ new Date(date.start).getDate()+" de "+$scope.uiConfig.calendar.monthNames[new Date(date.start).getMonth()]+". Hora: "+new Date(date.start).getHours()+":"+(new Date(date.start).getMinutes()<10?'0':'') + new Date(date.start).getMinutes()
+              detalle: $scope.uiConfig.calendar.dayNamesShort[new Date(date.start).getDay()]+", "+ new Date(date.start).getDate()+" de "+$scope.uiConfig.calendar.monthNames[new Date(date.start).getMonth()]+". Hora: "+formatoAMPM(new Date(date.start))
             };
             for (var i = 0; i < $scope.eventos.length; i++) {
               if($scope.eventos[i].id == date.id){
@@ -283,7 +417,7 @@ calendModController.controller('CalendarioController', [
 
         function showModalOpenEvento(evento, size){
           $uibModal.open({
-              templateUrl: 'views/calendario/evento.html',
+              templateUrl: 'partes/calendario/modalEvento.html',
               size: size,
               controller: function() {
                 var vm = this;
@@ -296,7 +430,7 @@ calendModController.controller('CalendarioController', [
 
         function showModalOpen(dia, eventos){
             $uibModal.open({
-              templateUrl: 'views/calendario/eventos-dia.html',
+              templateUrl: 'partes/calendario/modalEventosDia.html',
               controller: function() {
                 var vm = this;
                 vm.dia = dia;
@@ -389,7 +523,6 @@ calendModController.controller('CalendarioController', [
                   }
                 }                
               };
-              console.log($rootScope.vectorIconosMes)
               $rootScope.foto = imagenes[Math.floor((Math.random()*conta))];
               $rootScope.obra = obras[Math.floor((Math.random()*conta))];
             }
@@ -400,7 +533,18 @@ calendModController.controller('CalendarioController', [
         $scope.uiConfig.calendar.dayNamesShort = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"];
         $scope.uiConfig.calendar.monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
         $scope.uiConfig.calendar.monthNamesShort = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
-        $scope.eventSources = [$scope.events];
+        $scope.eventSources = [$scope.events, $scope.eventSource];
+
+        console.log($scope.eventSource)
+
+        
+        /*uiCalendarConfig.calendars.Calendario.fullCalendar({
+            googleCalendarApiKey: '742162438611-ierfe8lp212ojtccrtdsckf3gvrvr3mu.apps.googleusercontent.com'
+        });
+
+        */
+
+        $scope.todosEventos = $scope.events.slice();
 
         $scope.abrirImagenIzquierda = function(foto){
             showModalOpenFotoIzquierda(foto, 'md');
@@ -408,7 +552,7 @@ calendModController.controller('CalendarioController', [
 
         function showModalOpenFotoIzquierda(foto, size){
             $uibModal.open({
-                templateUrl: 'partes/calendario/imagen-izquierda.html',
+                templateUrl: 'partes/calendario/modalImagenIzquierda.html',
                 size: size,
                 controller: function() {
                   var vm = this;
@@ -426,7 +570,8 @@ calendModController.controller('CalendarioController', [
 
         function showModalOpenObra(foto, size){
             $uibModal.open({
-                templateUrl: 'partes/calendario/obra.html',
+
+                templateUrl: 'partes/calendario/modalObra.html',
                 size: size,
                 controller: function() {
                   var vm = this;
@@ -437,5 +582,16 @@ calendModController.controller('CalendarioController', [
                 },
                 controllerAs: 'vm'
               });
+        }
+
+        function formatoAMPM(date) {
+          var horas = date.getHours();
+          var minutos = date.getMinutes();
+          var ampm = horas >= 12 ? 'pm' : 'am';
+          horas = horas % 12;
+          horas = horas ? horas : 12; // the hour '0' should be '12'
+          minutos = minutos < 10 ? '0'+minutos : minutos;
+          var hora = horas + ':' + minutos + ' ' + ampm;
+          return hora;
         }
 }]);

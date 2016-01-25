@@ -1,17 +1,19 @@
-<div class="form-group col-sm-12 col-lg-12 header blue smaller lighter" ng-controller="AdministradorController">
-    <label for="tipo">Tipo de Imagen</label>
-    <form action="">
-      <select ng-model="opcion" ng-options="opcion.opcion for opcion in opciones">
-      	<option value="">Seleccione un Tipo de Imagen</option>
-      </select>
-     </form>
-</div>
-<span ng-if="opcion.select == 0">
-	<lista-imagenes></lista-imagenes>
-</span>
-<span ng-if="opcion.select == 1">
-	<lista-iconos></lista-iconos>
-</span>
-<span ng-if="opcion.select == 2">
-	<lista-obras></lista-obras>
+<span  ng-controller="AdministradorController">
+	<div class="form-group col-sm-12 col-lg-12 header blue smaller lighter">
+	    <label for="tipo">Tipo de Imagen</label>
+	    <form action="">
+	      <select ng-model="opcion" ng-options="opcion.value as opcion.opcion for opcion in opciones">
+	      	<option value="">Seleccione un Tipo de Imagen</option>
+	      </select>
+	     </form>
+	</div>
+	<span ng-if="opcion == 01">
+		<lista-fotografias></lista-fotografias>
+	</span>
+	<span ng-if="opcion == 02">
+		<lista-iconos></lista-iconos>
+	</span>
+	<span ng-if="opcion == 03">
+		<lista-obras></lista-obras>
+	</span>
 </span>

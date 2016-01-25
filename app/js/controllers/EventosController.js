@@ -275,7 +275,6 @@ calendModController.controller('EventosController', [
               var datos = [];
 
               for(var i = 0; i < $scope.todos.length; i ++){
-                console.log($scope.todos[i])
                   datos[i] = {
                       'id': $scope.todos[i].id,
                       'nombre': $scope.todos[i].nombre,

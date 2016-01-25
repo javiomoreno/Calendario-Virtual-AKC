@@ -1,1 +1,29 @@
-[{"tbnumero":2201,"tbcodigo":"TIPOEVEN","tbclave":"01","tbvalor":"PUBLICO","tbvalint":null,"tbvalnum":null,"tbvalfec":null},{"tbnumero":2202,"tbcodigo":"TIPOEVEN","tbclave":"02","tbvalor":"PRIVADO","tbvalint":null,"tbvalnum":null,"tbvalfec":null}]
+[
+	{
+		"tbnumero":2201,
+		"tbcodigo":"TIPOIMG",
+		"tbclave":"01",
+		"tbvalor":"FOTOGRAFIA",
+		"tbvalint":null,
+		"tbvalnum":null,
+		"tbvalfec":null
+	},
+	{
+		"tbnumero":2202,
+		"tbcodigo":"TIPOIMG",
+		"tbclave":"02",
+		"tbvalor":"ICONO",
+		"tbvalint":null,
+		"tbvalnum":null,
+		"tbvalfec":null
+	},
+	{
+		"tbnumero":2203,
+		"tbcodigo":"TIPOIMG",
+		"tbclave":"03",
+		"tbvalor":"OBRA DE ARTE",
+		"tbvalint":null,
+		"tbvalnum":null,
+		"tbvalfec":null
+	}
+]

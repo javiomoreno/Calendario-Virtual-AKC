@@ -12,10 +12,10 @@ var appExpuestas = angular.module('AppExp',
                                   'ui.grid', 
                                   'ui.grid.selection', 
                                   'ui.calendar',
-                                  // MODULES CALENDARIO VIRTUAL
-                                  'calendModules',
-                                  //DIRECTIVES
-                                  'calendario.directives'
+                                  // MODULES CHECKLIST
+                                  'checklist-model',
+                                  // MODULES CALENDARIO VIRTUAL                                  
+                                  'calendModules'
                                 ]);
 
 appExpuestas.config(['localStorageServiceProvider', function(localStorageServiceProvider){

@@ -4,55 +4,56 @@ calendModController.controller('ObrasController', [
                                                 '$timeout', 
                                                 '$filter', 
                                                 '$routeParams', 
-                                                'servicioBackend', 
+                                                'calendarioService', 
                                                 'localStorageService', 
                                                 '$uibModal', 
                                                 '$location', 
                                                 '$route', 
                                                 '$rootScope',
-    function ($http, $scope, $timeout, $filter, $routeParams, servicioBackend, localStorageService, $uibModal, $location, $route, $rootScope) {
+    function ($http, $scope, $timeout, $filter, $routeParams, calendarioService, localStorageService, $uibModal, $location, $route, $rootScope) {
 
         $scope.opciones = [];
 
-        servicioBackend.allTipoImagen()
-          .then(function(data) {
-            $timeout(function() {
-              for (var i = 0; i < data.length; i++) {
-                $scope.opciones[i] = {
-                  id: i,
-                  opcion: data[i].tbvalor
-                }
-              };
-            }, 2000);
+        $scope.obra = {};
+        $scope.obra.mes = {};
+        $scope.obra.anho = {},
+        $scope.obra.tema = "";
+        $scope.obra.autor = "";
+        $scope.obra.mensaje = "";
+        $scope.obra.archivo = "";
+
+        calendarioService.getAllTipoImagen().then(function(data) {
+          for (var i = 0; i < data.length; i++) {
+            $scope.opciones[i] = {
+              select: i,
+              opcion: data[i].tbclave+" - "+data[i].tbvalor
+            }
+          };
         });
 
         $scope.vecMeses = [];
 
-        servicioBackend.allMeses()
-          .then(function(data) {
-            $timeout(function() {
-              for (var i = 0; i < data.length; i++) {
-                $scope.vecMeses[i] = {
-                  id: i,
-                  opcion: data[i].tbvalor
-                }
-              };
-            }, 2000);
+        calendarioService.getAllMeses().then(function(data) {
+            for (var i = 0; i < data.length; i++) {
+              $scope.vecMeses[i] = {
+                id: i,
+                opcion: data[i].tbclave+" - "+data[i].tbvalor,
+                value: data[i].tbvalor
+              }
+            };
         });
 
         $scope.vecAnhos = [];
 
-        servicioBackend.allAnhos()
-          .then(function(data) {
-            $timeout(function() {
-              for (var i = 0; i < data.length; i++) {
-                $scope.vecAnhos[i] = {
-                  id: i,
-                  opcion: data[i].tbvalor
-                }
-              };
-            }, 2000);
+        calendarioService.getAllAnhos().then(function(data) {
+            for (var i = 0; i < data.length; i++) {
+              $scope.vecAnhos[i] = {
+                id: i,
+                opcion: data[i].tbvalor
+              }
+            };
         });
+
 
         var todosInStore = localStorageService.get('imagenes');
 
@@ -189,8 +190,8 @@ calendModController.controller('ObrasController', [
           $scope.imagenes.push({
             id: (max+1),
             tipo: '3',
-            mes: $scope.todo.mes.opcion,
-            anho: $scope.todo.anho.opcion,
+            mes: $scope.todo.mes,
+            anho: $scope.todo.anho,
             tema: $scope.todo.tema,
             autor: $scope.todo.autor,
             mensaje: $scope.todo.mensaje,

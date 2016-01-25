@@ -1,0 +1,99 @@
+		<!-- #section:basics/navbar.layout -->
+<div>
+	<menu-admin></menu-admin>
+</div>
+
+<!-- /section:basics/navbar.layout -->
+<div class="main-container" id="main-container">
+	<div id="sidebar" class="sidebar responsive">
+		<submenu-admin></submenu-admin>
+	</div>
+
+	<!-- /section:basics/sidebar -->
+	<div class="main-content">
+		<div class="main-content-inner">
+			<div class="breadcrumbs" id="breadcrumbs">
+                <ul class="breadcrumb">
+                    <li>
+                        <i class="ace-icon fa fa-home home-icon"></i>
+                        <a href="#/admin">Calendario Virtual AKC</a>
+                        >
+                        <a href="#/admin/fotografias/{{obra.anho}}-{{obra.mes}}">Atras</a>
+                    </li>
+                </ul>
+            </div>
+			<div class="page-content">
+				<div class="col-sm-12">
+                    <uib-tabset class="tabs-left">
+                        <uib-tab>
+                          <uib-tab-heading>
+                            <i class="menu-icon fa fa-desktop"></i> Imágenes
+                          </uib-tab-heading>
+                          <div class="col-md-8 col-lg-9 blue">
+                              <h2>Editar Imagen</h2>
+                          </div>
+                          <div class="col-md-4 col-lg-3" ng-controller="AdministradorController">
+                              <button class="btn btn-sm btn-primary" ng-click="crearImagen()"><i class="menu-icon fa fa-plus"></i> Nueva Imagen</button>
+                          </div>
+                          <editar-fotografia></editar-fotografia>
+                        </uib-tab>
+                        <uib-tab>
+                          <uib-tab-heading>
+                            <i class="menu-icon fa fa-calendar"></i> Eventos
+                          </uib-tab-heading>
+                          <div class="col-xs-12 col-sm-6 col-md-8 col-lg-9">
+                              <h2>Lista de Eventos</h2>
+                          </div>
+                          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" ng-controller="AdministradorController">
+                              <button class="btn btn-sm btn-primary" ng-click="crearEvento()"><i class="menu-icon fa fa-plus"></i> Nuevo Evento</button>
+                          </div>
+                          <lista-eventos></lista-eventos>
+                        </uib-tab>
+                        <uib-tab>
+                          <uib-tab-heading>
+                            <i class="ace-icon fa fa-bullhorn"></i> Eventos Privados
+                          </uib-tab-heading>
+                          <div class="col-xs-12 col-sm-6 col-md-8 col-lg-9">
+                              <h2>Lista de Eventos Privados</h2>
+                          </div>
+                          <lista-eventos-privados></lista-eventos-privados>
+                        </uib-tab>
+                    </uib-tabset>
+                </div>
+            </div>
+		</div>
+	</div><!-- /.main-content -->
+
+	<div class="footer">
+		<div class="footer-inner">
+			<!-- #section:basics/footer -->
+			<div class="footer-content">
+				<span class="bigger-120">
+					<span class="blue bolder">Ace</span>
+					Application &copy; 2013-2014
+				</span>
+
+				&nbsp; &nbsp;
+				<span class="action-buttons">
+					<a href="#">
+						<i class="ace-icon fa fa-twitter-square light-blue bigger-150"></i>
+					</a>
+
+					<a href="#">
+						<i class="ace-icon fa fa-facebook-square text-primary bigger-150"></i>
+					</a>
+
+					<a href="#">
+						<i class="ace-icon fa fa-rss-square orange bigger-150"></i>
+					</a>
+				</span>
+			</div>
+
+			<!-- /section:basics/footer -->
+		</div>
+	</div>
+
+	<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+		<i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+	</a>
+</div><!-- /.main-container -->

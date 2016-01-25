@@ -16,6 +16,8 @@
                     <li>
                         <i class="ace-icon fa fa-home home-icon"></i>
                         <a href="#/admin">Calendario Virtual AKC</a>
+                        >
+                        <a href="#/admin/obra/{{obra.anho}}-{{obra.mes}}">Atras</a>
                     </li>
                 </ul>
             </div>
@@ -30,7 +32,7 @@
                               <h2>Detalle Obra</h2>
                           </div>
                           <div class="col-md-4 col-lg-3" ng-controller="AdministradorController">
-                              <button class="btn btn-sm btn-primary" ng-click="crearImagen()"><i class="menu-icon fa fa-plus"></i> Nueva Obra</button>
+                              <button class="btn btn-sm btn-primary" ng-click="crearObra()"><i class="menu-icon fa fa-plus"></i> Nueva Obra</button>
                           </div>
                           <detalle-obra></detalle-obra>
                         </uib-tab>

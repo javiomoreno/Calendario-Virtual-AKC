@@ -5,28 +5,28 @@ appExpuestas.config(['$routeProvider', function ($routeProvider) {
         controller: 'LoginController'
       })
       .when('/calendario', {
-        templateUrl: 'views/usuario/calendario.html',
+        templateUrl: 'views/calendario/calendario.html',
         controller: 'CalendarioController'
       })
       .when('/admin', {
         templateUrl: 'views/administrador/inicio.html',
         controller: 'AdministradorController'
       })
-      .when('/admin/imagen/vista/:idImagen', {
-        templateUrl: 'views/administrador/imagenes/detalleImagen.html',
-        controller: 'ImagenesController'
+      .when('/admin/fotografias/vista/:idFotografia', {
+        templateUrl: 'views/administrador/imagenes/fotografias/detalleFotografia.html',
+        controller: 'FotografiasController'
       })
-      .when('/admin/imagen/:camposImagen', {
-        templateUrl: 'views/administrador/imagenes/vistaImagenesMes.html',
-        controller: 'ImagenesController'
+      .when('/admin/fotografias/:camposFotografia', {
+        templateUrl: 'views/administrador/imagenes/fotografias/vistaFotografiasMes.html',
+        controller: 'FotografiasController'
       })
-      .when('/admin/imagen/editar/:idImagen', {
-        templateUrl: 'views/administrador/imagenes/editarImagen.html',
-        controller: 'ImagenesController'
+      .when('/admin/fotografias/editar/:idFotografia', {
+        templateUrl: 'views/administrador/imagenes/fotografias/editarFotografia.html',
+        controller: 'FotografiasController'
       })
-      .when('/admin/imagenes/nueva', {
-        templateUrl: 'views/administrador/imagenes/crearImagen.html',
-        controller: 'ImagenesController'
+      .when('/admin/fotografia/nueva', {
+        templateUrl: 'views/administrador/imagenes/fotografias/crearFotografia.html',
+        controller: 'FotografiasController'
       })
       .when('/admin/eventos', {
         templateUrl: 'views/administrador/eventos/gestionarEventos.html',
@@ -46,7 +46,7 @@ appExpuestas.config(['$routeProvider', function ($routeProvider) {
       })
       .when('/admin/eventos/nuevo', {
         templateUrl: 'views/administrador/eventos/crearEvento.html',
-        controller: 'EventosController'
+        controller: 'NuevoEventoController'
       })
       .when('/admin/eventoPrivado/:camposEventoPrivado', {
         templateUrl: 'views/administrador/eventos-privados/vistaEventosMes.html',
@@ -63,6 +63,10 @@ appExpuestas.config(['$routeProvider', function ($routeProvider) {
       .when('/admin/icono/editar/:idIcono', {
         templateUrl: 'views/administrador/imagenes/iconos/editarIcono.html',
         controller: 'IconosController'
+      })
+      .when('/admin/iconos/nuevo', {
+        templateUrl: 'views/administrador/imagenes/iconos/crearIcono.html',
+        controller: 'IconosCrearController'
       })
       .when('/admin/obras/nueva', {
         templateUrl: 'views/administrador/imagenes/obras/crearObra.html',

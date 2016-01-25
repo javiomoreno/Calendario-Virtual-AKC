@@ -1,0 +1,29 @@
+[
+	{
+		"tbnumero":2401,
+		"tbcodigo":"IMPORTAN",
+		"tbclave":"01",
+		"tbvalor":"BAJA",
+		"tbvalint":null,
+		"tbvalnum":null,
+		"tbvalfec":null
+	},
+	{
+		"tbnumero":2402,
+		"tbcodigo":"IMPORTAN",
+		"tbclave":"02",
+		"tbvalor":"MEDIA",
+		"tbvalint":null,
+		"tbvalnum":null,
+		"tbvalfec":null
+	},
+	{
+		"tbnumero":2403,
+		"tbcodigo":"IMPORTAN",
+		"tbclave":"03",
+		"tbvalor":"ALTA",
+		"tbvalint":null,
+		"tbvalnum":null,
+		"tbvalfec":null
+	}
+]

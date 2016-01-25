@@ -7,6 +7,8 @@ calendModController.controller('CambiarEstadoModalController', [
                                                               '$route',
     function ($scope, $uibModalInstance, idCambiar, localStorageService, $location, $route){
           var todosInStore = localStorageService.get('eventos');
+          var anho, mes;
+          var meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 
           $scope.eventos = todosInStore || [];
 
@@ -25,10 +27,12 @@ calendModController.controller('CambiarEstadoModalController', [
                         $scope.eventos[i].estado = 1;
                         $scope.eventos[i].fechaFinalizacion = null;
                       }
+                      anho = new Date($scope.eventos[i].fechaInicio).getFullYear();
+                      mes = meses[new Date($scope.eventos[i].fechaInicio).getMonth().valueOf()];
                       break;
                   }
               }
-              $location.url('/admin');
+              $location.url('/admin/evento/'+anho+'-'+mes);
               $uibModalInstance.close();
           };
 

@@ -10,8 +10,8 @@ calendModController.controller('AdministradorController', [
         calendarioService.getAllTipoImagen().then(function(data) {
           for (var i = 0; i < data.length; i++) {
             $scope.opciones[i] = {
-              select: i,
-              opcion: data[i].tbclave+" - "+data[i].tbvalor
+              opcion: data[i].tbclave+" - "+data[i].tbvalor,
+              value: data[i].tbclave
             }
           };
         });
@@ -25,14 +25,19 @@ calendModController.controller('AdministradorController', [
         }
 
         $scope.crearImagen = function(){
-          $location.path('/admin/imagenes/nueva');
+          $location.path('/admin/fotografia/nueva');
+        };
+
+        $scope.crearObra = function(){
+          $location.url('/admin/obras/nueva');
+        };
+
+        $scope.crearIcono = function(){
+          $location.url('/admin/iconos/nuevo');
         };
 
         $scope.crearEvento = function(){
           $location.url('/admin/eventos/nuevo');
         };
 
-        $scope.crearObra = function(){
-          $location.url('/admin/imagenes/nueva');
-        };
 }]);

@@ -31,7 +31,7 @@ calendModController.controller('EventosPrivadosController', [
                       break;
                   }
               }
-              if(banderaAnho == "false"){
+              if(banderaAnho == "false" && $scope.eventos[i].estado != 3){
                   $scope.anhos[contador] = new Date($scope.eventos[i].fechaInicio).getFullYear();
                   contador ++;
               }
@@ -65,7 +65,7 @@ calendModController.controller('EventosPrivadosController', [
               cantNoviembre = 0;
               cantDiciembre = 0;
               for (var j = 0; j < $scope.eventos.length; j++) {
-                  if($scope.anhos[i] == new Date($scope.eventos[j].fechaInicio).getFullYear() && $scope.eventos[j].tipoEvento == 2){
+                  if($scope.anhos[i] == new Date($scope.eventos[j].fechaInicio).getFullYear() && $scope.eventos[j].tipoEvento == 2 && $scope.eventos[j].estado != 3){
                       if(new Date($scope.eventos[j].fechaInicio).getMonth() == 0){ cantEnero ++;}
                       if(new Date($scope.eventos[j].fechaInicio).getMonth() == 1){ cantFebrero ++;}
                       if(new Date($scope.eventos[j].fechaInicio).getMonth() == 2){ cantMarzo ++;}
@@ -182,7 +182,7 @@ calendModController.controller('EventosPrivadosController', [
               $scope.todos = [];
 
               for(var i = 0; i <$scope.eventos.length; i ++) {
-                  if (new Date($scope.eventos[i].fechaInicio).getFullYear() == $scope.anho && meses[(new Date($scope.eventos[i].fechaInicio).getMonth()).valueOf()] == $scope.mes && $scope.eventos[i].tipoEvento == 2) {
+                  if (new Date($scope.eventos[i].fechaInicio).getFullYear() == $scope.anho && meses[(new Date($scope.eventos[i].fechaInicio).getMonth()).valueOf()] == $scope.mes && $scope.eventos[i].tipoEvento == 2 && $scope.eventos[i].estado != 3) {
                       $scope.todos[contador] = $scope.eventos[i];
                       contador ++;
                   }

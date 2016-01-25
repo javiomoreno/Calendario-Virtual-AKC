@@ -1,7 +1,8 @@
 <form name="form" ng-init="id = obra.id">
 	<div class="form-group col-sm-12 col-lg-6 blue" ng-init="anho = obra.anho; mes = obra.mes">
 	    <label for="mes">* Mes</label>
-	    <select class="form-control" id="mes" style="width:160px" ng-model="obra.mes" ng-options="opcion.opcion as opcion.opcion for opcion in vecMeses" required>
+	    {{obra.mes}}
+	    <select class="form-control" id="mes" style="width:160px" ng-model="obra.mes" ng-options="opcion.value as opcion.opcion for opcion in vecMeses" required>
 	      <option value="">Seleccione un Mes</option>
 		</select>
 	</div>
