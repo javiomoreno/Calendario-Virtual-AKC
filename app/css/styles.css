@@ -13,6 +13,14 @@ input[type="radio"]:checked + label {
 
 .radioAlerta{
 	display: block !important;
+	opacity: 1 !important;
+}
+
+input[type=checkbox].ace.ace-checkbox-2:checked + .lbl::before,
+input[type=radio].ace.ace-checkbox-2:checked + .lbl::before {
+  background-color: #428BCA;
+  border-color: #428BCA;
+  color: #FFF;
 }
 
 .titulo-caja{
@@ -560,19 +568,18 @@ button[type="button"].fc-agendaWeek-button{
 .suggestion-list{
 	position: absolute;
 	list-style-type: none;
-	margin: 0 0 0 23px;
+	margin: 0 0 0 0px;
 	padding: 0;
-	overflow: auto;
 }
 
 .suggestion-list li{
 	color: #000000;,
-	padding: 10px 10px;
-	height: 10px;
 	cursor: pointer;
-	background: #f9f9f9;
+	opacity: 1;
+	height: 30px;
+    background: #DDEBF9;
 	border-bottom: 1px solid #eeeeee;
-	width: 234px;
+	width: 350px;
 }
 
 .suggestion-list li:hover{
@@ -583,7 +590,13 @@ button[type="button"].fc-agendaWeek-button{
 .suggestion-list li.active{
 	color: #ffffff;
 	background: #0099ff;
-	width: 234px;
+	width: 350px;
+}
+
+.caja-invitados{
+	font-size: 14px;
+	width:70%; 
+	padding-left: 15px;
 }
 
 /*

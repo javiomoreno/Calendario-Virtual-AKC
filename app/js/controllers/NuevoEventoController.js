@@ -3,7 +3,8 @@ calendModController.controller('NuevoEventoController', [
                                                       '$rootScope',
                                                       '$log', 
                                                       'localStorageService',
-    function ($scope, $rootScope, $log, localStorageService) {
+                                                      'calendarioService',
+    function ($scope, $rootScope, $log, localStorageService, calendarioService) {
 
       $scope.evento = {};
       $scope.evento.nombre = "";
@@ -12,15 +13,50 @@ calendModController.controller('NuevoEventoController', [
       $scope.evento.alerta.aplicaion = {};
       $scope.evento.alerta.correo = {};
       $scope.evento.iconoEvento = {};
+      $scope.evento.invitados = [];
 
       $rootScope.searchItems = [
-        "hola",
-        "chao",
-        "aqui",
-        "todo",
-        "sirve",
-        "hola chao"
+        "Juan Crisostomo Falcon",
+        "Juan Vicente Gomez",
+        "Isaias Medina Angarita",
+        "Romulo Gallegos",
+        "Hugo Rafael Chavez Frias",
+        "Leopoldo Lopez"
       ];
+
+      $scope.vecTipoEvento = [];
+        $scope.vecRepeticion= [];
+        $scope.vecImportancia= [];
+
+        calendarioService.getAllTipoEvento().then(function (data) {
+          for (var i = 0; i < data.length; i++) {
+            $scope.vecTipoEvento[i] = {
+              select: i,
+              opcion: data[i].tbclave+" - "+data[i].tbvalor,
+              value: data[i].tbclave
+            }
+          };
+        });
+
+        calendarioService.getAllRepeticion().then(function (data) {
+          for (var i = 0; i < data.length; i++) {
+            $scope.vecRepeticion[i] = {
+              select: i,
+              opcion: data[i].tbclave+" - "+data[i].tbvalor,
+              value: data[i].tbclave
+            }
+          };
+        });
+
+        calendarioService.getAllImportancia().then(function (data) {
+          for (var i = 0; i < data.length; i++) {
+            $scope.vecImportancia[i] = {
+              select: i,
+              opcion: data[i].tbclave+" - "+data[i].tbvalor,
+              value: data[i].tbclave
+            }
+          };
+        });
 
       $rootScope.searchItems.sort();
       $rootScope.suggestions = [];
@@ -33,7 +69,7 @@ calendModController.controller('NuevoEventoController', [
           var searchItemsSmallLetters = angular.lowercase($rootScope.searchItems[i]);
           var searchTextSmallLetters = angular.lowercase($scope.searchText);
           if (searchItemsSmallLetters.indexOf(searchTextSmallLetters) !== -1) {
-            $rootScope.suggestions.push(searchItemsSmallLetters);
+            $rootScope.suggestions.push($rootScope.searchItems[i]);
             myMaxSuggestionLength += 1;
             if (myMaxSuggestionLength == 5) {
               break;
@@ -76,8 +112,14 @@ calendModController.controller('NuevoEventoController', [
       }
 
       $rootScope.AssingValueAndHide = function(index){
-        $scope.searchText = $rootScope.suggestions[index];
+        $scope.searchText = "";
+        $scope.evento.invitados.push($rootScope.suggestions[index]);
         $rootScope.suggestions = [];
+        console.log($scope.evento.invitados);
+      }
+
+      $rootScope.EliminarInvitado = function(index){
+        $scope.evento.invitados.splice(index, 1);
       }
 
       $scope.vectorAlertas = [

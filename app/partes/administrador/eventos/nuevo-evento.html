@@ -66,9 +66,12 @@
 					Aplicación
 				</h4>
 				<span ng-repeat="alerta in vectorAlertas track by $index">
-					<span class="row">
-		          		<input type="checkbox" checklist-model="evento.alerta.aplicacion" checklist-value="alerta.id"> {{alerta.value}}
-		          	</span>
+		          	<div class="checkbox">
+						<label>
+							<input name="form-field-checkbox" class="ace ace-checkbox-2" type="checkbox" checklist-model="evento.alerta.aplicacion" checklist-value="alerta.id"/>
+							<span class="lbl"> {{alerta.value}}</span>
+						</label>
+					</div>
 		        </span>
 			</div>
 			<div class="col-lg-6"> 
@@ -76,9 +79,12 @@
 					Correo
 				</h4>
 				<span ng-repeat="alerta in vectorAlertas track by $index">
-					<span class="row">
-		          		<input type="checkbox" checklist-model="evento.alerta.correo" checklist-value="alerta.id"> {{alerta.value}}
-		          	</span>
+					<div class="checkbox">
+						<label>
+							<input name="form-field-checkbox" class="ace ace-checkbox-2" type="checkbox" checklist-model="evento.alerta.correo" checklist-value="alerta.id"/>
+							<span class="lbl"> {{alerta.value}}</span>
+						</label>
+					</div>
 		        </span>
 			</div>
 	    </div>
@@ -90,11 +96,21 @@
 		<div class="form-group col-sm-12 col-sm-12 col-lg-12 blue">
 			<label for="fechaFin">Añadir Invitados</label>
 			<p class="input-group">
-				<input type="text" placeholder="Nombre del Invitado" ng-model="searchText" ng-keydown="checkKeyDown($event)" ng-keyup="checkKeyUp($event)" ng-change="search()">
+				<input type="text" placeholder="Nombre del Invitado" ng-model="searchText" ng-keydown="checkKeyDown($event)" ng-keyup="checkKeyUp($event)" ng-change="search()" size="40">
 				<ul class="suggestion-list">
-					<li ng-repeat="suggestion in suggestions track by $index" ng-class="{active : selectedIndex === $index}" ng-click="AssignValueAndHide($index)">{{suggestion}}</li>
+					<li ng-repeat="suggestion in suggestions track by $index" ng-class="{active : selectedIndex === $index}" ng-click="AssingValueAndHide($index)">{{suggestion}}</li>
 				</ul>
 			</p>
+		</div>
+		<div class="caja-invitados">
+			<span ng-repeat="invitados in evento.invitados">
+				<div class="hidden-sm hidden-xs action-buttons">
+					{{invitados}}
+					<a class="red" style="float: right;" href ng-click="EliminarInvitado($index)">
+						<i class="ace-icon fa fa-trash-o bigger-130"></i>
+					</a>
+				</div>
+			</span>
 		</div>
 	</div>
 	<div class="form-group col-lg-12" style="text-align: -webkit-center; text-align: -moz-center;">
