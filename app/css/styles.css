@@ -1,9 +1,5 @@
 /* Estilo Calenario */
 
-body{
-	font-family: "Roboto";
-}
-
 input[type="radio"] {
     display: none;
 }

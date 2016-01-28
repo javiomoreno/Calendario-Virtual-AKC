@@ -6,7 +6,8 @@ calendModService.service('calendarioService', [
                                               'allImportancia',
                                               'allMeses',
                                               'allAnhos', 
-  function ($q, allTipoImagen, allTipoEvento, allRepeticion, allImportancia, allMeses, allAnhos) {
+                                              'allInvitados',
+  function ($q, allTipoImagen, allTipoEvento, allRepeticion, allImportancia, allMeses, allAnhos, allInvitados) {
       this.getAllTipoImagen = function() {
         var response = $q.defer();
         allTipoImagen.query({}, function(result) {
@@ -60,6 +61,16 @@ calendModService.service('calendarioService', [
       this.getAllAnhos = function() {
         var response = $q.defer();
         allAnhos.query({}, function(result) {
+          response.resolve(result);
+        }, function(error) {
+          response.reject(error);
+        });
+        return response.promise;
+      }
+
+      this.getAllInvitados = function() {
+        var response = $q.defer();
+        allInvitados.query({}, function(result) {
           response.resolve(result);
         }, function(error) {
           response.reject(error);

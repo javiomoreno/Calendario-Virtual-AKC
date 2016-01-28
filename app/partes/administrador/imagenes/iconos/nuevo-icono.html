@@ -1,4 +1,4 @@
-<form name="form" ng-controller="IconosController">
+<form name="form" ng-controller="IconoCrearController">
 	  <div class="form-group col-lg-12 blue">
 	    <label for="fuente">* Fuente del Icono</label>
 	    <textarea class="form-control" id="fuente" 
@@ -10,7 +10,7 @@
 			* Cargar Archivo
 		</h3>
 		<label class="ace-file-input ace-file-multiple">
-			<input fileread="icono.archivo" type="file" placeholder="Please select file" class="form-control" accept="image/*"/>
+			<input fileread="icono.archivo" type="file" placeholder="Seleccione el archivo" class="form-control" accept="image/*"/>
 			<span ng-if="icono.archivo == null" class="ace-file-container" data-title="Seleccione el archivo">
 				<span  class="ace-file-name" data-title="No hay Achivo ...">
 					<i class=" ace-icon fa fa-upload"></i>
@@ -25,6 +25,6 @@
 		</label>
 	</div>
 	<div class="form-group col-lg-12 text-center">
-  		<button class="btn btn-primary" ng-click="guardarIcono(icono)">Guardar</button>
+  		<button class="btn btn-primary" ng-click="guardarIcono()">Guardar</button>
   	</div>
-</form><!-- /.col -->
+</form>

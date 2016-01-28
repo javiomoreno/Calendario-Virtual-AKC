@@ -207,18 +207,6 @@ calModDirective.directive('detalleEventoPrivado',
       };
     });
 
-calModDirective.directive("uploaderModel", 
-  function ($parse) {
-      return {
-        restrict: 'A',
-        link: function (scope, element, attributes) {
-          element.on("change", function (e) {
-            $parse(attributes.uploaderModel).assign(scope, element[0].files[0]);
-          });
-        }
-      }
-    });
-
 calModDirective.directive("fileread", 
   function () {
       return {

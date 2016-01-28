@@ -39,13 +39,13 @@
 						</div>
 						<div class="b-check">
 							<input type="checkbox" ng-model="checkImportancia" ng-change="cambiarImportancia()">
-						    <select id="importancia" ng-disabled="checkImportancia === false" style="width:130px" ng-model="busqueda.importancia" ng-options="opcion.opcion for opcion in vecImportancia" required>
+						    <select id="importancia" ng-disabled="checkImportancia === false" style="width:120px" ng-model="busqueda.importancia" ng-options="opcion.opcion for opcion in vecImportancia" required>
 						      <option value="">Importancia</option>
 							</select>
 						</div>
 						<div class="b-check">
 							<input type="checkbox" ng-model="checkPeriodicidad" ng-change="cambiarPeriodicidad()">
-						    <select id="periodicidad" ng-disabled="checkPeriodicidad === false || checkImportancia === true" style="width:130px" ng-model="busqueda.periodicidad" ng-options="opcion.opcion for opcion in vecRepeticion" required>
+						    <select id="periodicidad" ng-disabled="checkPeriodicidad === false || checkImportancia === true" style="width:120px" ng-model="busqueda.periodicidad" ng-options="opcion.opcion for opcion in vecRepeticion" required>
 						      <option value="">Periodicidad</option>
 							</select>
 						</div>

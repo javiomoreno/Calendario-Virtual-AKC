@@ -48,30 +48,6 @@ calendModController.controller('IconosController', [
           $scope.icono = $scope.datos[0];
         }
 
-        $scope.guardarIcono = function(nueva){
-            var max = 0;
-            for(var i = 0; i< $scope.imagenes.length; i ++){
-                if($scope.imagenes[i].id > max){
-                    max = $scope.imagenes[i].id;
-                }
-            }
-          $scope.todo = nueva;
-          $scope.imagenes.push({
-            id: (max+1),
-            tipo: '2',
-            mes: null,
-            anho: null,
-            tema: null,
-            autor: null,
-            mensaje: $scope.todo.mensaje,
-            archivo: $scope.todo.archivo
-          });
-
-          $scope.todo = "";
-          $location.url('/admin');
-          //$route.reload();
-        };
-
         $scope.Atras = function(){
           $location.path('/admin');
         }

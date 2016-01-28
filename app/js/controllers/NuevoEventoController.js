@@ -15,61 +15,62 @@ calendModController.controller('NuevoEventoController', [
       $scope.evento.iconoEvento = {};
       $scope.evento.invitados = [];
 
-      $rootScope.searchItems = [
-        "Juan Crisostomo Falcon",
-        "Juan Vicente Gomez",
-        "Isaias Medina Angarita",
-        "Romulo Gallegos",
-        "Hugo Rafael Chavez Frias",
-        "Leopoldo Lopez"
-      ];
-
+      $scope.vecInvitados = [];
       $scope.vecTipoEvento = [];
-        $scope.vecRepeticion= [];
-        $scope.vecImportancia= [];
+      $scope.vecRepeticion= [];
+      $scope.vecImportancia= [];
 
-        calendarioService.getAllTipoEvento().then(function (data) {
-          for (var i = 0; i < data.length; i++) {
-            $scope.vecTipoEvento[i] = {
-              select: i,
-              opcion: data[i].tbclave+" - "+data[i].tbvalor,
-              value: data[i].tbclave
-            }
-          };
-        });
+      calendarioService.getAllTipoEvento().then(function (data) {
+        for (var i = 0; i < data.length; i++) {
+          $scope.vecTipoEvento[i] = {
+            select: i,
+            opcion: data[i].tbclave+" - "+data[i].tbvalor,
+            value: data[i].tbclave
+          }
+        };
+      });
 
-        calendarioService.getAllRepeticion().then(function (data) {
-          for (var i = 0; i < data.length; i++) {
-            $scope.vecRepeticion[i] = {
-              select: i,
-              opcion: data[i].tbclave+" - "+data[i].tbvalor,
-              value: data[i].tbclave
-            }
-          };
-        });
+      calendarioService.getAllRepeticion().then(function (data) {
+        for (var i = 0; i < data.length; i++) {
+          $scope.vecRepeticion[i] = {
+            select: i,
+            opcion: data[i].tbclave+" - "+data[i].tbvalor,
+            value: data[i].tbclave
+          }
+        };
+      });
 
-        calendarioService.getAllImportancia().then(function (data) {
-          for (var i = 0; i < data.length; i++) {
-            $scope.vecImportancia[i] = {
-              select: i,
-              opcion: data[i].tbclave+" - "+data[i].tbvalor,
-              value: data[i].tbclave
-            }
-          };
-        });
+      calendarioService.getAllImportancia().then(function (data) {
+        for (var i = 0; i < data.length; i++) {
+          $scope.vecImportancia[i] = {
+            select: i,
+            opcion: data[i].tbclave+" - "+data[i].tbvalor,
+            value: data[i].tbclave
+          }
+        };
+      });
 
-      $rootScope.searchItems.sort();
+      calendarioService.getAllInvitados().then(function (data) {
+        for (var i = 0; i < data.length; i++) {
+          $scope.vecInvitados[i] = {
+            id: data[i].id,
+            nombre: data[i].nombre
+          }
+        };
+      });
+
+      $rootScope.vecInvitados.sort();
       $rootScope.suggestions = [];
       $rootScope.selectedIndex = -1;
 
       $rootScope.search = function(){
         $rootScope.suggestions = [];
         var myMaxSuggestionLength = 0;
-        for (var i = 0; i < $rootScope.searchItems.length; i++) {
-          var searchItemsSmallLetters = angular.lowercase($rootScope.searchItems[i]);
+        for (var i = 0; i < $rootScope.vecInvitados.length; i++) {
+          var searchItemsSmallLetters = angular.lowercase($scope.vecInvitados[i].nombre);
           var searchTextSmallLetters = angular.lowercase($scope.searchText);
           if (searchItemsSmallLetters.indexOf(searchTextSmallLetters) !== -1) {
-            $rootScope.suggestions.push($rootScope.searchItems[i]);
+            $rootScope.suggestions.push($scope.vecInvitados[i].nombre);
             myMaxSuggestionLength += 1;
             if (myMaxSuggestionLength == 5) {
               break;
@@ -99,7 +100,11 @@ calendModController.controller('NuevoEventoController', [
         }
         else if(event.keyCode == 13){
           event.preventDefault();
-          $rootScope.suggestions = [];
+          if ($rootScope.selectedIndex !== -1) {
+            $scope.searchText = "";
+            $scope.evento.invitados.push($rootScope.suggestions[$rootScope.selectedIndex]);
+            $rootScope.suggestions = [];
+          }
         }
       }
 
@@ -122,8 +127,7 @@ calendModController.controller('NuevoEventoController', [
         $scope.evento.invitados.splice(index, 1);
       }
 
-      $scope.vectorAlertas = [
-                              {
+      $scope.vectorAlertas = [{
                                 id: 1,
                                 value: '1 Semana'
                               },

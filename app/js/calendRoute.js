@@ -66,11 +66,11 @@ appExpuestas.config(['$routeProvider', function ($routeProvider) {
       })
       .when('/admin/iconos/nuevo', {
         templateUrl: 'views/administrador/imagenes/iconos/crearIcono.html',
-        controller: 'IconosCrearController'
+        controller: 'IconoCrearController'
       })
       .when('/admin/obras/nueva', {
         templateUrl: 'views/administrador/imagenes/obras/crearObra.html',
-        controller: 'ObrasController'
+        controller: 'ObraCrearController'
       })
       .when('/admin/obra/:camposObra', {
         templateUrl: 'views/administrador/imagenes/obras/vistaObrasMes.html',
