@@ -8,7 +8,7 @@ calendModController.controller('ObraDetalleController', [
     function ($scope, $routeParams,  $uibModal, $location, calImagService, calendarioService) {
 
       $scope.imagenId = $routeParams.idObra;
-
+      $scope.bandera = false;
       $scope.obra = {};
 
       calendarioService.getAllMeses().then(
@@ -26,6 +26,7 @@ calendModController.controller('ObraDetalleController', [
                     mensaje: dataImagen.mensaje,
                     archivo: dataImagen.imagen
                   }
+                  $scope.bandera = true;
                   break;
                 }
               };

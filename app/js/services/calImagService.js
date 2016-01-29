@@ -4,7 +4,8 @@ calendModService.service('calImagService', [
                                               'guardarImagenCodi',
                                               'getImagenId',
                                               'getImagenesAnoMesTipo',
-  function ($q, guardarImagen, guardarImagenCodi, getImagenId, getImagenesAnoMesTipo) {
+                                              'getImagenesTipo',
+  function ($q, guardarImagen, guardarImagenCodi, getImagenId, getImagenesAnoMesTipo, getImagenesTipo) {
   	this.guardarImagenCodificada = function(imagenCodif){
 		var response = $q.defer();
 		guardarImagenCodi.save(imagenCodif, function(result){
@@ -49,7 +50,7 @@ calendModService.service('calImagService', [
 
 	this.getImagenesTipo = function(anho, mes, tipo) {
 		var response = $q.defer();
-		getImagenesTipo.query({anho:anho, mes:mes, tipo:tipo}, function(result) {
+		getImagenesTipo.get({anho:anho, mes:mes, tipo:tipo}, function(result) {
 			response.resolve(result);
 		}, function(error) {
 			response.reject(error);

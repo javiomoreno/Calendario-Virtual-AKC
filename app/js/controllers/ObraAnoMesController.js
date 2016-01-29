@@ -21,9 +21,9 @@ calendModController.controller('ObraAnoMesController', [
                 function(dataObras){
                   for (var i = 0; i < dataObras.length; i++) {
                     $scope.vectorObras.push({
-                      id: dataObras.id,
-                      tema: dataObras.tema,
-                      autor: dataObras.autor
+                      id: dataObras[i].id,
+                      tema: dataObras[i].Tema,
+                      autor: dataObras[i].Autor
                       });
                   };
                   $scope.bandera = true;

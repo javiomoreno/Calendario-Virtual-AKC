@@ -7,7 +7,7 @@ calendModController.controller('ObraEditarController', [
     function ($scope, $routeParams, calendarioService, $location, calImagService) {
 
       $scope.imagenId = $routeParams.idObra;
-
+      $scope.bandera = false;
       $scope.obra = {};
 
       $scope.vecMeses = [];
@@ -43,6 +43,7 @@ calendModController.controller('ObraEditarController', [
             mensaje: dataImagen.mensaje,
             archivo: dataImagen.imagen
           }
+          $scope.bandera = true;
         },
         function(error){
             console.log(error.statusText);

@@ -13,31 +13,35 @@ calendModController.controller('ObraListaController', [
         function(dataAnho) {
           calendarioService.getAllMeses().then(
             function(dataMes) {
-                for (var i = 0; i < data.length; i++) {
+                for (var i = 0; i < dataMes.length; i++) {
                   $scope.vecMeses[i] = {
                     opcion: dataMes[i].tbclave,
                     value: dataMes[i].tbvalor
                   }
                 };
-                for (var i = 0; i < dataAnho.length; i++) {
+                //for (var i = 0; i < dataAnho.length; i++) {
                   var otra = [];
-                  for (var j = 0; j < dataMes.length; j++) {
-                    calImagService.getImagenesTipo(dataAnho[i].tbvalor, dataMes[j].opcion, 3).then(
+                  //for (var j = 0; j < $scope.vecMeses.length; j++) {
+                    calImagService.getImagenesTipo(dataAnho[11].tbvalor, $scope.vecMeses[0].opcion, 3).then(
                       function(dataImagenes){
-                        if(dataImagenes.length > 0){
+                        if(dataImagenes.cantidad > 0){
                           otra.push({
-                            mes: dataMes.value,
+                            mes: $scope.vecMeses[0].value,
                             cant: dataImagenes.cantidad
                           });
+                          $scope.vector.push({
+                            anho: dataAnho[11].tbvalor,
+                            meses: otra
+                          })
+                          $scope.bandera = true;
                         }
                       },
                       function(error){
                         console.log(error.statusText);
                       }
                     );
-                  };
-                  
-                };
+                  //};
+                //};
             },
             function(error){
               console.log(error.statusText);
@@ -47,38 +51,5 @@ calendModController.controller('ObraListaController', [
         function(error){
           console.log(error.statusText);
         }
-      );
-
-
-      calendarioService.getAllMeses().then(
-        function(data) {
-          for (var i = 0; i < data.length; i++) {
-            if (data[i].tbvalor == $scope.mes) {
-              calImagService.getImagenesAnoMesTipo($scope.anho, data[i].tbclave, 3).then(
-                function(dataObras){
-                  for (var i = 0; i < dataObras.length; i++) {
-                    $scope.vectorObras.push({
-                      id: dataObras.id,
-                      tema: dataObras.tema,
-                      autor: dataObras.autor
-                      });
-                  };
-                  $scope.bandera = true;
-                },
-                function(error){
-                  console.log(error.statusText);
-                }
-              );
-              break;
-            };
-          };
-        },
-        function(error){
-          console.log(error.statusText);
-        }
-      );
-
-      
-
-      
+      );      
 }]);
