@@ -2,7 +2,9 @@ calendModService.service('calImagService', [
                                               '$q', 
                                               'guardarImagen', 
                                               'guardarImagenCodi',
-  function ($q, guardarImagen, guardarImagenCodi) {
+                                              'getImagenId',
+                                              'getImagenesAnoMesTipo',
+  function ($q, guardarImagen, guardarImagenCodi, getImagenId, getImagenesAnoMesTipo) {
   	this.guardarImagenCodificada = function(imagenCodif){
 		var response = $q.defer();
 		guardarImagenCodi.save(imagenCodif, function(result){
@@ -22,6 +24,36 @@ calendModService.service('calImagService', [
 		}, function(error){
 			response.reject(error);
 		});				
+		return response.promise;
+	};
+
+	this.getImagenId = function(imagenId) {
+		var response = $q.defer();
+		getImagenId.get({imagenId:imagenId}, function(result) {
+			response.resolve(result);
+		}, function(error) {
+			response.reject(error);
+		});
+		return response.promise;
+	};
+
+	this.getImagenesAnoMesTipo = function(anho, mes, tipo) {
+		var response = $q.defer();
+		getImagenesAnoMesTipo.query({anho:anho, mes:mes, tipo:tipo}, function(result) {
+			response.resolve(result);
+		}, function(error) {
+			response.reject(error);
+		});
+		return response.promise;
+	};
+
+	this.getImagenesTipo = function(anho, mes, tipo) {
+		var response = $q.defer();
+		getImagenesTipo.query({anho:anho, mes:mes, tipo:tipo}, function(result) {
+			response.resolve(result);
+		}, function(error) {
+			response.reject(error);
+		});
 		return response.promise;
 	};
 }]);

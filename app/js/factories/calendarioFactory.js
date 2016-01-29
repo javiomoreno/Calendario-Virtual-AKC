@@ -16,6 +16,25 @@ calendModFactory.factory('guardarImagenCodi', function guardarImagenCodi($resour
 	return $resource(baseURL + 'cal/imagencodi', null, {'save' : {method : 'POST', isArray:false}});
 });
 
+/*Consultar Imagen por Id*/
+calendModFactory.factory('getImagenId', function getImagenId($resource, baseURL) {
+	return $resource(baseURL + 'cal/imagenId/:imagenId', {imagenId:'@imagenId'});
+});
+
+/*Editar Imagen*/
+//calendModFactory.factory('editarImagen', function editarImagen($resource, baseURL) {
+//	return $resource(baseURL + 'aexusuario/updateMod', null, {'update' : {method : 'PUT'}});
+//});
+
+/*Consultar Imagenes por Año, Mes y Tipo*/
+calendModFactory.factory('getImagenesAnoMesTipo', function getImagenesAnoMesTipo($resource, baseURL) {
+	return $resource(baseURL + 'cal/imagenAdmin/:anho/:mes/:tipo', {anho:'@anho', mes:'@mes', tipo:'@tipo'});
+});
+
+/*Consultar Lista de Imagenes por Tipo*/
+calendModFactory.factory('getImagenesTipo', function getImagenesTipo($resource, baseURL) {
+	return $resource(baseURL + 'cal/imagentipo/:anho/:mes/:tipo', {anho:'@anho', mes:'@mes', tipo:'@tipo'});
+});
 
 calendModFactory.factory('allTipoEvento', function allTipoEvento($resource, baseURL) {
 	return $resource(baseURL + 'aextablas/tipoeven', {});

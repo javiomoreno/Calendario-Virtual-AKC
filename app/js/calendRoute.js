@@ -74,15 +74,15 @@ appExpuestas.config(['$routeProvider', function ($routeProvider) {
       })
       .when('/admin/obra/:camposObra', {
         templateUrl: 'views/administrador/imagenes/obras/vistaObrasMes.html',
-        controller: 'ObrasController'
+        controller: 'ObraAnoMesController'
       })
       .when('/admin/obra/vista/:idObra', {
         templateUrl: 'views/administrador/imagenes/obras/detalleObra.html',
-        controller: 'ObrasController'
+        controller: 'ObraDetalleController'
       })
       .when('/admin/obra/editar/:idObra', {
         templateUrl: 'views/administrador/imagenes/obras/editarObra.html',
-        controller: 'ObrasController'
+        controller: 'ObraEditarController'
       })
       .otherwise({
         redirectTo: '/'
