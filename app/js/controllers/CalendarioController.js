@@ -28,19 +28,12 @@ calendModController.controller('CalendarioController', [
         $scope.eventos = [];
         $scope.events = [];
         $scope.todosEventos = [];
+        $scope.alertasDia = 0;
+        $scope.alertasSemana = 0;
+        $scope.alertasMes = 0;
+        $scope.alertasTotal = 0;
 
-        $scope.vecRepeticion= [];
         $scope.vecImportancia= [];
-
-        calendarioService.getAllRepeticion().then(function (data) {
-          for (var i = 0; i < data.length; i++) {
-            $scope.vecRepeticion[i] = {
-              select: i,
-              opcion: data[i].tbclave+" - "+data[i].tbvalor,
-              value: data[i].tbclave
-            }
-          };
-        });
 
         calendarioService.getAllImportancia().then(function (data) {
           for (var i = 0; i < data.length; i++) {
@@ -53,27 +46,17 @@ calendModController.controller('CalendarioController', [
         });
 
         $scope.checkImportancia = false;
-        $scope.checkPeriodicidad = false;
         $scope.checkDescripcion = false;
         
         
         $scope.cambiarImportancia = function(){
           if($scope.checkImportancia == true){
-            $scope.checkPeriodicidad = false;
             $scope.checkDescripcion = false;
-          }
-        }
-
-        $scope.cambiarPeriodicidad= function(){
-          if($scope.checkPeriodicidad == true){
-            $scope.checkDescripcion = false;
-            $scope.checkImportancia = false;
           }
         }
 
         $scope.cambiarDescripcion = function(){
           if($scope.checkDescripcion == true){
-            $scope.checkPeriodicidad = false;
             $scope.checkImportancia = false;
           }
         }
@@ -122,7 +105,6 @@ calendModController.controller('CalendarioController', [
           }
         }
 
-        
 
         $scope.addRemoveEventSource = function(sources,source) {
           var canAdd = 0;
@@ -137,21 +119,6 @@ calendModController.controller('CalendarioController', [
           }
         };
 
-        /*$scope.eventSource = {
-            url: 'https://calendar.google.com/calendar/ical/javiomoreno%40gmail.com/public/basic.ics',
-            className: 'gcal-event'
-        };*/
-/*
-        $('#Calendario').fullCalendar({
-            googleCalendarApiKey: '742162438611-ierfe8lp212ojtccrtdsckf3gvrvr3mu.apps.googleusercontent.com',
-            eventSource: 
-                {
-                  googleCalendarId: 'https://calendar.google.com/calendar/ical/javiomoreno%40gmail.com/public/basic.ics',
-                  className: 'gcal-event'
-                }
-            
-        });*/
-
         $scope.buscar = function (){
           var cont = 0;
           var eventosFiltrados = [];
@@ -163,13 +130,6 @@ calendModController.controller('CalendarioController', [
                   eventosFiltrados.push(value);
                 }
               });
-          }
-          else if ($scope.checkPeriodicidad) {
-            angular.forEach($scope.todosEventos, function(value, key){
-              if(value.repeticion == $scope.busqueda.periodicidad.value){
-                eventosFiltrados.push(value);
-              }
-            });
           }
           else if ($scope.checkDescripcion) {
             angular.forEach($scope.todosEventos, function(value, key){
@@ -193,7 +153,7 @@ calendModController.controller('CalendarioController', [
         for (var i = 0; i < $scope.eventos.length; i++) {
           if($scope.eventos[i].publicar == 1 && $scope.eventos[i].estado != 3){
             var idEvento = $scope.eventos[i].id;
-            if ($scope.eventos[i].iconoEvento != undefined){
+            if ($scope.eventos[i].iconoEvento != null){
               $scope.events[contador] = {
                 id: $scope.eventos[i].id,
                 repeticion: $scope.eventos[i].repeticion,
@@ -235,7 +195,7 @@ calendModController.controller('CalendarioController', [
                   }
                 }
                 if(bandera){
-                  if ($scope.eventos[i].iconoEvento != undefined){
+                  if ($scope.eventos[i].iconoEvento != null){
                     $scope.events[contador] = {
                       id: $scope.eventos[i].id,
                       repeticion: $scope.eventos[i].repeticion,
@@ -280,7 +240,7 @@ calendModController.controller('CalendarioController', [
                   }
                 }
                 if (bandera){
-                  if ($scope.eventos[i].iconoEvento != undefined){
+                  if ($scope.eventos[i].iconoEvento != null){
                       $scope.events[contador] = {
                       id: $scope.eventos[i].id,
                       repeticion: $scope.eventos[i].repeticion,
@@ -324,7 +284,7 @@ calendModController.controller('CalendarioController', [
                   }
                 }
                 if (bandera){
-                  if ($scope.eventos[i].iconoEvento != undefined){
+                  if ($scope.eventos[i].iconoEvento != null){
                       $scope.events[contador] = {
                       id: $scope.eventos[i].id,
                       repeticion: $scope.eventos[i].repeticion,
@@ -525,6 +485,7 @@ calendModController.controller('CalendarioController', [
               };
               $rootScope.foto = imagenes[Math.floor((Math.random()*conta))];
               $rootScope.obra = obras[Math.floor((Math.random()*conta))];
+
             }
           }
         };
@@ -533,16 +494,25 @@ calendModController.controller('CalendarioController', [
         $scope.uiConfig.calendar.dayNamesShort = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"];
         $scope.uiConfig.calendar.monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
         $scope.uiConfig.calendar.monthNamesShort = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
-        $scope.eventSources = [$scope.events, $scope.eventSource];
+        $scope.eventSources = [$scope.events];
 
         console.log($scope.eventSource)
+        for (var i = 0; i < $scope.events.length; i++) {
+          var resta = Math.floor((new Date($scope.events[i].start) - new Date())/ (1000 * 60 * 60 * 24));
+            if (resta == -1 || resta == 0) {
+              if(new Date($scope.events[i].start).getDate() == new Date().getDate()){
+                $scope.alertasDia ++;
+              }
+            }
+            if (resta >= 0 && resta <= 7) {
+              $scope.alertasSemana ++;
+            }
+            if (resta >= 0 && resta <= 28) {
+              $scope.alertasMes ++;
+            }
+        };
 
-        
-        /*uiCalendarConfig.calendars.Calendario.fullCalendar({
-            googleCalendarApiKey: '742162438611-ierfe8lp212ojtccrtdsckf3gvrvr3mu.apps.googleusercontent.com'
-        });
-
-        */
+        $scope.alertasTotal = $scope.alertasDia + $scope.alertasSemana + $scope.alertasMes;
 
         $scope.todosEventos = $scope.events.slice();
 

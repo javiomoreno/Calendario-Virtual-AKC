@@ -1,67 +1,50 @@
 calendModController.controller('IconoDetalleController', [
-                                                  '$http', 
-                                                  '$scope', 
-                                                  '$filter', 
-                                                  '$routeParams', 
-                                                  'localStorageService', 
-                                                  '$uibModal', 
-                                                  '$location', 
-                                                  '$route', 
-                                                  '$rootScope',
-  function ($http, $scope, $filter, $routeParams, localStorageService, $uibModal, $location, $route, $rootScope) {
+                                                '$scope',
+                                                '$routeParams', 
+                                                '$uibModal', 
+                                                '$location', 
+                                                'calImagService',
+                                                'calendarioService',
+    function ($scope, $routeParams,  $uibModal, $location, calImagService, calendarioService) {
 
-        var todosInStore = localStorageService.get('imagenes');
+      $scope.imagenId = $routeParams.idIcono;
+      $scope.bandera = false;
+      $scope.icono = {};
 
-        $scope.imagenes = todosInStore || [];
-
-        $scope.$watch('imagenes', function(){
-          localStorageService.add('imagenes', $scope.imagenes);
-        }, true);
-
-        $scope.vector = [];
-          var cont = 0;
-        for (var i = 0; i < $scope.imagenes.length; i++) {
-          if($scope.imagenes[i].tipo == 2){
-            $scope.vector[cont] = $scope.imagenes[i];
-            cont ++;
+      
+      calImagService.getImagenId($scope.imagenId).then(
+        function(dataImagen){
+          $scope.icono = {
+            id: dataImagen.id,
+            mensaje: dataImagen.mensaje,
+            archivo: dataImagen.imagen
           }
+          $scope.bandera = true;
+        },
+        function(error){
+            console.log(error.statusText);
         }
+      );
 
-        $scope.contador = cont;
+      $scope.Editar = function(){
+          $location.path('/admin/icono/editar/'+$scope.imagenId);
+      }
 
-        var id = $routeParams.idIcono;
-        $scope.datos = [];
-        for (var i = 0; i < $scope.imagenes.length; i++) {
-          if($scope.imagenes[i].id == id)
-          {
-            $scope.datos[0] = $scope.imagenes[i];
-            break;
+      $scope.animationsEnabled = true;
+
+      $scope.openModal = function (size) {
+        $scope.idEliminar = $scope.imagenId;
+
+        var modalInstance = $uibModal.open({
+          animation: $scope.animationsEnabled,
+          templateUrl: 'views/administrador/imagenes/iconos/eliminar.html',
+          controller: 'ModalControllerIconos',
+          size: size,
+          resolve: {
+              idEliminar : function(){
+                  return $scope.idEliminar;
+              }
           }
-        };
-
-        $scope.icono = $scope.datos[0];
-        
-        $scope.Atras = function(){
-          $location.path('/admin');
-          $rootScope.vista = "icono";
-        }
-
-        $scope.Editar = function(id){
-            $location.path('/admin/icono/editar/'+id);
-        };
-
-        $scope.openModal = function (size, idEliminar)
-        {
-            $scope.idEliminar = idEliminar;
-            var modalInstance = $uibModal.open({
-                templateUrl: 'views/administrador/imagenes/iconos/eliminar.html',
-                controller: 'ModalControllerIconos',
-                size: size,
-                resolve: {
-                    idEliminar : function(){
-                        return $scope.idEliminar;
-                    }
-                }
-            });
-        }
+        });
+      };
 }]);

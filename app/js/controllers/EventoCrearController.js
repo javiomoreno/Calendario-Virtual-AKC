@@ -1,10 +1,11 @@
-calendModController.controller('NuevoEventoController', [
+calendModController.controller('EventoCrearController', [
                                                       '$scope',
                                                       '$rootScope',
                                                       '$log', 
                                                       'localStorageService',
                                                       'calendarioService',
-    function ($scope, $rootScope, $log, localStorageService, calendarioService) {
+                                                      '$location',
+    function ($scope, $rootScope, $log, localStorageService, calendarioService, $location) {
 
       $scope.evento = {};
       $scope.evento.nombre = "";
@@ -15,10 +16,18 @@ calendModController.controller('NuevoEventoController', [
       $scope.evento.iconoEvento = {};
       $scope.evento.invitados = [];
 
-      $scope.vecInvitados = [];
       $scope.vecTipoEvento = [];
       $scope.vecRepeticion= [];
       $scope.vecImportancia= [];
+
+      $rootScope.vecInvitados = [
+                      "Juan Crisostomo Falcon", 
+                      "Juan Vicente Gomez",
+                      "Isaias Medina Angarita", 
+                      "Romulo Gallegos", 
+                      "Hugo Rafael Chavez Frias",
+                      "Leopoldo Lopez"
+                    ];
 
       calendarioService.getAllTipoEvento().then(function (data) {
         for (var i = 0; i < data.length; i++) {
@@ -50,14 +59,14 @@ calendModController.controller('NuevoEventoController', [
         };
       });
 
-      calendarioService.getAllInvitados().then(function (data) {
+      /*calendarioService.getAllInvitados().then(function (data) {
         for (var i = 0; i < data.length; i++) {
           $scope.vecInvitados[i] = {
             id: data[i].id,
             nombre: data[i].nombre
           }
         };
-      });
+      });*/
 
       $rootScope.vecInvitados.sort();
       $rootScope.suggestions = [];
@@ -67,10 +76,10 @@ calendModController.controller('NuevoEventoController', [
         $rootScope.suggestions = [];
         var myMaxSuggestionLength = 0;
         for (var i = 0; i < $rootScope.vecInvitados.length; i++) {
-          var searchItemsSmallLetters = angular.lowercase($scope.vecInvitados[i].nombre);
-          var searchTextSmallLetters = angular.lowercase($scope.searchText);
+          var searchItemsSmallLetters = angular.lowercase($rootScope.vecInvitados[i]);
+          var searchTextSmallLetters = angular.lowercase($scope.buscarTexto);
           if (searchItemsSmallLetters.indexOf(searchTextSmallLetters) !== -1) {
-            $rootScope.suggestions.push($scope.vecInvitados[i].nombre);
+            $rootScope.suggestions.push($rootScope.vecInvitados[i]);
             myMaxSuggestionLength += 1;
             if (myMaxSuggestionLength == 5) {
               break;
@@ -81,7 +90,7 @@ calendModController.controller('NuevoEventoController', [
 
       $rootScope.$watch('selectedIndex', function(val){
         if (val !== -1) {
-          $scope.searchText = $rootScope.suggestions[$rootScope.selectedIndex];
+          $scope.buscarTexto = $rootScope.suggestions[$rootScope.selectedIndex];
         }
       })
 
@@ -101,23 +110,24 @@ calendModController.controller('NuevoEventoController', [
         else if(event.keyCode == 13){
           event.preventDefault();
           if ($rootScope.selectedIndex !== -1) {
-            $scope.searchText = "";
+            $scope.buscarTexto = "";
             $scope.evento.invitados.push($rootScope.suggestions[$rootScope.selectedIndex]);
             $rootScope.suggestions = [];
+            console.log($scope.evento.invitados);
           }
         }
       }
 
       $rootScope.checkKeyUp = function(event){
-        if(event.keyCode !== 0 || event.keyCode !== 46){
-          if ($scope.searchText == "") {
+        if(event.keyCode !== 8 || event.keyCode !== 46){
+          if ($scope.buscarTexto == "") {
             $rootScope.suggestions = [];
           }
         }
       }
 
       $rootScope.AssingValueAndHide = function(index){
-        $scope.searchText = "";
+        $scope.buscarTexto = "";
         $scope.evento.invitados.push($rootScope.suggestions[index]);
         $rootScope.suggestions = [];
         console.log($scope.evento.invitados);
@@ -248,4 +258,56 @@ calendModController.controller('NuevoEventoController', [
       $scope.hstep = 1;
       $scope.mstep = 1;
       $scope.ismeridian = true;
+
+      var todosInStore = localStorageService.get('eventos');
+
+          $scope.eventos = todosInStore || [];
+
+          $scope.$watch('eventos', function(){
+              localStorageService.add('eventos', $scope.eventos);
+          }, true);
+
+      $scope.guardarEvento = function(nuevo){
+              var max = 0;
+              for(var i = 0; i< $scope.eventos.length; i ++){
+                  if($scope.eventos[i].id > max){
+                      max = $scope.eventos[i].id;
+                  }
+              }
+
+              if (!isNumber(nuevo.iconoEvento)) {
+                nuevo.iconoEvento = null;
+              };
+              $scope.todo = nuevo;
+              var fechaI = new Date($scope.todo.fechaInicio).setHours(new Date($scope.todo.horaInicio).getHours());
+              fechaI = new Date(fechaI).setMinutes(new Date($scope.todo.horaInicio).getMinutes());
+              $scope.todo.fechaInicio = fechaI;
+              var fechaF = new Date($scope.todo.fechaInicio).setHours(new Date($scope.todo.horaFin).getHours());
+              fechaF = new Date(fechaF).setMinutes(new Date($scope.todo.horaFin).getMinutes());
+              var publicar = '2';
+              if($scope.todo.tipoEvento == '01'){
+                publicar = '1';
+              }
+            
+              $scope.eventos.push({
+                  id: (max+1),
+                  nombre: $scope.todo.nombre,
+                  fechaInicio: new Date($scope.todo.fechaInicio),
+                  fechaFin: new Date(fechaF),
+                  tipoEvento: $scope.todo.tipoEvento,
+                  repeticion: $scope.todo.repeticion,
+                  importancia: $scope.todo.importancia,
+                  publicar: publicar,
+                  estado: '1',
+                  iconoEvento: $scope.todo.iconoEvento
+              });
+
+              $rootScope.vista = "evento";
+              $scope.todo = "";
+              $location.url('/admin');
+          };
+
+        function isNumber(n) {
+          return !isNaN(parseFloat(n)) && isFinite(n);
+        }
 }]);

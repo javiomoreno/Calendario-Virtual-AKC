@@ -13,6 +13,37 @@ calModDirective.directive('submenuAdmin',
       };
     });
 
+calModDirective.directive('menuUsuario', function () {
+      return {
+        restrict: 'E',
+        templateUrl: 'partes/usuario/menu-usuario.html'
+      };
+    });
+
+calModDirective.directive('submenuUsuario', 
+  function () {
+      return {
+        restrict: 'E',
+        templateUrl: 'partes/usuario/submenu-usuario.html'
+      };
+    });
+
+calModDirective.directive('calendarioUsuario', 
+  function () {
+      return {
+        restrict: 'E',
+        templateUrl: 'partes/usuario/calendario-usuario.html'
+      };
+    });
+
+calModDirective.directive('nuevoEventoUsuario', 
+  function () {
+      return {
+        restrict: 'E',
+        templateUrl: 'partes/usuario/nuevo-evento-usuario.html'
+      };
+    });
+
 calModDirective.directive('nuevoEvento', 
   function () {
       return {

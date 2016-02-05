@@ -1,0 +1,98 @@
+<form name="form" ng-controller="UsuarioCrearEventoController">
+	<div class="row" style="margin-right: auto;">
+	<div class="form-group col-sm-12 col-sm-6 col-lg-6 blue">
+		<label for="nombre">Nombre de Evento</label>
+		<input type="text" class="form-control"  placeholder="Introduce el nombre del Evento"
+			   id="nombre" ng-model="evento.nombre" required/>
+	</div>
+	<div class="row" style="margin-right: auto;">
+		<div class="form-group col-sm-12 col-lg-6 blue">
+			<div class="col-md-6">
+				<label for="fechaInicio">Fecha inicio</label>
+				<p class="input-group">
+				  <input type="text" class="form-control" uib-datepicker-popup="dd/MM/yyyy"
+				  ng-model="evento.fechaInicio" is-open="status.opened" min-date="minDate"
+				  max-date="maxDate" datepicker-options="dateOptions" ng-required="true" close-text="Close" id="fechaInicio" />
+				  <span class="input-group-btn">
+					<button type="button" class="btn btn-primary" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+				  </span>
+				</p>
+			</div>
+			<uib-timepicker ng-model="evento.horaInicio" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" ng-required="true"></uib-timepicker>
+		</div>
+		<div class="form-group col-sm-12 col-lg-6 blue">
+			<label for="repeticion">Repetición</label>
+			<select class="form-control" style="width:250px" name="repeticion" id="repeticion" ng-model="evento.repeticion" required ng-options="opcion.value as opcion.opcion for opcion in vecRepeticion">
+				<option value="">Seleccione Periodicidad</option>
+			</select>
+		</div>
+	</div>
+	<div class="row" style="margin-right: auto;">
+		<div class="form-group col-sm-12 col-lg-6 blue">
+			<div class="col-md-6">
+				<label for="fechaFin">Fecha fin</label>
+				<p class="input-group">
+				  <input type="text" class="form-control" uib-datepicker-popup="dd/MM/yyyy"
+				  ng-model="evento.fechaInicio" is-open="status2.opened" min-date="minDate"
+				  max-date="maxDate" datepicker-options="dateOptions" ng-required="true" close-text="Close" id="fechaFin"/>
+				  <span class="input-group-btn">
+					<button type="button" class="btn btn-primary" ng-click="open2($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+				  </span>
+				</p>
+			</div>
+			<uib-timepicker ng-model="evento.horaFin" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" ng-required="true" ></uib-timepicker>
+		</div>
+		<div class="form-group col-sm-12 col-lg-6 blue">
+			<label for="importancia">Importancia</label>
+			<select class="form-control" style="width:250px" name="importancia" id="importancia" ng-model="evento.importancia" required ng-options="opcion.value as opcion.opcion for opcion in vecImportancia">
+				<option value="">Seleccione Importancia</option>
+			</select>
+		</div>
+	</div>
+		<div class="form-group col-lg-6" >
+			<h3 class="header blue smaller lighter" style="text-align: -webkit-center; text-align: -moz-center;">
+				Notificaciones
+			</h3>
+			<div class="row">
+				<div class="col-lg-3"></div>
+				<div class="col-lg-5">	
+					<span ng-repeat="alerta in vectorAlertas track by $index">
+			          	<div class="checkbox">
+							<label>
+								<input name="form-field-checkbox" class="ace ace-checkbox-2" type="checkbox" checklist-model="evento.alerta.aplicacion" checklist-value="alerta.id"/>
+								<span class="lbl"> {{alerta.value}}</span>
+							</label>
+						</div>
+			        </span>
+			    </div>
+				<div class="col-lg-4"></div>
+		    </div>
+		</div>
+		<div class="col-lg-6">
+			<h3 class="header blue smaller lighter" style="text-align: -webkit-center; text-align: -moz-center;">
+				Invitados
+			</h3>
+			<div class="form-group col-sm-12 col-sm-12 col-lg-12 blue">
+				<label for="buscarTexto">Añadir Invitados</label>
+				<p class="input-group">
+					<input type="text" id="buscarTexto" placeholder="Nombre del Invitado" ng-model="buscarTexto" ng-keydown="checkKeyDown($event)" ng-keyup="checkKeyUp($event)" ng-change="search()" size="40"/>
+					<ul class="suggestion-list">
+						<li ng-repeat="suggestion in suggestions track by $index" ng-class="{active : selectedIndex === $index}" ng-click="AssingValueAndHide($index)">{{suggestion}}</li>
+					</ul>
+				</p>
+			</div>
+			<div class="caja-invitados">
+				<span ng-repeat="invitados in evento.invitados">
+					<div class="hidden-sm hidden-xs action-buttons">
+						{{invitados}}
+						<a class="red" style="float: right;" href ng-click="EliminarInvitado($index)">
+							<i class="ace-icon fa fa-trash-o bigger-130"></i>
+						</a>
+					</div>
+				</span>
+			</div>
+		</div>
+	<div class="col-lg-12 text-center">
+		<button class="btn btn-primary" ng-click="guardarEvento(evento)">Guardar</button>
+	</div>
+</form><!-- /.col -->

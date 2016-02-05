@@ -1,6 +1,6 @@
 <header>
 	<div class="banner">
-		<div class="row">
+		<div class="row" style="margin-right: auto;">
 			<div class="col-lg-3 col-md-3 img-banner">
 				<img src="img/banner/img-banner.png" alt="" width="320px" height="133px">
 			</div>
@@ -44,12 +44,6 @@
 							</select>
 						</div>
 						<div class="b-check">
-							<input type="checkbox" ng-model="checkPeriodicidad" ng-change="cambiarPeriodicidad()">
-						    <select id="periodicidad" ng-disabled="checkPeriodicidad === false || checkImportancia === true" style="width:120px" ng-model="busqueda.periodicidad" ng-options="opcion.opcion for opcion in vecRepeticion" required>
-						      <option value="">Periodicidad</option>
-							</select>
-						</div>
-						<div class="b-check">
 							<input type="checkbox" ng-model="checkDescripcion" ng-change="cambiarDescripcion()">
 						    <input type="text" id="descripcion" ng-disabled="checkDescripcion === false || checkImportancia === true || checkPeriodicidad == true" style="width:200px" ng-model="busqueda.descripcion" placeholder="Descripción"/>
 						</div>
@@ -57,7 +51,7 @@
 						    <input type="button" id="buscar" class="btn btn-sm btn-primary"  value="Buscar" ng-click="buscar()"/>
 						</div>
 					</div>
-				  <div id="calendar" ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources" calendar="Calendario">
+				  <div ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources" calendar="Calendario">
 				  </div> 
 				  <div class="row">
 					  <span ng-repeat="opcion in vectorIconosMes track by $index">
@@ -100,18 +94,3 @@
 		</div>
 	</div>	
 </footer>
-<script type='text/javascript'>
-
-$(document).ready(function() {
-    $('#Calendario').fullCalendar({
-        googleCalendarApiKey: '742162438611-ierfe8lp212ojtccrtdsckf3gvrvr3mu.apps.googleusercontent.com',
-        eventSources: [
-            {
-                googleCalendarId: 'https://calendar.google.com/calendar/ical/javiomoreno%40gmail.com/public/basic.ics',
-                className: 'nice-event'
-            }
-        ]
-    });
-});
-
-</script>

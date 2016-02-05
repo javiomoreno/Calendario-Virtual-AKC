@@ -1,4 +1,4 @@
-calendModController.controller('ObraDetalleController', [
+calendModController.controller('FotografiaDetalleController', [
                                                 '$scope',
                                                 '$routeParams', 
                                                 '$uibModal', 
@@ -7,9 +7,9 @@ calendModController.controller('ObraDetalleController', [
                                                 'calendarioService',
     function ($scope, $routeParams,  $uibModal, $location, calImagService, calendarioService) {
 
-      $scope.imagenId = $routeParams.idObra;
+      $scope.imagenId = $routeParams.idFotografia;
       $scope.bandera = false;
-      $scope.obra = {};
+      $scope.fotografia = {};
 
       calendarioService.getAllMeses().then(
         function(dataMeses) {
@@ -17,12 +17,11 @@ calendModController.controller('ObraDetalleController', [
             function(dataImagen){
               for (var i = 0; i < dataMeses.length; i++) {
                 if(dataMeses[i].tbclave == dataImagen.mes){
-                  $scope.obra = {
+                  $scope.fotografia = {
                     id: dataImagen.id,
                     mes: dataMeses[i].tbvalor,
                     anho: dataImagen.ano,
                     tema: dataImagen.tema,
-                    autor: dataImagen.autor,
                     mensaje: dataImagen.mensaje,
                     archivo: dataImagen.imagen
                   }
@@ -32,7 +31,7 @@ calendModController.controller('ObraDetalleController', [
               };
             },
             function(error){
-                console.log("Obra: ",error.statusText);
+                console.log("Imagen: ",error.statusText);
             }
           );
         },
@@ -42,18 +41,18 @@ calendModController.controller('ObraDetalleController', [
       );
 
       $scope.Editar = function(){
-          $location.path('/admin/obra/editar/'+$scope.imagenId);
+          $location.path('/admin/fotografi/editar/'+$scope.imagenId);
       }
 
       $scope.animationsEnabled = true;
 
-      $scope.openModal = function (size, idEliminar) {
-        $scope.idEliminar = idEliminar;
+      $scope.openModal = function (size) {
+        $scope.idEliminar = $scope.imagenId;
 
         var modalInstance = $uibModal.open({
           animation: $scope.animationsEnabled,
-          templateUrl: 'views/administrador/imagenes/obras/eliminar.html',
-          controller: 'ModalControllerObras',
+          templateUrl: 'views/administrador/imagenes/fotografias/eliminar.html',
+          controller: 'ModalControllerFotografias',
           size: size,
           resolve: {
               idEliminar : function(){

@@ -14,11 +14,11 @@ calendModController.controller('IconoCrearController', [
             var imagenCodif = $scope.buildImagenCodif();
             calImagService.guardarImagenCodificada(imagenCodif).then(
               function(result){
-                var icono = $scope.buildIcono(result);
+                var icono = $scope.buildIcono(result.id);
                 calImagService.guardarImagen(icono).then(
-                  function(result){
+                  function(resultIcono){
                     console.log("guardo");
-                    $location.path('/admin/icono/vista/'+result);
+                    $location.path('/admin/icono/vista/'+resultIcono.id);
                   },
                   function(error){
                     console.log("Icono: ",error.statusText);
@@ -41,7 +41,7 @@ calendModController.controller('IconoCrearController', [
           calEntity.imcocons = -1;        
           calEntity.imcotipo = 2;
           calEntity.imcoexte = $scope.icono.archivo.split(';')[0].substr(5);
-          calEntity.imcocodi = $scope.icono.archivo;     
+          calEntity.imagcodi = $scope.icono.archivo;     
           return calEntity;
         }
 
@@ -71,10 +71,5 @@ calendModController.controller('IconoCrearController', [
           else{
             return true;
           }
-        }
-
-        $scope.Atras = function(){
-          $location.path('/admin');
-          $rootScope.vista = "icono";
         }
 }]);

@@ -1,60 +1,66 @@
-<div class="col-sm-12">
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="widget-box" ng-init="id = imagen.id">
-                <div class="widget-header widget-header-flat">
-                    <h4 class="widget-title smaller">{{imagen.nombre}}</h4>
-                </div>
-                <div class="widget-body">
-                    <div class="profile-user-info profile-user-info-striped">
-                        <div class="profile-info-row">
-                            <div class="profile-info-name"> Mes </div>
-                            <div class="profile-info-value">
-                                <i class="ace-icon fa fa-calendar bigger-110 blue"></i>
-                                <span>{{imagen.mes}}</span>
+<div class="col-sm-12" ng-controller="FotografiaDetalleController">
+    <span ng-if="bandera == false">
+        <small><em>Construyendo Vista</em></small>
+            <uib-progressbar class="progress-striped active" value="100" type="info">Cargando...</uib-progressbar>
+    </span>
+    <span ng-if="bandera == true">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="widget-box">
+                    <div class="widget-header widget-header-flat">
+                        <h4 class="widget-title smaller">{{fotografia.nombre}}</h4>
+                    </div>
+                    <div class="widget-body">
+                        <div class="profile-user-info profile-user-info-striped">
+                            <div class="profile-info-row">
+                                <div class="profile-info-name"> Mes </div>
+                                <div class="profile-info-value">
+                                    <i class="ace-icon fa fa-calendar bigger-110 blue"></i>
+                                    <span>{{fotografia.mes}}</span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="profile-info-row">
-                            <div class="profile-info-name"> Año </div>
-                            <div class="profile-info-value">
-                                <i class="ace-icon fa fa-calendar bigger-110 blue"></i>
-                                <span>{{imagen.anho}}</span>
+                            <div class="profile-info-row">
+                                <div class="profile-info-name"> Año </div>
+                                <div class="profile-info-value">
+                                    <i class="ace-icon fa fa-calendar bigger-110 blue"></i>
+                                    <span>{{fotografia.anho}}</span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="profile-info-row">
-                            <div class="profile-info-name"> Tema </div>
-                            <div class="profile-info-value">
-                                <i class="ace-icon glyphicon glyphicon-text-width bigger-110 blue"></i>
-                                <span>{{imagen.tema}}</span>
+                            <div class="profile-info-row">
+                                <div class="profile-info-name"> Tema </div>
+                                <div class="profile-info-value">
+                                    <i class="ace-icon glyphicon glyphicon-text-width bigger-110 blue"></i>
+                                    <span>{{fotografia.tema}}</span>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="profile-info-row">
-                            <div class="profile-info-name"> Mensaje </div>
-                            <div class="profile-info-value">
-                                <i class="ace-icon glyphicon glyphicon-align-justify bigger-110 blue"></i>
-                                {{imagen.mensaje}}
+                            <div class="profile-info-row">
+                                <div class="profile-info-name"> Mensaje </div>
+                                <div class="profile-info-value">
+                                    <i class="ace-icon glyphicon glyphicon-align-justify bigger-110 blue"></i>
+                                    {{fotografia.mensaje}}
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="profile-info-row">
-                            <div class="profile-info-name"> Imagen </div>
-                            <div class="profile-info-value text-center">
-                                <img src="{{imagen.archivo}}" alt="{{imagen.nombre}}" class="imagenVista" title="{{imagen.nombre}}">
+                            <div class="profile-info-row">
+                                <div class="profile-info-name"> fotografia </div>
+                                <div class="profile-info-value text-center">
+                                    <img src="{{fotografia.archivo}}" alt="{{fotografia.nombre}}" class="imagenVista" title="{{fotografia.nombre}}">
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="widget-footer">
-                    <div class="row">
-                        <div class="col-lg-12 text-center">
-                            <button class="btn btn-sm btn-default">Atras</button>
-                            <button class="btn btn-sm btn-primary" ng-click="Editar(id)">Editar</button>
-                            <button class="btn btn-sm btn-danger" ng-click="openModal('sm', id)">Eliminar</button>
+                    <div class="widget-footer">
+                        <div class="row">
+                            <div class="col-lg-12 text-center">
+                                <button class="btn btn-sm btn-default">Atras</button>
+                                <button class="btn btn-sm btn-primary" ng-click="Editar()">Editar</button>
+                                <button class="btn btn-sm btn-danger" ng-click="openModal('sm')">Eliminar</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </span>
 </div>

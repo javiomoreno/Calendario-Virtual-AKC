@@ -1,48 +1,56 @@
-<form name="form" ng-controller="FotografiasController">
-	<div class="form-group col-sm-12 col-lg-6 blue" ng-init="anho = imagen.anho; mes = imagen.mes">
-	    <label for="mes">* Mes</label>
-	    <select class="form-control" id="mes" style="width:160px" ng-model="imagen.mes" ng-options="opcion.value as opcion.opcion for opcion in vecMeses" required>
-	      <option value="">Seleccione un Mes</option>
-		</select>
-	</div>
-	<div class="form-group col-sm-12 col-lg-6 blue">
-	    <label for="anho">* Año </label>
-	    <select class="form-control" id="anho" style="width:160px" ng-model="imagen.anho" ng-options="opcion.opcion as opcion.opcion for opcion in vecAnhos | orderBy:'opcion'" required>
-	      <option value="">Seleccione un Año</option>
-		</select>
-	</div>
-	<div class="form-group col-sm-12 col-lg-6 blue">
-	<label for="tema">* Titulo de Tema</label>
-	<input type="text" class="form-control" id="tema" 
-	   placeholder="Titulo de Tema" ng-model="imagen.tema"/>
-	</div>
-	<div class="form-group col-lg-12 blue">
-	<label for="mensaje">* Mensaje</label>
-	<textarea class="form-control" id="mensaje" 
-	   placeholder="Mensaje" ng-model="imagen.mensaje" value="hola"></textarea>
-	</div>
-	<div class="form-group col-lg-12 text-center" style="text-align: -webkit-center; text-align: -moz-center;">
-		<div style="width:400px; margin:12px;">
-		<h3 class="header blue smaller lighter">
-			* Cargar Archivo
-		</h3>
-		<label class="ace-file-input ace-file-multiple">
-			<input fileread="imagen.archivo" type="file" placeholder="Please select file" class="form-control" accept="image/*"/>
-			<span ng-if="imagen.archivo == null" class="ace-file-container" data-title="Seleccione el archivo">
-				<span  class="ace-file-name" data-title="No hay Achivo ...">
-					<i class=" ace-icon fa fa-upload"></i>
-				</span>
-			</span>
-			<span ng-if="imagen.archivo != null" class="ace-file-container">
-				<img src="{{imagen.archivo}}" class="imagenVista" alt="">
-			</span>
-			<a class="remove" href="#">
-				<i class=" ace-icon fa fa-times"></i>
-			</a>
-		</label>
-	</div>
-   	</div>
-	<div class="form-group col-lg-12 text-center">
-  		<button class="btn btn-primary" ng-click="guardarImagen(imagen)">Guardar</button>
-  	</div>
-</form><!-- /.col -->
+<div class="col-sm-12" ng-controller="FotografiaCrearController">
+    <span ng-if="bandera == false">
+        <small><em>Construyendo Vista</em></small>
+            <uib-progressbar class="progress-striped active" value="100" type="info">Guardando...</uib-progressbar>
+    </span>
+    <span ng-if="bandera == true">
+		<form name="form">
+			<div class="form-group col-sm-12 col-lg-6 blue">
+			    <label for="mes">* Mes</label>
+			    <select class="form-control" id="mes" style="width:160px" ng-model="fotografia.mes" ng-options="opcion.value as opcion.opcion for opcion in vecMeses" required>
+			      <option value="">Seleccione un Mes</option>
+				</select>
+			</div>
+			<div class="form-group col-sm-12 col-lg-6 blue">
+			    <label for="anho">* Año </label>
+			    <select class="form-control" id="anho" style="width:160px" ng-model="fotografia.anho" ng-options="opcion.opcion as opcion.opcion for opcion in vecAnhos | orderBy:'opcion'" required>
+			      <option value="">Seleccione un Año</option>
+				</select>
+			</div>
+			<div class="form-group col-sm-12 col-lg-6 blue">
+			<label for="tema">* Titulo de Tema</label>
+			<input type="text" class="form-control" id="tema" 
+			   placeholder="Titulo de Tema" ng-model="fotografia.tema"/>
+			</div>
+			<div class="form-group col-lg-12 blue">
+			<label for="mensaje">* Mensaje</label>
+			<textarea class="form-control" id="mensaje" 
+			   placeholder="Mensaje" ng-model="fotografia.mensaje"></textarea>
+			</div>
+			<div class="form-group col-lg-12 text-center" style="text-align: -webkit-center; text-align: -moz-center;">
+				<div style="width:400px; margin:12px;">
+				<h3 class="header blue smaller lighter">
+					* Cargar Archivo
+				</h3>
+				<label class="ace-file-input ace-file-multiple">
+					<input fileread="fotografia.archivo" type="file" placeholder="Please select file" class="form-control" accept="image/*"/>
+					<span ng-if="fotografia.archivo == null" class="ace-file-container" data-title="Seleccione el archivo">
+						<span  class="ace-file-name" data-title="No hay Achivo ...">
+							<i class=" ace-icon fa fa-upload"></i>
+						</span>
+					</span>
+					<span ng-if="fotografia.archivo != null" class="ace-file-container">
+						<img src="{{fotografia.archivo}}" class="imagenVista" alt="">
+					</span>
+					<a class="remove" href="#">
+						<i class=" ace-icon fa fa-times"></i>
+					</a>
+				</label>
+			</div>
+		   	</div>
+			<div class="form-group col-lg-12 text-center">
+		  		<button class="btn btn-primary" ng-click="guardarFotografia()">Guardar</button>
+		  	</div>
+		</form><!-- /.col -->
+	</span>
+</div>

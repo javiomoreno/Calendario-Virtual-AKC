@@ -595,6 +595,17 @@ button[type="button"].fc-agendaWeek-button{
 	padding-left: 15px;
 }
 
+
+.boton-notificacion{
+	background-color: #892E65;
+    border: 1px solid #892E65;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.nuevo-evento-usuario{
+	padding: 0px 40px 0px 40px;
+}
 /*
 .fc-row.fc-week.fc-widget-content{
 	height: 90px !important;

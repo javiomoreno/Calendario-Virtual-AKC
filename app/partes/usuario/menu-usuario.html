@@ -1,0 +1,108 @@
+<div id="navbar" class="navbar navbar-default">
+	<div class="navbar-container" id="navbar-container">
+		<div class="navbar-header pull-left cabecera">
+			<!-- #section:basics/navbar.layout.brand -->
+			<a href="#" class="navbar-brand" rel="home" href="#" title="Aguas Kapital C&uacute;cuta">
+				<small class="titulo-logo">
+					<img class="logo" style="max-width:100px; margin-top: -7px;" src="img/LOGO AKC.png">
+					Calendario Virtual AKC
+				</small>
+			</a>
+		</div>
+
+		<!-- #section:basics/navbar.dropdown -->
+		<div class="navbar-buttons navbar-header pull-right" role="navigation">
+			<ul class="nav ace-nav">
+				<li>
+					<div class="btn-group" uib-dropdown is-open="status.isopen" style="margin-right: -3px;" 
+    
+>
+						<button id="single-button" type="button" class="dropdown-toggle boton-notificacion" uib-dropdown-toggle ng-disabled="disabled">
+							<i class="ace-icon fa fa-bell icon-animated-bell white"></i>
+							<span class="badge badge-important">{{alertasTotal}}</span>
+						</button>
+						<ul class="dropdown-menu-right dropdown-navbar navbar-{{color}} dropdown-menu dropdown-caret dropdown-close">
+							<li class="dropdown-header">
+								<i class="ace-icon fa fa-exclamation-triangle"></i>
+								{{alertasTotal}} Notificaciones
+							</li>
+
+							<li class="dropdown-content">
+								<ul class="dropdown-menu dropdown-navbar navbar-pink">
+									<li>
+										<a href="#">
+											<div class="clearfix">
+												<span class="pull-left">
+													<i class="btn btn-xs no-hover btn-c fa fa-exclamation-triangle"></i>
+													Eventos Hoy
+												</span>
+												<span class="pull-right badge badge-pink">+{{alertasDia}}</span>
+											</div>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<div class="clearfix">
+												<span class="pull-left">
+													<i class="btn btn-xs no-hover btn-primary fa fa-exclamation-triangle"></i>
+													Eventos Esta Semana
+												</span>
+												<span class="pull-right badge badge-info">+{{alertasSemana}} </span>
+											</div>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<div class="clearfix">
+												<span class="pull-left">
+													<i class="btn btn-xs no-hover btn-success fa fa-exclamation-triangle"></i>
+													Eventos Este Mes
+												</span>
+												<span class="pull-right badge badge-success">+{{alertasMes}}</span>
+											</div>
+										</a>
+									</li>
+								</ul>
+							</li>
+
+							<li class="dropdown-footer">
+								<a href="#">
+									See all notifications
+									<i class="ace-icon fa fa-arrow-right"></i>
+								</a>
+							</li>
+						</ul>
+				    </div>
+				</li>
+				<!-- #section:basics/navbar.user_menu -->
+				<li class="light-blue">
+					<div class="btn-group" uib-dropdown is-open="false">
+				      <button id="single-button" type="button" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled">
+				      	<img class="nav-user-photo" src="avatars/avatar2.png" alt="Jason's Photo" />
+				      	<span class="user-info">
+							<small class="bienvenido">Bienvenido,</small>
+							Usuario
+						</span>
+				        <i class="ace-icon fa fa-caret-down"></i>
+				      </button>
+				      <ul class="uib-dropdown-menu" role="menu" aria-labelledby="single-button">
+				        <li role="menuitem">
+				        	<a href="#">
+				        		<i class="ace-icon fa fa-user"></i>
+									Perfil
+							</a>
+						</li>
+						<li class="divider"></li>
+				        <li role="menuitem">
+				        	<a href="#">
+				        		<i class="ace-icon fa fa-power-off"></i>
+				        		Cerrar Sesión
+							</a>
+				        </li>
+				      </ul>
+				    </div>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>

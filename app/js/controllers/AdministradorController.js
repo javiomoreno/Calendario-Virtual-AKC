@@ -25,7 +25,7 @@ calendModController.controller('AdministradorController', [
         }
 
         $scope.crearImagen = function(){
-          $location.path('/admin/fotografia/nueva');
+          $location.path('/admin/fotografias/nueva');
         };
 
         $scope.crearObra = function(){

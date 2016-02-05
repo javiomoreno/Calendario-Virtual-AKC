@@ -1,0 +1,14 @@
+<div class="col-lg-1"></div>
+<div class="col-sm-10" ng-controller="UsuarioCalendarioController">
+	<div ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources" calendar="Calendario">
+	</div>
+	<div class="row">
+	  <span ng-repeat="opcion in vectorIconosMes track by $index">
+	  	<div class="col-lg-3">
+	  		<div class="icono imagenIcono" style='float:left; background-image: url("{{opcion.iconoImagen}}");'></div>
+	  		<p class="nombre-icono">{{opcion.nombre}}</p>
+	  	</div>
+	  </span>
+	</div>
+</div>
+<div class="col-lg-1"></div>
