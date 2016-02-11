@@ -56,7 +56,7 @@ calendModFactory.factory('allAnhos', function allAnhos($resource, baseURL) {
 });
 
 /*Consultar lista de Imagenes por Mes,Año y Tipo para el calendario*/
-calendModFactory.factory('getImagenesTipo', function getImagenesTipo($resource, baseURL) {
+calendModFactory.factory('getImagenesTipoMesAñoCalendario', function getImagenesTipoMesAñoCalendario($resource, baseURL) {
 	return $resource(baseURL + 'cal/imagentipo/:anho/:mes/:tipo', {anho:'@anho', mes:'@mes', tipo:'@tipo'});
 });
 

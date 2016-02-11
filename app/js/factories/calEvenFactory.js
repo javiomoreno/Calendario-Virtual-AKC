@@ -1,11 +1,11 @@
 //FACTORIAS PARA EVENTOS//
 /*Consultar los Invitados al Evento*/
 calendModFactory.factory('allInvitados', function allInvitados($resource, baseURL) {
-	return $resource('invitados.json', {});
+	return $resource(baseURL + 'aexusuario/invitados', {});
 });
 
 /*Consultar los tipos de Alertas*/
-calendModFactory.factory('allAlertas', function allInvitados($resource, baseURL) {
+calendModFactory.factory('allAlertas', function allAlertas($resource, baseURL) {
 	return $resource(baseURL + 'aextablas/alertas', {});
 });
 
@@ -23,4 +23,11 @@ calendModFactory.factory('allRepeticion', function allRepeticion($resource, base
 calendModFactory.factory('allImportancia', function allImportancia($resource, baseURL) {
 	return $resource(baseURL + 'aextablas/importancia', {});
 });
+
+/*Consultar los eventos por tipo y año*/
+calendModFactory.factory('allEventosTipo', function allEventosTipo($resource, baseURL) {
+	return $resource(baseURL + 'cal/eventos/:tipo/:anho', {tipo:'@tipo', anho:'@anho'});
+});
+
+
 

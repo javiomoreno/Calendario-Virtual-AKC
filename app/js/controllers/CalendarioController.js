@@ -61,14 +61,18 @@ calendModController.controller('CalendarioController', [
           }
         }
 
-        var vectorColores = ['#118484', '#268A25', '#8C0404']
+        var vectorColores = ['#118484', '#268A25', '#8C0404'];
 
-        var todosInStore = localStorageService.get('eventos');
-        $scope.eventos = todosInStore || [];
-
-        $scope.$watch('eventos', function(){
-            localStorageService.add('eventos', $scope.eventos);
-        }, true);
+        calEvenService.getAllEventosTipo(2801, y).then(
+          function(dataEventos){
+            for (var i = 0; i < dataEventos.length; i++) {
+              $scope.eventos.push(dataEventos[i]);
+            }
+          },
+          function(error){
+            console.log(error.statusText);
+          }
+        );
 
         $rootScope.vectorImagenes = [];
         $rootScope.vectorObras = [];
@@ -422,20 +426,26 @@ calendModController.controller('CalendarioController', [
               var contaObras = 0;
               var mes = $scope.uiConfig.calendar.monthNames[$rootScope.mes].toUpperCase();
 
-              calImagService.getImagenesTipo($rootScope.anho, $rootScope.mes, 2101).then(
+              calImagService.getImagenesTipoMesAñoCalendario($rootScope.anho, $rootScope.mes+1, 2101).then(
                 function(dataImagenes){
-                  contaFotografias = dataImagenes.cantidad;
-                  for (var i = 0; i < dataImagenes.imagenes.length; i++) {
-                    imagenes[i] = dataImagenes.imagenes[i];
+                  if (dataImagenes.cantidad > 0) {
+                    contaFotografias = dataImagenes.cantidad;
+                    for (var i = 0; i < dataImagenes.imagenes.length; i++) {
+                      imagenes[i] = dataImagenes.imagenes[i];
+                    }
+                    $rootScope.foto = imagenes[Math.floor((Math.random()*contaFotografias))];
                   }
                 }
               );
 
-              calImagService.getImagenesTipo($rootScope.anho, $rootScope.mes, 2103).then(
+              calImagService.getImagenesTipoMesAñoCalendario($rootScope.anho, $rootScope.mes+1, 2103).then(
                 function(dataImagenes){
-                  contaFotografias = dataImagenes.cantidad;
-                  for (var i = 0; i < dataImagenes.imagenes.length; i++) {
-                    obras[i] = dataImagenes.imagenes[i];
+                  if (dataImagenes.cantidad > 0) {
+                    contaObras = dataImagenes.cantidad;
+                    for (var i = 0; i < dataImagenes.imagenes.length; i++) {
+                      obras[i] = dataImagenes.imagenes[i];
+                    }
+                    $rootScope.obra = obras[Math.floor((Math.random()*contaObras))];
                   }
                 }
               );
@@ -470,9 +480,6 @@ calendModController.controller('CalendarioController', [
                   }
                 }                
               };
-              $rootScope.foto = imagenes[Math.floor((Math.random()*contaFotografias))];
-              $rootScope.obra = obras[Math.floor((Math.random()*contaObras))];
-
             }
           }
         };
@@ -513,7 +520,7 @@ calendModController.controller('CalendarioController', [
                 size: size,
                 controller: function() {
                   var vm = this;
-                  vm.archivo = foto.archivo;
+                  vm.archivo = foto.imagen;
                   vm.mensaje = foto.mensaje;
                   vm.tema = foto.tema;
                 },
@@ -521,7 +528,7 @@ calendModController.controller('CalendarioController', [
               });
         }
 
-        $scope.abrirIObra = function(foto){
+        $scope.abrirObra = function(foto){
             showModalOpenObra(foto, 'lg');
         }
 
@@ -532,7 +539,7 @@ calendModController.controller('CalendarioController', [
                 size: size,
                 controller: function() {
                   var vm = this;
-                  vm.archivo = foto.archivo;
+                  vm.archivo = foto.imagen;
                   vm.tema = foto.tema;
                   vm.autor = foto.autor;
                   vm.mensaje = foto.mensaje;

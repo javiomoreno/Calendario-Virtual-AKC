@@ -104,19 +104,16 @@ calendModController.controller('ObraEditarController', [
         if( angular.isUndefined($scope.obra.anho) ||
         	angular.isUndefined($scope.obra.mes) ||
         	angular.isUndefined($scope.obra.autor) ||
-        	angular.isUndefined($scope.obra.mensaje) ||
         	angular.isUndefined($scope.obra.tema) ||
           angular.isUndefined($scope.obra.archivo) ||
           $scope.obra.anho == null ||
           $scope.obra.mes == null ||
           $scope.obra.autor == null ||
-          $scope.obra.mensaje == null ||
           $scope.obra.tema == null ||
           $scope.obra.archivo == null ||
           $scope.obra.anho == '' ||
           $scope.obra.mes == '' ||
           $scope.obra.autor == '' ||
-          $scope.obra.mensaje == '' ||
           $scope.obra.tema == ''
         ){
           return false;
