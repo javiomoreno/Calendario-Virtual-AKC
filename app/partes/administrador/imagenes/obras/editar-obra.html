@@ -7,13 +7,13 @@
 		<form name="form">
 			<div class="form-group col-sm-12 col-lg-6 blue">
 			    <label for="mes">* Mes</label>
-			    <select class="form-control" id="mes" style="width:160px" ng-model="obra.mes" ng-options="opcion.value as opcion.opcion for opcion in vecMeses track by $index" required>
+			    <select class="form-control" id="mes" style="width:160px" ng-model="obra.mes" ng-options="opcion.value as opcion.opcion for opcion in vecMeses" required>
 			      <option value="">Seleccione un Mes</option>
 				</select>
 			</div>
 			<div class="form-group col-sm-12 col-lg-6 blue">
 			    <label for="anho">* Año </label>
-			    <select class="form-control" id="anho" style="width:160px" ng-model="obra.anho" ng-options="opcion.opcion as opcion.opcion for opcion in vecAnhos track by $index | orderBy:'opcion.opcion'" required>
+			    <select class="form-control" id="anho" style="width:160px" ng-model="obra.anho" ng-options="opcion.opcion as opcion.opcion for opcion in vecAnhos | orderBy:'opcion.opcion'" required>
 			      <option value="">Seleccione un Año</option>
 				</select>
 			</div>
@@ -53,7 +53,7 @@
 				</label>
 			</div>
 			<div class="form-group col-lg-12">
-		  		<button class="btn btn-primary" ng-click="editarObra(id)">Editar</button>
+		  		<button class="btn btn-primary" ng-click="editarObra()">Editar</button>
 		  	</div>
 		</form><!-- /.col -->
 	</span>

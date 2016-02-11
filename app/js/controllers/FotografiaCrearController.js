@@ -1,9 +1,8 @@
 calendModController.controller('FotografiaCrearController', [
                                                 '$scope', 
-                                                'calendarioService', 
                                                 '$location', 
                                                 'calImagService',
-    function ($scope, calendarioService, $location, calImagService) {
+    function ($scope, $location, calImagService) {
 
         $scope.bandera = true;
         $scope.fotografia = {};
@@ -16,26 +15,29 @@ calendModController.controller('FotografiaCrearController', [
         $scope.vecMeses = [];
         $scope.vecAnhos = [];
 
-        calendarioService.getAllMeses().then(function(data) {
+        calImagService.getAllMeses().then(function(data) {
             for (var i = 0; i < data.length; i++) {
               $scope.vecMeses[i] = {
+                id: i,
                 opcion: data[i].tbclave+" - "+data[i].tbvalor,
-                value: data[i].tbclave
+                value: data[i].tbnumero
               }
             };
         });
 
-        calendarioService.getAllAnhos().then(function(data) {
+        calImagService.getAllAnhos().then(function(data) {
             for (var i = 0; i < data.length; i++) {
               $scope.vecAnhos[i] = {
-                opcion: data[i].tbvalor
+                id: i,
+                opcion: data[i].tbvalor,
+                value: data[i].tbnumero
               }
             };
         });
 
         $scope.guardarFotografia = function(){
-          $scope.bandera = false;          
-        	if($scope.isValidarDatosFotografia()){
+          if($scope.isValidarDatosFotografia()){
+            $scope.bandera = false;          
             var imagenCodif = $scope.buildImagenCodif();
             calImagService.guardarImagenCodificada(imagenCodif).then(
               function(result){
@@ -64,7 +66,7 @@ calendModController.controller('FotografiaCrearController', [
         $scope.buildImagenCodif = function(){
           var calEntity = {};
           calEntity.imcocons = -1;        
-          calEntity.imcotipo = 1;
+          calEntity.imcotipo = 2101;
           calEntity.imcoexte = $scope.fotografia.archivo.split(';')[0].substr(5);
           calEntity.imagcodi = $scope.fotografia.archivo;     
           return calEntity;

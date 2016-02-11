@@ -4,27 +4,26 @@ calendModController.controller('ObraDetalleController', [
                                                 '$uibModal', 
                                                 '$location', 
                                                 'calImagService',
-                                                'calendarioService',
-    function ($scope, $routeParams,  $uibModal, $location, calImagService, calendarioService) {
+    function ($scope, $routeParams,  $uibModal, $location, calImagService) {
 
       $scope.imagenId = $routeParams.idObra;
       $scope.bandera = false;
       $scope.obra = {};
 
-      calendarioService.getAllMeses().then(
+      calImagService.getAllMeses().then(
         function(dataMeses) {
           calImagService.getImagenId($scope.imagenId).then(
             function(dataImagen){
               for (var i = 0; i < dataMeses.length; i++) {
-                if(dataMeses[i].tbclave == dataImagen.mes){
+                if(dataMeses[i].tbclave == dataImagen.IMAGMES){
                   $scope.obra = {
-                    id: dataImagen.id,
+                    id: dataImagen.IMAGCONS,
                     mes: dataMeses[i].tbvalor,
-                    anho: dataImagen.ano,
-                    tema: dataImagen.tema,
-                    autor: dataImagen.autor,
-                    mensaje: dataImagen.mensaje,
-                    archivo: dataImagen.imagen
+                    anho: dataImagen.IMAGANO,
+                    tema: dataImagen.IMAGTEMA,
+                    autor: dataImagen.IMAGAUTO,
+                    mensaje: dataImagen.IMAGMENS,
+                    archivo: dataImagen.IMAGCODI
                   }
                   $scope.bandera = true;
                   break;

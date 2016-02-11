@@ -4,26 +4,25 @@ calendModController.controller('FotografiaDetalleController', [
                                                 '$uibModal', 
                                                 '$location', 
                                                 'calImagService',
-                                                'calendarioService',
-    function ($scope, $routeParams,  $uibModal, $location, calImagService, calendarioService) {
+    function ($scope, $routeParams,  $uibModal, $location, calImagService) {
 
       $scope.imagenId = $routeParams.idFotografia;
       $scope.bandera = false;
       $scope.fotografia = {};
 
-      calendarioService.getAllMeses().then(
+      calImagService.getAllMeses().then(
         function(dataMeses) {
           calImagService.getImagenId($scope.imagenId).then(
             function(dataImagen){
               for (var i = 0; i < dataMeses.length; i++) {
-                if(dataMeses[i].tbclave == dataImagen.mes){
+                if(dataMeses[i].tbclave == dataImagen.IMAGMES){
                   $scope.fotografia = {
-                    id: dataImagen.id,
+                    id: dataImagen.IMAGCONS,
                     mes: dataMeses[i].tbvalor,
-                    anho: dataImagen.ano,
-                    tema: dataImagen.tema,
-                    mensaje: dataImagen.mensaje,
-                    archivo: dataImagen.imagen
+                    anho: dataImagen.IMAGANO,
+                    tema: dataImagen.IMAGTEMA,
+                    mensaje: dataImagen.IMAGMENS,
+                    archivo: dataImagen.IMAGCODI
                   }
                   $scope.bandera = true;
                   break;
@@ -41,7 +40,7 @@ calendModController.controller('FotografiaDetalleController', [
       );
 
       $scope.Editar = function(){
-          $location.path('/admin/fotografi/editar/'+$scope.imagenId);
+          $location.path('/admin/fotografia/editar/'+$scope.imagenId);
       }
 
       $scope.animationsEnabled = true;

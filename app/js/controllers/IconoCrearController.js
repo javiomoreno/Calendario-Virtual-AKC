@@ -39,7 +39,7 @@ calendModController.controller('IconoCrearController', [
         $scope.buildImagenCodif = function(){
           var calEntity = {};
           calEntity.imcocons = -1;        
-          calEntity.imcotipo = 2;
+          calEntity.imcotipo = 2102;
           calEntity.imcoexte = $scope.icono.archivo.split(';')[0].substr(5);
           calEntity.imagcodi = $scope.icono.archivo;     
           return calEntity;

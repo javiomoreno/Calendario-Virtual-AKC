@@ -2,8 +2,7 @@ calendModController.controller('FotografiaAnoMesController', [
                                                 '$scope',
                                                 '$routeParams', 
                                                 'calImagService',
-                                                'calendarioService',
-    function ($scope, $routeParams, calImagService, calendarioService) {
+    function ($scope, $routeParams, calImagService) {
 
       var campos = $routeParams.camposFotografia;
       var vector = [];
@@ -13,17 +12,17 @@ calendModController.controller('FotografiaAnoMesController', [
       $scope.vectorFotografias = [];
       $scope.bandera = false;
 
-      calendarioService.getAllMeses().then(
+      calImagService.getAllMeses().then(
         function(data) {
           for (var i = 0; i < data.length; i++) {
             if (data[i].tbvalor == $scope.mes) {
-              calImagService.getImagenesAnoMesTipo($scope.anho, data[i].tbclave, 1).then(
+              calImagService.getImagenesAnoMesTipo($scope.anho, data[i].tbclave, 2101).then(
                 function(dataFotografias){
                   for (var i = 0; i < dataFotografias.length; i++) {
                     $scope.vectorFotografias.push({
-                      id: dataFotografias[i].id,
-                      tema: dataFotografias[i].Tema,
-                      autor: dataFotografias[i].Autor
+                      id: dataFotografias[i].IMAGCONS,
+                      tema: dataFotografias[i].IMAGTEMA,
+                      mensaje: dataFotografias[i].IMAGMENS
                       });
                   };
                   $scope.bandera = true;

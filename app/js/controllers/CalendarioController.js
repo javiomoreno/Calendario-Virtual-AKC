@@ -3,13 +3,13 @@ calendModController.controller('CalendarioController', [
                                                       '$compile', 
                                                       '$rootScope', 
                                                       '$routeParams', 
-                                                      'calendarioService', 
+                                                      'calEvenService', 
+                                                      'calImagService',
                                                       'localStorageService', 
                                                       '$uibModal', 
                                                       '$uibTooltip',
                                                       'uiCalendarConfig',
-
-  function ($scope, $compile, $rootScope, $routeParams, calendarioService, localStorageService, $uibModal, $uibTooltip, uiCalendarConfig){
+  function ($scope, $compile, $rootScope, $routeParams, calEvenService, calImagService, localStorageService, $uibModal, $uibTooltip, uiCalendarConfig){
 
         var date = new Date();
         var d = date.getDate();
@@ -35,7 +35,7 @@ calendModController.controller('CalendarioController', [
 
         $scope.vecImportancia= [];
 
-        calendarioService.getAllImportancia().then(function (data) {
+        calEvenService.getAllImportancia().then(function (data) {
           for (var i = 0; i < data.length; i++) {
             $scope.vecImportancia[i] = {
               select: i,
@@ -70,40 +70,22 @@ calendModController.controller('CalendarioController', [
             localStorageService.add('eventos', $scope.eventos);
         }, true);
 
-
-        var todosInStore = localStorageService.get('imagenes');
-
-        $scope.imagenes = todosInStore || [];
-
-        $scope.$watch('imagenes', function(){
-          localStorageService.add('imagenes', $scope.imagenes);
-        }, true);
-
         $rootScope.vectorImagenes = [];
         $rootScope.vectorObras = [];
         $rootScope.vectorIconos = [];
         $rootScope.vectorIconosMes = [];
-          var cont = 0;
-        for (var i = 0; i < $scope.imagenes.length; i++) {
-          if($scope.imagenes[i].tipo == 1){
-            $rootScope.vectorImagenes[cont] = $scope.imagenes[i];
-            cont ++;
+
+        calImagService.getListaIconos().then(
+          function(dataImagen){
+            cont = dataImagen.length;
+            for (var i = 0; i < dataImagen.length; i++) {
+              $rootScope.vectorIconos[i] = dataImagen[i];
+            }
+          },
+          function(error){
+              console.log(error.statusText);
           }
-        }
-        cont = 0;
-        for (var i = 0; i < $scope.imagenes.length; i++) {
-          if($scope.imagenes[i].tipo == 3){
-            $rootScope.vectorObras[cont] = $scope.imagenes[i];
-            cont ++;
-          }
-        }
-        cont = 0;
-        for (var i = 0; i < $scope.imagenes.length; i++) {
-          if($scope.imagenes[i].tipo == 2){
-            $rootScope.vectorIconos[cont] = $scope.imagenes[i];
-            cont ++;
-          }
-        }
+        );
 
 
         $scope.addRemoveEventSource = function(sources,source) {
@@ -436,22 +418,27 @@ calendModController.controller('CalendarioController', [
               }
               var imagenes = [];
               var obras = [];
-              var conta = 0;
+              var contaFotografias = 0;
+              var contaObras = 0;
               var mes = $scope.uiConfig.calendar.monthNames[$rootScope.mes].toUpperCase();
 
-              for (var i = 0; i < $rootScope.vectorImagenes.length; i++) {
-                if($rootScope.vectorImagenes[i].mes == mes && $rootScope.vectorImagenes[i].anho == $rootScope.anho){
-                  imagenes[conta] = $rootScope.vectorImagenes[i];
-                  conta ++
+              calImagService.getImagenesTipo($rootScope.anho, $rootScope.mes, 2101).then(
+                function(dataImagenes){
+                  contaFotografias = dataImagenes.cantidad;
+                  for (var i = 0; i < dataImagenes.imagenes.length; i++) {
+                    imagenes[i] = dataImagenes.imagenes[i];
+                  }
                 }
-              };
-              conta = 0;
-              for (var i = 0; i < $rootScope.vectorObras.length; i++) {
-                if($rootScope.vectorObras[i].mes == mes && $rootScope.vectorObras[i].anho == $rootScope.anho){
-                  obras[conta] = $rootScope.vectorObras[i];
-                  conta ++
+              );
+
+              calImagService.getImagenesTipo($rootScope.anho, $rootScope.mes, 2103).then(
+                function(dataImagenes){
+                  contaFotografias = dataImagenes.cantidad;
+                  for (var i = 0; i < dataImagenes.imagenes.length; i++) {
+                    obras[i] = dataImagenes.imagenes[i];
+                  }
                 }
-              };
+              );
 
               $rootScope.vectorIconosMes = [];
               var contador = 0;
@@ -483,8 +470,8 @@ calendModController.controller('CalendarioController', [
                   }
                 }                
               };
-              $rootScope.foto = imagenes[Math.floor((Math.random()*conta))];
-              $rootScope.obra = obras[Math.floor((Math.random()*conta))];
+              $rootScope.foto = imagenes[Math.floor((Math.random()*contaFotografias))];
+              $rootScope.obra = obras[Math.floor((Math.random()*contaObras))];
 
             }
           }

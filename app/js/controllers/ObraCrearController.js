@@ -1,9 +1,8 @@
 calendModController.controller('ObraCrearController', [
                                                 '$scope', 
-                                                'calendarioService', 
                                                 '$location', 
                                                 'calImagService',
-    function ($scope, calendarioService, $location, calImagService) {
+    function ($scope, $location, calImagService) {
 
         $scope.obra = {};
         $scope.obra.mes = {};
@@ -16,21 +15,23 @@ calendModController.controller('ObraCrearController', [
         $scope.vecMeses = [];
         $scope.vecAnhos = [];
 
-        calendarioService.getAllMeses().then(function(data) {
+        calImagService.getAllMeses().then(function(data) {
             for (var i = 0; i < data.length; i++) {
               $scope.vecMeses[i] = {
                 id: i,
                 opcion: data[i].tbclave+" - "+data[i].tbvalor,
-                value: data[i].tbclave
+                value: data[i].tbclave,
+                value: data[i].tbnumero
               }
             };
         });
 
-        calendarioService.getAllAnhos().then(function(data) {
+        calImagService.getAllAnhos().then(function(data) {
             for (var i = 0; i < data.length; i++) {
               $scope.vecAnhos[i] = {
                 id: i,
-                opcion: data[i].tbvalor
+                opcion: data[i].tbvalor,
+                value: data[i].tbnumero
               }
             };
         });
@@ -64,7 +65,7 @@ calendModController.controller('ObraCrearController', [
         $scope.buildImagenCodif = function(){
           var calEntity = {};
           calEntity.imcocons = -1;        
-          calEntity.imcotipo = 3;
+          calEntity.imcotipo = 2103;
           calEntity.imcoexte = $scope.obra.archivo.split(';')[0].substr(5);
           calEntity.imagcodi = $scope.obra.archivo;     
           return calEntity;

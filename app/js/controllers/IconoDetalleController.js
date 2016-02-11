@@ -15,9 +15,9 @@ calendModController.controller('IconoDetalleController', [
       calImagService.getImagenId($scope.imagenId).then(
         function(dataImagen){
           $scope.icono = {
-            id: dataImagen.id,
-            mensaje: dataImagen.mensaje,
-            archivo: dataImagen.imagen
+            id: dataImagen.IMAGCONS,
+            mensaje: dataImagen.IMAGMENS,
+            archivo: dataImagen.IMAGCODI
           }
           $scope.bandera = true;
         },

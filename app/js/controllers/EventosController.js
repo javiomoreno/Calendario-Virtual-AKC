@@ -3,20 +3,20 @@ calendModController.controller('EventosController', [
                                                     '$scope', 
                                                     '$filter', 
                                                     '$routeParams',  
-                                                    'calendarioService',
+                                                    'calEvenService',
                                                     'localStorageService', 
                                                     '$uibModal', 
                                                     '$location', 
                                                     '$route', 
                                                     '$timeout', 
                                                     '$rootScope',
-    function ($http, $scope, $filter, $routeParams, calendarioService, localStorageService, $uibModal, $location, $route, $timeout, $rootScope) {
+    function ($http, $scope, $filter, $routeParams, calEvenService, localStorageService, $uibModal, $location, $route, $timeout, $rootScope) {
 
         $scope.vecTipoEvento = [];
         $scope.vecRepeticion= [];
         $scope.vecImportancia= [];
 
-        calendarioService.getAllTipoEvento().then(function (data) {
+        calEvenService.getAllTipoEvento().then(function (data) {
           for (var i = 0; i < data.length; i++) {
             $scope.vecTipoEvento[i] = {
               select: i,
@@ -26,7 +26,7 @@ calendModController.controller('EventosController', [
           };
         });
 
-        calendarioService.getAllRepeticion().then(function (data) {
+        calEvenService.getAllRepeticion().then(function (data) {
           for (var i = 0; i < data.length; i++) {
             $scope.vecRepeticion[i] = {
               select: i,
@@ -36,7 +36,7 @@ calendModController.controller('EventosController', [
           };
         });
 
-        calendarioService.getAllImportancia().then(function (data) {
+        calEvenService.getAllImportancia().then(function (data) {
           for (var i = 0; i < data.length; i++) {
             $scope.vecImportancia[i] = {
               select: i,

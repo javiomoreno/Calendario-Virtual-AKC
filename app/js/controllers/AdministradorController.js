@@ -2,12 +2,12 @@ calendModController.controller('AdministradorController', [
                                                         '$location', 
                                                         '$timeout', 
                                                         '$scope', 
-                                                        'calendarioService', 
-    function ($location, $timeout, $scope, calendarioService) {
+                                                        'calImagService', 
+    function ($location, $timeout, $scope, calImagService) {
 
         $scope.opciones = [];
 
-        calendarioService.getAllTipoImagen().then(function(data) {
+        calImagService.getAllTipoImagen().then(function(data) {
           for (var i = 0; i < data.length; i++) {
             $scope.opciones[i] = {
               opcion: data[i].tbclave+" - "+data[i].tbvalor,

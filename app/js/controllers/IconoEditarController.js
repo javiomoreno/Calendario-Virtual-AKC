@@ -15,9 +15,17 @@ calendModController.controller('IconoEditarController', [
       calImagService.getImagenId($scope.imagenId).then(
         function(dataImagen){
           $scope.icono = {
-            id: dataImagen.id,
-            mensaje: dataImagen.mensaje,
-            archivo: dataImagen.imagen
+            id: dataImagen.IMAGCONS,
+            idCodif: dataImagen.IMAGIMCO,
+            tipoCodif: dataImagen.IMCOTIPO,
+            extCodif: dataImagen.IMCOEXTE,
+            mes: dataImagen.IMAGMES,
+            anho: dataImagen.IMAGANO,
+            tema: dataImagen.IMAGTEMA,
+            autor: dataImagen.IMAGAUTO,
+            mensaje: dataImagen.IMAGMENS,
+            archivo: dataImagen.IMAGCODI,
+            fechaCre: new Date(dataImagen.IMAGFECR)
           }
           $scope.bandera = true;
         },
@@ -25,26 +33,46 @@ calendModController.controller('IconoEditarController', [
             console.log(error.statusText);
         }
       );
+
+      $scope.editarIcono = function(){
+        if($scope.isValidarDatosIcono()){
+          $scope.bandera = false;
+          var imagenCodif = $scope.buildImagenCodif();
+          calImagService.updImagenCodifi(imagenCodif).then(
+            function(result){    
+              var icono = $scope.buildIcono(result.ID);
+              calImagService.updImagenes(icono).then(
+                function(resultIcono){
+                  $scope.bandera = true;
+                  console.log("guardo");
+                  $location.path('/admin/icono/vista/'+resultIcono.ID);
+                }
+              );
+            }
+          );
+        }
+      }
+
       $scope.buildImagenCodif = function(){
           var calEntity = {};
-          calEntity.imcocons = -1;        
-          calEntity.imcotipo = 2;
-          calEntity.imcoexte = $scope.icono.archivo.split(';')[0].substr(5);
+          calEntity.imcocons = $scope.icono.idCodif;        
+          calEntity.imcotipo = $scope.icono.tipoCodif;
+          calEntity.imcoexte = $scope.icono.extCodif;
           calEntity.imagcodi = $scope.icono.archivo;     
           return calEntity;
         }
 
-        $scope.buildIcono = function(imagimco){
+        $scope.buildIcono = function(){
           var calEntity = {};
-          calEntity.imagcons = -1;    
-          calEntity.imagimco = imagimco;     
+          calEntity.imagcons = $scope.icono.id;        
+          calEntity.imagimco = $scope.icono.idCodif;  
           calEntity.imagano = null;
           calEntity.imagmes = null;
           calEntity.imagauto = null;
           calEntity.imagmens = $scope.icono.mensaje;
           calEntity.imagtema = null;     
           calEntity.imaguscr = null;     
-          calEntity.imagfecr = null;      
+          calEntity.imagfecr = $scope.icono.fechaCre;       
           return calEntity;
         }
 
