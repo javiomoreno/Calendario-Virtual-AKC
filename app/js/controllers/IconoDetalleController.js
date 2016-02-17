@@ -4,8 +4,7 @@ calendModController.controller('IconoDetalleController', [
                                                 '$uibModal', 
                                                 '$location', 
                                                 'calImagService',
-                                                'calendarioService',
-    function ($scope, $routeParams,  $uibModal, $location, calImagService, calendarioService) {
+    function ($scope, $routeParams,  $uibModal, $location, calImagService) {
 
       $scope.imagenId = $routeParams.idIcono;
       $scope.bandera = false;

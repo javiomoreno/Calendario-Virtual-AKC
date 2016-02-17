@@ -509,11 +509,17 @@ button[type="button"].fc-agendaWeek-button{
 	height: 20px;
 }
 
-.imagenIcono{
+.imagenIconoBase{
 	background-size: 20px 20px;
 	background-repeat: no-repeat;
 	background-color: transparent !important;
 	margin-top: 24px !important;
+}
+
+.imagenIcono{
+	background-size: 20px 20px;
+	background-repeat: no-repeat;
+	background-color: transparent !important;
 }
 
 .nombre-icono{
@@ -572,7 +578,7 @@ button[type="button"].fc-agendaWeek-button{
 	color: #000000;,
 	cursor: pointer;
 	opacity: 1;
-	height: 30px;
+	height: 40px;
     background: #DDEBF9;
 	border-bottom: 1px solid #eeeeee;
 	width: 350px;

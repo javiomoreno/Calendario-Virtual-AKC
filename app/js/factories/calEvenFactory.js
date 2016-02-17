@@ -29,5 +29,37 @@ calendModFactory.factory('allEventosTipo', function allEventosTipo($resource, ba
 	return $resource(baseURL + 'cal/eventos/:tipo/:anho', {tipo:'@tipo', anho:'@anho'});
 });
 
+/*Guardar Evento*/
+calendModFactory.factory('guardarEvento', function guardarEvento($resource, baseURL) {
+	return $resource(baseURL + 'cal/evento', null, {'save' : {method : 'POST', isArray:false}});
+});
+
+/*Guardar Notificacion*/
+calendModFactory.factory('guardarNotificacion', function guardarNotificacion($resource, baseURL) {
+	return $resource(baseURL + 'cal/notificacion', null, {'save' : {method : 'POST', isArray:false}});
+});
+
+/*Guardar Invitado*/
+calendModFactory.factory('guardarInvitado', function guardarInvitado($resource, baseURL) {
+	return $resource(baseURL + 'cal/invitado', null, {'save' : {method : 'POST', isArray:false}});
+});
+
+/*Consultar Evento por Id*/
+calendModFactory.factory('getEventoId', function getEventoId($resource, baseURL) {
+	return $resource(baseURL + 'cal/eventos/:eventoId', {eventoId:'@eventoId'});
+});
+
+/*Editar detalles Evento*/
+calendModFactory.factory('updEvento', function updEvento($resource, baseURL) {
+	return $resource(baseURL + 'cal/eventoupd', null, {'update' : {method : 'PUT'}});
+});
+
+/*Consultar Eventos por mes y año*/
+calendModFactory.factory('getEventosMesAno', function getEventosMesAno($resource, baseURL) {
+	return $resource(baseURL + 'cal/eventosanomes/:anho/:mes', {anho:'@anho', mes:'@mes'});
+});
+
+
+
 
 

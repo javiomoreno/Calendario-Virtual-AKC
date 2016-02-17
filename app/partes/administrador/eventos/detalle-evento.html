@@ -1,83 +1,119 @@
-<div class="col-sm-12">
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="widget-box" ng-init="id = eventoDatos.id">
-                <div class="widget-header widget-header-flat">
-                    <h4 class="widget-title smaller">{{eventoDatos.nombre}}</h4>
-                    <div class="widget-toolbar">
-                        <label>
-                            <small class="blue">
-                                <b>Finalizar Evento</b>
-                            </small>
+<div class="col-sm-12" ng-controller="EventoDetalleController">
+    <span ng-if="bandera == false">
+        <small><em>Construyendo Vista</em></small>
+            <uib-progressbar class="progress-striped active" value="100" type="info">Cargando...</uib-progressbar>
+    </span>
+    <span ng-if="bandera == true">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="widget-box">
+                    <div class="widget-header widget-header-flat">
+                        <h4 class="widget-title smaller">{{evento.nombre}}</h4>
+                        <div class="widget-toolbar">
+                            <label>
+                                <small class="blue">
+                                    <b>Finalizar Evento</b>
+                                </small>
 
-                            <input id="skip-validation" type="checkbox" ng-click="cambiarEstado(id)" ng-model="checkboxModel.value" class="ace ace-switch ace-switch-4" />
-                            <span class="lbl middle"></span>
-                        </label>
-                    </div>
-                </div>
-                <div class="widget-body">
-                    <div class="profile-user-info profile-user-info-striped">
-                        <div class="profile-info-row">
-                            <div class="profile-info-name"> Fecha Inicio </div>
-                            <div class="profile-info-value">
-                                <i class="ace-icon fa fa-bell-o bigger-110 blue"></i>
-                                <span>{{eventoDatos.fechaInicio}}</span>
-                            </div>
-                        </div>
-
-                        <div class="profile-info-row">
-                            <div class="profile-info-name"> Fecha Fin </div>
-                            <div class="profile-info-value">
-                                <i class="ace-icon fa fa-bell bigger-110 black"></i>
-                                {{eventoDatos.fechaFin}}
-                            </div>
-                        </div>
-
-                        <div class="profile-info-row">
-                            <div class="profile-info-name"> Tipo de Evento </div>
-
-                            <div class="profile-info-value">
-                                <i class="ace-icon fa fa-bullhorn bigger-110 blue"></i>
-                                {{eventoDatos.tipoEvento}}
-                            </div>
-                        </div>
-
-                        <div class="profile-info-row">
-                            <div class="profile-info-name"> Periodicidad </div>
-
-                            <div class="profile-info-value">
-                                <i class="ace-icon glyphicon glyphicon-repeat bigger-110 blue"></i>
-                                {{eventoDatos.repeticion}}
-                            </div>
-                        </div>
-
-                        <div class="profile-info-row">
-                            <div class="profile-info-name"> Importancia </div>
-
-                            <div class="profile-info-value">
-                                <i class="ace-icon fa fa-exclamation-circle bigger-110 blue"></i>
-                                {{eventoDatos.importancia}}
-                            </div>
-                        </div>
-
-                        <div class="profile-info-row" ng-if="eventoDatos.iconoEvento != null">
-                            <div class="profile-info-name"> Icono </div>
-                            <div class="profile-info-value text-center">
-                                <img src="{{eventoDatos.iconoEvento}}" class="imagenVista" title="{{eventoDatos.icono}}">
-                            </div>
+                                <input id="skip-validation" type="checkbox" ng-click="cambiarEstado()" ng-model="checkboxModel.value" class="ace ace-switch ace-switch-4" />
+                                <span class="lbl middle"></span>
+                            </label>
                         </div>
                     </div>
-                </div>
-                <div class="widget-footer">
-                    <div class="row">
-                        <div class="col-lg-12 text-center">
-                            <button class="btn btn-sm btn-default">Atras</button>
-                            <button class="btn btn-sm btn-primary" ng-click="Editar(id)">Editar</button>
-                            <button class="btn btn-sm btn-danger" ng-click="openModal('sm', id)">Anular</button>
+                    <div class="widget-body">
+                        <div class="profile-user-info profile-user-info-striped">
+                            <div class="profile-info-row">
+                                <div class="profile-info-name"> Fecha Inicio </div>
+                                <div class="profile-info-value">
+                                    <i class="ace-icon fa fa-bell-o bigger-110 blue"></i>
+                                    <span>{{evento.fechaInicio}}</span>
+                                </div>
+                            </div>
+
+                            <div class="profile-info-row">
+                                <div class="profile-info-name"> Fecha Fin </div>
+                                <div class="profile-info-value">
+                                    <i class="ace-icon fa fa-bell bigger-110 black"></i>
+                                    {{evento.fechaFin}}
+                                </div>
+                            </div>
+
+                            <div class="profile-info-row">
+                                <div class="profile-info-name"> Tipo de Evento </div>
+
+                                <div class="profile-info-value">
+                                    <i class="ace-icon fa fa-bullhorn bigger-110 blue"></i>
+                                    {{evento.tipoEvento}}
+                                </div>
+                            </div>
+
+                            <div class="profile-info-row">
+                                <div class="profile-info-name"> Periodicidad </div>
+
+                                <div class="profile-info-value">
+                                    <i class="ace-icon glyphicon glyphicon-repeat bigger-110 blue"></i>
+                                    {{evento.repeticion}}
+                                </div>
+                            </div>
+
+                            <div class="profile-info-row">
+                                <div class="profile-info-name"> Importancia </div>
+
+                                <div class="profile-info-value">
+                                    <i class="ace-icon fa fa-exclamation-circle bigger-110 blue"></i>
+                                    {{evento.importancia}}
+                                </div>
+                            </div>
+
+                            <div class="profile-info-row" ng-if="vecInvitados.length != 0">
+                                <div class="profile-info-name"> Invitados </div>
+                                <div class="profile-info-value">
+                                    <i class="ace-icon fa fa-users bigger-110 blue"></i>
+                                    <span ng-repeat="invitado in vecInvitados track by $index">
+                                        <span>{{invitado.evinnomb}}</span>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="profile-info-row" ng-if="vecNotiCorreo.length != 0">
+                                <div class="profile-info-name"> Alerta Correo </div>
+                                <div class="profile-info-value">
+                                    <i class="ace-icon fa fa-envelope bigger-110 blue"></i>
+                                    <span ng-repeat="notificacion in vecNotiCorreo track by $index">
+                                        <span>{{notificacion}}</span>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="profile-info-row" ng-if="vecNotiAplicacion.length != 0">
+                                <div class="profile-info-name"> Alerta Aplicación </div>
+                                <div class="profile-info-value">
+                                    <i class="ace-icon fa fa-desktop bigger-110 blue"></i>
+                                    <span ng-repeat="notificacion in vecNotiAplicacion track by $index">
+                                        <span>{{notificacion}}</span>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="profile-info-row" ng-if="evento.iconoEvento != null">
+                                <div class="profile-info-name"> Icono </div>
+                                <div class="profile-info-value text-center">
+                                    <img src="{{evento.iconoEvento}}" class="imagenVista" title="{{evento.icono}}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="widget-footer">
+                        <div class="row">
+                            <div class="col-lg-12 text-center">
+                                <button class="btn btn-sm btn-default">Atras</button>
+                                <button class="btn btn-sm btn-primary" ng-click="Editar()">Editar</button>
+                                <button class="btn btn-sm btn-danger" ng-click="anularEvento()">Anular</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </span>
 </div>

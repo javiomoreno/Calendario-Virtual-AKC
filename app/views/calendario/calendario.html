@@ -33,34 +33,40 @@
 			    	</div>
 				</div>
 				<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 calendario" ng-controller="CalendarioController as vm">
-					<div class="caja-busqueda">
-						<div class="b-titulo">
-							<p class="blue">Busqueda: </p>
+						<div class="caja-busqueda">
+							<div class="b-titulo">
+								<p class="blue">Busqueda: </p>
+							</div>
+							<div class="b-check">
+								<input type="checkbox" ng-model="checkImportancia" ng-change="cambiarImportancia()">
+							    <select id="importancia" ng-disabled="checkDescripcion === true || checkImportancia === false" style="width:120px" ng-model="busqueda.importancia" ng-options="opcion.opcion for opcion in vecImportancia" required>
+							      <option value="">Importancia</option>
+								</select>
+							</div>
+							<div class="b-check">
+								<input type="checkbox" ng-model="checkDescripcion" ng-change="cambiarDescripcion()">
+							    <input type="text" id="descripcion" ng-disabled="checkDescripcion === false || checkImportancia === true" style="width:200px" ng-model="busqueda.descripcion" placeholder="Descripción"/>
+							</div>
+							<div class="b-check">
+							    <input type="button" id="buscar" class="btn btn-sm btn-primary"  value="Buscar" ng-click="buscar()"/>
+							</div>
 						</div>
-						<div class="b-check">
-							<input type="checkbox" ng-model="checkImportancia" ng-change="cambiarImportancia()">
-						    <select id="importancia" ng-disabled="checkImportancia === false" style="width:120px" ng-model="busqueda.importancia" ng-options="opcion.opcion for opcion in vecImportancia" required>
-						      <option value="">Importancia</option>
-							</select>
+						<span ng-if="banderaToda == false">
+					        <small><em>Construyendo Vista</em></small>
+					            <uib-progressbar class="progress-striped active" value="100" type="info">Cargando...</uib-progressbar>
+					    </span>
+					    <span ng-if="banderaToda == true">
+							<div ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources" calendar="Calendario">
+							</div> 
+						</span>
+						<div class="row">
+						  <span ng-repeat="opcion in vectorIconosMes track by $index">
+						  	<div class="col-lg-3">
+						  		<div class="icono imagenIconoBase" style='float:left; background-image: url("{{opcion.iconoImagen}}");'></div>
+						  		<p class="nombre-icono">{{opcion.nombre}}</p>
+						  	</div>
+						  </span>
 						</div>
-						<div class="b-check">
-							<input type="checkbox" ng-model="checkDescripcion" ng-change="cambiarDescripcion()">
-						    <input type="text" id="descripcion" ng-disabled="checkDescripcion === false || checkImportancia === true || checkPeriodicidad == true" style="width:200px" ng-model="busqueda.descripcion" placeholder="Descripción"/>
-						</div>
-						<div class="b-check">
-						    <input type="button" id="buscar" class="btn btn-sm btn-primary"  value="Buscar" ng-click="buscar()"/>
-						</div>
-					</div>
-				  <div ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources" calendar="Calendario">
-				  </div> 
-				  <div class="row">
-					  <span ng-repeat="opcion in vectorIconosMes track by $index">
-					  	<div class="col-lg-3">
-					  		<div class="icono imagenIcono" style='float:left; background-image: url("{{opcion.iconoImagen}}");'></div>
-					  		<p class="nombre-icono">{{opcion.nombre}}</p>
-					  	</div>
-					  </span>
-				  </div>
 				</div>
 				<div class="col-lg-3 fondo-derecha">
 					<div class="maxDerecha" ng-click="abrirObra(obra)">

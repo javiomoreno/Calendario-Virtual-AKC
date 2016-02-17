@@ -2,7 +2,6 @@
 /*Consultar tipos de Imagenes*/
 calendModFactory.factory('allTipoImagen', function allTipoImagen($resource, baseURL) {
 	return $resource(baseURL + 'aextablas/tipoimag', {});
-	//return $resource('calendario.json', {});
 });
 
 /*Guardar Imagen*/
@@ -59,9 +58,3 @@ calendModFactory.factory('allAnhos', function allAnhos($resource, baseURL) {
 calendModFactory.factory('getImagenesTipoMesAñoCalendario', function getImagenesTipoMesAñoCalendario($resource, baseURL) {
 	return $resource(baseURL + 'cal/imagentipo/:anho/:mes/:tipo', {anho:'@anho', mes:'@mes', tipo:'@tipo'});
 });
-
-
-
-
-
-

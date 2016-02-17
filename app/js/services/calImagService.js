@@ -134,6 +134,4 @@ calendModService.service('calImagService', [
         });
         return response.promise;
   	};
-
-  	
 }]);

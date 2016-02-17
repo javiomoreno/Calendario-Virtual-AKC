@@ -34,11 +34,11 @@ appExpuestas.config(['$routeProvider', function ($routeProvider) {
       })
       .when('/admin/evento/:camposEvento', {
         templateUrl: 'views/administrador/eventos/vistaEventosMes.html',
-        controller: 'EventosController'
+        controller: 'EventoAnoMesController'
       })
       .when('/admin/evento/vista/:idEvento', {
         templateUrl: 'views/administrador/eventos/detalleEvento.html',
-        controller: 'EventosController'
+        controller: 'EventoDetalleController'
       })
       .when('/admin/evento/editar/:idEvento', {
         templateUrl: 'views/administrador/eventos/editarEvento.html',
