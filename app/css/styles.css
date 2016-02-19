@@ -79,14 +79,18 @@ a:-webkit-any-link {
 .imagen-izquierda{
 	z-index: 0;
 	margin-top: -75px;
-	width: 200px;
+	width: 100%;
 	height: 620px
 }
 
+.caja-obra{
+	width: 100%;
+	text-align: center;
+}
 
 .imagen-derecha{
 	z-index: 1;
-	margin-top: -50px;
+	margin: -50px auto;
 	background-color: rgba(63, 63, 68, 0.56);
 	padding-top: 5px;
 	padding-left: 10px;
@@ -95,12 +99,13 @@ a:-webkit-any-link {
 	opacity: 0.9;
 	position: relative;
 	border-radius: 10px;
+	width: 90%;
+	height: 200px;
 }
 
 .tema-obra{
-	padding-left: 60px;
 	z-index: 0;
-	margin-top: -20px;
+    margin-top: 30px;
 	position: relative;
 }
 
@@ -111,14 +116,12 @@ a:-webkit-any-link {
 }
 
 .vaso{
-	padding-left: 100px;
 	margin-top: 60px;
 	z-index: 0;
 }
 
 .pie-vaso{
 	padding-top: 20px;
-	padding-left: 60px;
 }
 
 .caja-externa{
@@ -130,11 +133,18 @@ a:-webkit-any-link {
 	padding-top: 20px;
 	padding-left: 10px;
 	padding-right: 10px;
-	width: 200px;
+	width: 100%;
     height: 250px;
 	background-image: url('../img/izquierda/pie.png');
 	background-repeat: no-repeat;
-	background-size: 200px, 250px;
+	background-size: 100%, 250px;
+}
+
+.tema{
+	color: #1AB7F0;
+	font-weight: bold;
+	padding-left: 20px;
+	padding-top: 5px;
 }
 
 .caja-mensaje{
@@ -143,6 +153,7 @@ a:-webkit-any-link {
 	opacity:0.9;
 	margin-right: 50px;
 }
+
 
 .temas{
 	padding-top: 20px;
@@ -170,6 +181,12 @@ a:-webkit-any-link {
 	border-bottom: 1px solid rgba(0,175,234,1);
 }
 
+footer{
+	position: relative;
+	bottom: 0 !important;
+	bottom: -1px;
+	width: 100%;
+}
 .eventos{
 	padding-top: 20px;
 }
@@ -211,6 +228,15 @@ a:-webkit-any-link {
 
 .fondo-blanco{
 	background-color: #fff;
+	height: 100%;
+}
+
+#piedepagina{
+	bottom: -1px;
+	bottom: 0 !important;
+	position: absolute;
+	width: 100%; 
+	background: #ffffff;
 }
 
 .caja-flechas{
@@ -252,8 +278,9 @@ a:-webkit-any-link {
 	width: 35px;
 	background-size: 35px 35px;
 	background-image: url('../img/iconos/boton maximizar azul.png');
-	margin-top: 40px;
-    margin-left: 75px;
+	/*margin-top: 40px;
+    margin-left: 75px;*/
+    margin: 40px auto auto auto;
     z-index: 1;
     opacity: 0.9;
     cursor: pointer;
@@ -313,16 +340,17 @@ a:-webkit-any-link {
 
 .maxDerecha{
 	height: 35px;
-	width: 35px;
-	float: right;
-	background-size: 35px 35px;
-	background-image: url('../img/iconos/boton maximizar azul.png');
-	margin-top: 25px;
-    margin-right: 30px;
-    z-index: 2;
-    opacity: 0.9;
+    background-image: url('../img/iconos/boton maximizar azul.png');
+    background-repeat: no-repeat;
+    background-size: 35px 35px;
     cursor: pointer;
+    float: right;
+    margin-right: 30px;
+    margin-top: 25px;
+    opacity: 0.9;
     position: relative;
+    width: 35px;
+    z-index: 2;
 }
 
 .minDerecha{

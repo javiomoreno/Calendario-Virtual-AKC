@@ -1,88 +1,97 @@
-<header>
-	<div class="banner">
-		<div class="row" style="margin-right: auto;">
-			<div class="col-lg-3 col-md-3 img-banner">
-				<img src="img/banner/img-banner.png" alt="" width="320px" height="133px">
-			</div>
-			<div class="col-lg-2 col-md-2 logo-empresa">
-				<img src="img/banner/logo empresa.png" alt="" width="158px" height="113px">
-			</div>
-			<div class="col-lg-2 col-md-2 logo-10-anhos">
-				<img src="img/banner/logo 10 anhos.png" alt="" width="158px" height="113px">
-			</div>
-			<div class="col-lg-4 col-md-4 lema-calendario">
-				<img src="img/banner/lema calendario.png" alt="" width="274px" height="113px">
-			</div>
-			<div class="col-lg-1 col-md-1 logo-calidad">
-				<img src="img/banner/logo calidad.png" alt="" width="45px" height="53px">
+<div  style="min-height: 100%;">
+	<header>
+		<div class="banner">
+			<div class="row" style="margin-right: auto;">
+				<div class="col-lg-3 col-md-3 img-banner">
+					<img src="img/banner/img-banner.png" alt="" width="320px" height="133px">
+				</div>
+				<div class="col-lg-2 col-md-2 logo-empresa">
+					<img src="img/banner/logo empresa.png" alt="" width="158px" height="113px">
+				</div>
+				<div class="col-lg-2 col-md-2 logo-10-anhos">
+					<img src="img/banner/logo 10 anhos.png" alt="" width="158px" height="113px">
+				</div>
+				<div class="col-lg-4 col-md-4 lema-calendario">
+					<img src="img/banner/lema calendario.png" alt="" width="274px" height="113px">
+				</div>
+				<div class="col-lg-1 col-md-1 logo-calidad">
+					<img src="img/banner/logo calidad.png" alt="" width="45px" height="53px">
+				</div>
 			</div>
 		</div>
-	</div>
-</header>
-<section class="fondo-blanco">
-	<div class="container-fluid">
-		<div>
-		  <div>
-		  	<div class="row">
-			    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-2" style="padding-right: 0px; padding-left: 0px;">
-				    <div class="maxIzquierda" ng-click="abrirImagenIzquierda(foto)">
-				    </div>
-			    	<img src="{{foto.IMAGCODI}}" alt="imagen" class="imagen-izquierda" >
-			    	<div class="caja-externa">
-				    	<img src="img/frase institucional.png" alt="" width="160px" height="120px" style="margin-top: 40px;">  	
-			    	</div>
+	</header>
+	<section class="fondo-blanco">
+		<div class="container-fluid">
+			<div>
+			  <div>
+			  	<div class="row">
+				    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-2" style="padding-right: 0px; padding-left: 0px;">
+					    <div class="maxIzquierda" ng-click="abrirImagenIzquierda(foto)">
+					    </div>
+				    	<img src="{{foto.IMAGCODI}}" alt="imagen" class="imagen-izquierda" >
+				    	<div class="caja-externa">
+					    	<img src="img/frase-institucional.png" alt="" width="160px" height="80px" style="margin: 40px auto auto auto;">  	
+					    	<p class="tema">{{foto.IMAGTEMA}}"</p>
+				    	</div>
+					</div>
+					<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 calendario" ng-controller="CalendarioController as vm">
+							<div class="caja-busqueda">
+								<div class="b-titulo">
+									<p class="blue">Busqueda: </p>
+								</div>
+								<div class="b-check">
+									<input type="checkbox" ng-model="checkImportancia" ng-change="cambiarImportancia()">
+								    <select id="importancia" ng-disabled="checkDescripcion === true || checkImportancia === false" style="width:120px" ng-model="busqueda.importancia" ng-options="opcion.opcion for opcion in vecImportancia" required>
+								      <option value="">Importancia</option>
+									</select>
+								</div>
+								<div class="b-check">
+									<input type="checkbox" ng-model="checkDescripcion" ng-change="cambiarDescripcion()">
+								    <input type="text" id="descripcion" ng-disabled="checkDescripcion === false || checkImportancia === true" style="width:200px" ng-model="busqueda.descripcion" placeholder="Descripción"/>
+								</div>
+								<div class="b-check">
+								    <input type="button" id="buscar" class="btn btn-sm btn-primary"  value="Buscar" ng-click="buscar()"/>
+								</div>
+							</div>
+							<span ng-if="banderaToda == false">
+						        <small><em>Construyendo Vista</em></small>
+						            <uib-progressbar class="progress-striped active" value="100" type="info">Cargando...</uib-progressbar>
+						    </span>
+						    <span ng-if="banderaToda == true">
+								<div ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources" calendar="Calendario">
+								</div> 
+							</span>
+							<div class="row">
+							  <span ng-repeat="opcion in vectorIconosMes track by $index">
+							  	<div class="col-lg-3">
+							  		<div class="icono imagenIconoBase" style='float:left; background-image: url("{{opcion.iconoImagen}}");'></div>
+							  		<p class="nombre-icono">{{opcion.nombre}}</p>
+							  	</div>
+							  </span>
+							</div>
+					</div>
+					<div class="col-lg-3 fondo-derecha">
+					    <div class="caja-obra">
+							<div class="maxDerecha" ng-click="abrirObra(obra)">
+						    </div>
+					    	<img src="{{obra.IMAGCODI}}" alt="imagen" class="imagen-derecha">
+					   	 	<img src="img/derecha/boton obra del mes.png" alt="imagen" class="tema-obra" width="190px" height="50px">
+					    </div>
+					    <div style="text-align: center;">
+					    	<div style="width: 100%">
+						    	<img src="img/derecha/logo salon del agua.png" alt="imagen" class="vaso" width="90px" height="260px">	
+						    </div>
+						    <div style="width: 100%">
+						    	<img src="img/derecha/logo y frase para salon del agua.png" alt="" class="pie-vaso" width="230px" height="70px">
+						    </div>
+						</div>	    
+					</div>
 				</div>
-				<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 calendario" ng-controller="CalendarioController as vm">
-						<div class="caja-busqueda">
-							<div class="b-titulo">
-								<p class="blue">Busqueda: </p>
-							</div>
-							<div class="b-check">
-								<input type="checkbox" ng-model="checkImportancia" ng-change="cambiarImportancia()">
-							    <select id="importancia" ng-disabled="checkDescripcion === true || checkImportancia === false" style="width:120px" ng-model="busqueda.importancia" ng-options="opcion.opcion for opcion in vecImportancia" required>
-							      <option value="">Importancia</option>
-								</select>
-							</div>
-							<div class="b-check">
-								<input type="checkbox" ng-model="checkDescripcion" ng-change="cambiarDescripcion()">
-							    <input type="text" id="descripcion" ng-disabled="checkDescripcion === false || checkImportancia === true" style="width:200px" ng-model="busqueda.descripcion" placeholder="Descripción"/>
-							</div>
-							<div class="b-check">
-							    <input type="button" id="buscar" class="btn btn-sm btn-primary"  value="Buscar" ng-click="buscar()"/>
-							</div>
-						</div>
-						<span ng-if="banderaToda == false">
-					        <small><em>Construyendo Vista</em></small>
-					            <uib-progressbar class="progress-striped active" value="100" type="info">Cargando...</uib-progressbar>
-					    </span>
-					    <span ng-if="banderaToda == true">
-							<div ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources" calendar="Calendario">
-							</div> 
-						</span>
-						<div class="row">
-						  <span ng-repeat="opcion in vectorIconosMes track by $index">
-						  	<div class="col-lg-3">
-						  		<div class="icono imagenIconoBase" style='float:left; background-image: url("{{opcion.iconoImagen}}");'></div>
-						  		<p class="nombre-icono">{{opcion.nombre}}</p>
-						  	</div>
-						  </span>
-						</div>
-				</div>
-				<div class="col-lg-3 fondo-derecha">
-					<div class="maxDerecha" ng-click="abrirObra(obra)">
-				    </div>
-				    <div class="caja-obra">
-				    	<img src="{{obra.IMAGCODI}}" alt="imagen" class="imagen-derecha" width="300px" height="200px">
-				    </div>
-				    <img src="img/derecha/boton obra del mes.png" alt="imagen" class="tema-obra" width="250px" height="50px">
-				    <img src="img/derecha/logo salon del agua.png" alt="imagen" class="vaso" width="190px" height="260px">	
-				    <img src="img/derecha/logo y frase para salon del agua.png" alt="" class="pie-vaso" width="230px" height="70px">	    
-				</div>
+			  </div>
 			</div>
-		  </div>
-		</div>
-    </div>
-</section>
+	    </div>
+	</section>
+</div>
 <footer class="fondo-blanco">
 	<div class="container-fluid">
 		<div class="row">
