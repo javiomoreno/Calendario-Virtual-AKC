@@ -1,4 +1,4 @@
-calendModController.controller('EventoAnoMesController', [
+calendModController.controller('EventoPrivadoAnoMesController', [
                                                 '$scope',
                                                 '$routeParams', 
                                                 '$location', 
@@ -7,7 +7,7 @@ calendModController.controller('EventoAnoMesController', [
     function ($scope, $routeParams, $location, calEvenService, calImagService) {
 
       $scope.bandera = false;
-      var campos = $routeParams.camposEvento;
+      var campos = $routeParams.camposEventoPrivado;
       var vector = [];
       var contador = 0;
       vector = campos.split('-');
@@ -63,7 +63,7 @@ calendModController.controller('EventoAnoMesController', [
                                 var datos = [];
 
                                 for(var i = 0; i < dataEventos.length; i ++){
-                                  if (dataEventos[i].eventipo === 2201) {
+                                  if (dataEventos[i].eventipo === 2202) {
                                     var importancia, tipoEvento, repeticion, estado;
                                     for (var j = 0; j < $scope.vectorTipoEvento.length; j++) {
                                       if (dataEventos[i].eventipo === $scope.vectorTipoEvento[j].tbnumero) {
@@ -115,7 +115,7 @@ calendModController.controller('EventoAnoMesController', [
                   }
 
                   $scope.rowDblClick = function(row) {
-                      $location.url('/admin/evento/vista/'+row.entity.id);
+                      $location.url('/admin/eventoPrivado/vista/'+row.entity.id);
                   };
                 }
               );

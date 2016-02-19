@@ -1,4 +1,4 @@
-calendModController.controller('EventoDetalleController', [
+calendModController.controller('EventoPrivadoDetalleController', [
                                                 '$scope',
                                                 '$routeParams', 
                                                 '$uibModal', 
@@ -7,7 +7,7 @@ calendModController.controller('EventoDetalleController', [
                                                 'calEvenService',
     function ($scope, $routeParams,  $uibModal, $location, calImagService, calEvenService) {
 
-      	$scope.eventoId = $routeParams.idEvento;
+      	$scope.eventoId = $routeParams.idEventoPrivado;
 		$scope.bandera = false;
 		$scope.evento = {};
 		$scope.checkboxModel = {};
@@ -26,12 +26,10 @@ calendModController.controller('EventoDetalleController', [
 			  	}	
 			  	if (dataEvento[0].CAL_EVENINVI !== undefined) {
 				  	for (var i = 0; i < dataEvento[0].CAL_EVENINVI.length; i++) {
-				  		if (dataEvento[0].CAL_EVENINVI[i].evinesta !== 5) {
-				  			$scope.vecInvitados.push(dataEvento[0].CAL_EVENINVI[i]);
-				  		}
+				  		$scope.vecInvitados.push(dataEvento[0].CAL_EVENINVI[i]);
 				  	}
 				}			  	
-			  	if(dataEvento[0].CAL_EVENTOS.evenesta == 3){
+			  	if(dataEvento[0].CAL_EVENTOS.evenvibu == 1){
 					$scope.checkboxModel = {
 					   value : true
 				 	};
@@ -114,60 +112,19 @@ calendModController.controller('EventoDetalleController', [
 			}
 		);
 
-		$scope.Editar = function(){
-		  $location.path('/admin/evento/editar/'+$scope.eventoId);
-		}
-
-		$scope.animationsEnabled = true;
-
-		$scope.openModal = function (size) {
-		$scope.idEliminar = $scope.eventoId;
-
-		var modalInstance = $uibModal.open({
-		  animation: $scope.animationsEnabled,
-		  templateUrl: 'views/administrador/imagenes/iconos/eliminar.html',
-		  controller: 'ModalControllerIconos',
-		  size: size,
-		  resolve: {
-		      idEliminar : function(){
-		          return $scope.idEliminar;
-		      }
-		  }
-		});
-		};
-
-		$scope.cambiarEstado = function() {
+		$scope.Cambiar = function() {
           	openCambiar('sm', $scope.eventoId);
       	}
 
 		function openCambiar(size, idCambiar) {
 		  $scope.idCambiar = idCambiar;
 		  var modalInstance = $uibModal.open({
-		      templateUrl: 'partes/administrador/eventos/cambiar-estado.html',
-		      controller: 'CambiarEstadoModalController',
+		      templateUrl: 'views/administrador/eventos-privados/cambiar-tipo.html',
+		      controller: 'CambiarTipoModalController',
 		      size: size,
 		      resolve: {
 		          idCambiar : function(){
 		              return $scope.idCambiar;
-		          }
-		      }
-		  });
-		}
-
-		$scope.anularEvento = function() {
-          	openAnular('sm', $scope.eventoId);
-      	}
-
-		function openAnular(size, idAnular)
-		{
-		  $scope.idEliminar = idAnular;
-		  var modalInstance = $uibModal.open({
-		      templateUrl: 'views/administrador/eventos/eliminar.html',
-		      controller: 'ModalControllerEventos',
-		      size: size,
-		      resolve: {
-		          idEliminar : function(){
-		              return $scope.idEliminar;
 		          }
 		      }
 		  });

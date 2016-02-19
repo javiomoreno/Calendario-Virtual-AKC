@@ -1,12 +1,15 @@
-calendModController.controller('EventoCrearController', [
+calendModController.controller('EventoEditarController', [
                                                       '$scope',
                                                       '$rootScope',
+                                                      '$routeParams',
                                                       '$log', 
                                                       'localStorageService',
                                                       'calEvenService',
                                                       '$location',
                                                       'calImagService',
-    function ($scope, $rootScope, $log, localStorageService, calEvenService, $location, calImagService) {
+    function ($scope, $rootScope, $routeParams, $log, localStorageService, calEvenService, $location, calImagService) {
+
+      $scope.eventoId = $routeParams.idEvento;
 
       $scope.banTipo = false; 
       $scope.banImportancia = false; 
@@ -24,10 +27,9 @@ calendModController.controller('EventoCrearController', [
       $scope.evento.horaInicio = new Date().setHours(0,00,00);
       $scope.evento.horaFin = new Date().setHours(0,00,00);
       $scope.evento.iconoEvento = {};
-      $scope.evento.alerta = {};
-      $scope.evento.alerta.correo = [];
-      $scope.evento.alerta.aplicacion = [];
-      $scope.evento.invitados = [];
+      $scope.alertasCorreo = [];
+      $scope.alertasAplicacion = [];
+      $scope.invitadosBD = [];
 
       $scope.vecTipoEvento = [];
       $scope.vecRepeticion= [];
@@ -37,6 +39,13 @@ calendModController.controller('EventoCrearController', [
       $scope.vectorAlertas = [];
 
 
+      calEvenService.getAllInvitados().then(
+        function (dataInvitados) {
+          for (var i = 0; i < dataInvitados.length; i++) {
+            $rootScope.vecInvitados.push(dataInvitados[i]);
+          };
+          $scope.banInvitados = true;
+      });
 
       calEvenService.getAllAlertas().then(
         function (dataAlertas) {
@@ -52,6 +61,7 @@ calendModController.controller('EventoCrearController', [
             console.log(error.statusText);
         }
       );
+
 
       calEvenService.getAllTipoEvento().then(
         function (data) {
@@ -94,13 +104,56 @@ calendModController.controller('EventoCrearController', [
         }
       );
 
-      calEvenService.getAllInvitados().then(
-        function (dataInvitados) {
-          for (var i = 0; i < dataInvitados.length; i++) {
-            $rootScope.vecInvitados.push(dataInvitados[i]);
-          };
-          $scope.banInvitados = true;
-      });
+      calEvenService.getEventoId($scope.eventoId).then(
+        function(dataEvento){
+          $scope.evento = {
+            id: dataEvento[0].CAL_EVENTOS.evencons,
+            nombre: dataEvento[0].CAL_EVENTOS.evendesc,
+            fechaInicio: dataEvento[0].CAL_EVENTOS.evenfein,
+            horaInicio: dataEvento[0].CAL_EVENTOS.evenfein,
+            fechaFin: dataEvento[0].CAL_EVENTOS.evenfefi,
+            horaFin: dataEvento[0].CAL_EVENTOS.evenfefi,
+            importancia: dataEvento[0].CAL_EVENTOS.evenimpo,
+            iconoEvento: dataEvento[0].CAL_EVENTOS.evenicon,
+            repeticion: dataEvento[0].CAL_EVENTOS.evenperi,
+            tipoEvento: dataEvento[0].CAL_EVENTOS.eventipo,
+            evenuscr: dataEvento[0].CAL_EVENTOS.evenuscr,
+            evenfecr: dataEvento[0].CAL_EVENTOS.evenfecr,
+            evenesta: dataEvento[0].CAL_EVENTOS.evenesta,
+            evenvibu: dataEvento[0].CAL_EVENTOS.evenvibu,
+            evenffin: dataEvento[0].CAL_EVENTOS.evenffin,
+          } 
+
+          if (dataEvento[0].CAL_EVENINVI !== undefined) {
+              $scope.evento.invitados = [];
+              for (var i = 0; i < dataEvento[0].CAL_EVENINVI.length; i++) {
+                if (dataEvento[0].CAL_EVENINVI[i].evinesta !== 5) {
+                  $scope.evento.invitados.push({
+                    id: dataEvento[0].CAL_EVENINVI[i].evinusua,
+                    nombre: dataEvento[0].CAL_EVENINVI[i].evinnomb
+                  });
+                  $scope.invitadosBD.push(dataEvento[0].CAL_EVENINVI[i]);
+                }
+              }
+          }
+
+          if (dataEvento[0].CAL_EVENNOTI !== undefined) {
+            $scope.evento.alerta = {};
+            $scope.evento.alerta.correo = [];
+            $scope.evento.alerta.aplicacion = [];
+            for (var i = 0; i < dataEvento[0].CAL_EVENNOTI.length; i++) {
+              if (dataEvento[0].CAL_EVENNOTI[i].evnotipo === 2901 && dataEvento[0].CAL_EVENNOTI[i].evnoesta !== 5) {
+                  $scope.evento.alerta.aplicacion.push(dataEvento[0].CAL_EVENNOTI[i].evnoaler);
+                  $scope.alertasAplicacion.push(dataEvento[0].CAL_EVENNOTI[i]);
+              }
+              if (dataEvento[0].CAL_EVENNOTI[i].evnotipo === 2902 && dataEvento[0].CAL_EVENNOTI[i].evnoesta !== 5) {
+                  $scope.evento.alerta.correo.push(dataEvento[0].CAL_EVENNOTI[i].evnoaler);
+                  $scope.alertasCorreo.push(dataEvento[0].CAL_EVENNOTI[i]);
+              }
+            }
+          } 
+        }
+      );  
 
       $rootScope.suggestions = [];
       $rootScope.selectedIndex = -1;
@@ -312,70 +365,144 @@ calendModController.controller('EventoCrearController', [
       $scope.mstep = 1;
       $scope.ismeridian = true;
 
-      $scope.guardarEvento = function(){
+      $scope.editarEvento = function(){
         if($scope.isValidarDatosEvento()){
-          $scope.bandera = false;          
           var evento = $scope.buildEvento();
-          calEvenService.guardarEvento(evento).then(
-            function(resultEvento){
+          calEvenService.updEvento(evento).then(
+            function(resultEvento){ 
               var banderaApli = false;
               var banderaCorr = false;
               var banderaInvi = false;
-              if ($scope.evento.alerta.aplicacion.length > 0) {
-                for (var i = 0; i < $scope.evento.alerta.aplicacion.length; i++) {
-                  var notificacion = $scope.buildNotificacionAplicacion(resultEvento.ID, i);
-                  calEvenService.guardarNotificacion(notificacion).then(
-                    function(resultNotificacionAplicacion){
-                      if (i === $scope.evento.alerta.aplicacion.length) {
-                        banderaApli = true;
-                      }
-                      if (banderaApli && banderaInvi && banderaCorr) {
+              if ($scope.alertasAplicacion.length > 0) {
+                for (var j = 0; j < $scope.alertasAplicacion.length; j++) {
+                  var banderaEliminarApli = false;
+                  for (var i = 0; i < $scope.evento.alerta.aplicacion.length; i++) {
+                    if ($scope.alertasAplicacion[j].evnoaler === $scope.evento.alerta.aplicacion[i]) {
+                      banderaEliminarApli = true;
+                      break;
+                    }
+                  }
+                  if (!banderaEliminarApli) {
+                    var notificacion = $scope.buildNotificacionAnular($scope.alertasAplicacion[j]);
+                    calEvenService.updNotificacion(notificacion).then(
+                      function(resultNotificacionAplicacion){
                         $location.path('/admin/evento/vista/'+resultEvento.ID);
+                      },
+                      function(error){
+                        console.log("Notificacion aplicacion: ",error.statusText);
                       }
-                    },
-                    function(error){
-                      console.log("Notificacion aplicacion: ",error.statusText);
-                    });
+                    );
+                  }
+                }
+                for (var i = 0; i < $scope.evento.alerta.aplicacion.length; i++) {
+                  var banderaAgregarApli = false;
+                  for (var j = 0; j < $scope.alertasAplicacion.length; j++) {
+                    if ($scope.evento.alerta.aplicacion[i] === $scope.alertasAplicacion[j].evnoaler) {
+                      banderaAgregarApli = true;
+                      break;
+                    }
+                  }
+                  if (!banderaAgregarApli) {
+                    var notificacion = $scope.buildNotificacion(resultEvento.ID, $scope.evento.alerta.aplicacion[i], 2901);
+                    calEvenService.guardarNotificacion(notificacion).then(
+                      function(resultNotificacion){
+                        $location.path('/admin/evento/vista/'+resultEvento.ID);                        
+                      },
+                      function(error){
+                        console.log("Notificacion aplicacion: ",error.statusText);
+                      }
+                    );
+                  }
                 }
               }
               else{
                 banderaApli = true;
               }
-              if ($scope.evento.alerta.correo.length > 0) {
-                for (var j = 0; j < $scope.evento.alerta.correo.length; j++) {
-                  var notificacion = $scope.buildNotificacionCorreo(resultEvento.ID, j);
-                  calEvenService.guardarNotificacion(notificacion).then(
-                    function(resultNotificacionCorreo){
-                      if (j === $scope.evento.alerta.correo.length) {
-                        banderaCorr = true;
-                      }
-                      if (banderaApli && banderaInvi && banderaCorr) {
+              if ($scope.alertasCorreo.length > 0) {
+                for (var j = 0; j < $scope.alertasCorreo.length; j++) {
+                  var banderaEliminarCorr = false;              
+                  for (var i = 0; i < $scope.evento.alerta.correo.length; i++) {
+                    if ($scope.alertasCorreo[j].evnoaler === $scope.evento.alerta.correo[i]) {
+                      banderaEliminarCorr = true;
+                      break;
+                    }
+                  }
+                  if (!banderaEliminarCorr) {
+                    var notificacion = $scope.buildNotificacionAnular($scope.alertasCorreo[j]);
+                    calEvenService.updNotificacion(notificacion).then(
+                      function(resultNotificacionAplicacion){
                         $location.path('/admin/evento/vista/'+resultEvento.ID);
+                      },
+                      function(error){
+                        console.log("Notificacion aplicacion: ",error.statusText);
                       }
-                    },
-                    function(error){
-                      console.log("Notificacion correo: ",error.statusText);
-                    });
+                    );
+                  }
+                }
+                for (var i = 0; i < $scope.evento.alerta.correo.length; i++) {
+                  var banderaAgregarCorr = false;
+                  for (var j = 0; j < $scope.alertasCorreo.length; j++) {
+                    if ($scope.evento.alerta.correo[i] === $scope.alertasCorreo[j].evnoaler) {
+                      banderaAgregarCorr= true;
+                      break;
+                    }
+                  }
+                  if (!banderaAgregarCorr) {
+                    var notificacion = $scope.buildNotificacion(resultEvento.ID, $scope.evento.alerta.correo[i], 2902);
+                    calEvenService.guardarNotificacion(notificacion).then(
+                      function(resultNotificacion){
+                        $location.path('/admin/evento/vista/'+resultEvento.ID);
+                      },
+                      function(error){
+                        console.log("Notificacion aplicacion: ",error.statusText);
+                      }
+                    );
+                  }
                 }
               }
               else{
                 banderaCorr = true;
               }
-              if ($scope.evento.invitados.length > 0) {
-                for (var h = 0; h < $scope.evento.invitados.length; h++) {
-                  var invitado = $scope.buildInvitado(resultEvento.ID, h);
-                  calEvenService.guardarInvitado(invitado).then(
-                    function(resultInvitado){
-                      if (h === $scope.evento.invitados.length) {
-                        banderaInvi = true;
-                      }
-                      if (banderaApli && banderaInvi && banderaCorr) {
+              if ($scope.invitadosBD.length > 0) {
+                for (var j = 0; j < $scope.invitadosBD.length; j++) {
+                  var banderaEliminarInvi = false;
+                  for (var i = 0; i < $scope.evento.invitados.length; i++) {
+                    if ($scope.invitadosBD[j].evinusua === $scope.evento.invitados[i].id) {
+                      banderaEliminarInvi = true;
+                      break;
+                    }
+                  }
+                  if (!banderaEliminarInvi) {
+                    var invitado = $scope.buildInvitadoAnular($scope.invitadosBD[j]);
+                    calEvenService.updInvitado(invitado).then(
+                      function(resultInvitado){
                         $location.path('/admin/evento/vista/'+resultEvento.ID);
+                      },
+                      function(error){
+                        console.log("Invitado: ",error.statusText);
                       }
-                    },
-                    function(error){
-                      console.log("Invitado: ",error.statusText);
-                    });
+                    );
+                  }
+                }
+                for (var i = 0; i < $scope.evento.invitados.length; i++) {
+                  var banderaAgregarInvi = false;
+                  for (var j = 0; j < $scope.invitadosBD.length; j++) {
+                    if ($scope.evento.invitados[i].id === $scope.invitadosBD[j].evinusua) {
+                      banderaAgregarInvi = true;
+                      break;
+                    }
+                  }
+                  if (!banderaAgregarInvi) {
+                    var invitado = $scope.buildInvitado(resultEvento.ID, $scope.evento.invitados[i]);
+                    calEvenService.guardarInvitado(invitado).then(
+                      function(resultInvitado){
+                        $location.path('/admin/evento/vista/'+resultEvento.ID);
+                      },
+                      function(error){
+                        console.log("Invitado: ",error.statusText);
+                      }
+                    );
+                  }
                 }
               }
               else{
@@ -400,68 +527,73 @@ calendModController.controller('EventoCrearController', [
         return !isNaN(parseFloat(n)) && isFinite(n);
       }
 
-      $scope.buildNotificacionAplicacion = function(idEvento, posicion){
+      $scope.buildNotificacionAnular = function(notificacion){
+        var calEntity = {};
+        calEntity.evnocons = notificacion.evnocons;        
+        calEntity.evnoeven = notificacion.evnoeven;
+        calEntity.evnofech = notificacion.evnofech;
+        calEntity.evnotipo = notificacion.evnotipo;
+        calEntity.evnoaler = notificacion.evnoaler;
+        calEntity.evnoesta = 5;
+        calEntity.evnodesc = notificacion.evnodesc;
+        calEntity.evnouscr = notificacion.evnouscr;
+        calEntity.evnofecr = notificacion.evnofecr;
+        return calEntity;
+      }
+
+      $scope.buildNotificacion = function(idEvento, notificacion, tipo){
         var calEntity = {};
         calEntity.evnocons = -1;        
         calEntity.evnoeven = idEvento;
-        calEntity.evnofech = new Date($scope.evento.fechaInicio);
-        calEntity.evnotipo = 2901;
-        calEntity.evnoaler = $scope.evento.alerta.aplicacion[posicion];
-        calEntity.evnoesta = null;
+        calEntity.evnofech = new Date();
+        calEntity.evnotipo = tipo;
+        calEntity.evnoaler = notificacion;
+        calEntity.evnoesta = 2;
         calEntity.evnodesc = null;
         calEntity.evnouscr = 1;
         calEntity.evnofecr = null;
         return calEntity;
       }
 
-      $scope.buildNotificacionCorreo = function(idEvento, posicion){
+      $scope.buildInvitadoAnular = function(invitado){
         var calEntity = {};
-        calEntity.evnocons = -1;        
-        calEntity.evnoeven = idEvento;
-        calEntity.evnofech = new Date($scope.evento.fechaInicio);
-        calEntity.evnotipo = 2902;
-        calEntity.evnoaler = $scope.evento.alerta.correo[posicion];
-        calEntity.evnoesta = null;
-        calEntity.evnodesc = null;
-        calEntity.evnouscr = 1;
-        calEntity.evnofecr = null;
+        calEntity.evincons = invitado.evincons;        
+        calEntity.evineven = invitado.evineven;
+        calEntity.evinusua = invitado.evinusua;
+        calEntity.evinnomb = invitado.evinnomb;
+        calEntity.evinesta = 5;
         return calEntity;
       }
 
-      $scope.buildInvitado = function(idEvento, posicion){
+      $scope.buildInvitado = function(idEvento, invitado){
         var calEntity = {};
         calEntity.evincons = -1;        
         calEntity.evineven = idEvento;
-        calEntity.evinusua = $scope.evento.invitados[posicion].id;
-        calEntity.evinnomb = $scope.evento.invitados[posicion].nombre;
+        calEntity.evinusua = invitado.id;
+        calEntity.evinnomb = invitado.nombre;
+        calEntity.evinesta = 2;
         return calEntity;
       }
 
       $scope.buildEvento = function(){
-        if (!isNumber($scope.evento.iconoEvento)) {
-          $scope.evento.iconoEvento = null;
-        };
         var fechaI = new Date($scope.evento.fechaInicio).setHours(new Date($scope.evento.horaInicio).getHours());
         fechaI = new Date(fechaI).setMinutes(new Date($scope.evento.horaInicio).getMinutes());
         $scope.evento.fechaInicio = fechaI;
         var fechaF = new Date($scope.evento.fechaInicio).setHours(new Date($scope.evento.horaFin).getHours());
         fechaF = new Date(fechaF).setMinutes(new Date($scope.evento.horaFin).getMinutes());
-        var vistoBueno = 1;
-        if ($scope.evento.tipoEvento === 2202) {
-          vistoBueno = 2;
-        }
         var calEntity = {};
-        calEntity.evencons = -1;        
+        calEntity.evencons = $scope.evento.id;        
         calEntity.evendesc = $scope.evento.nombre;        
         calEntity.evenfein = new Date(fechaI);
         calEntity.evenfefi = new Date(fechaF);
         calEntity.evenimpo = $scope.evento.importancia;
         calEntity.evenperi = $scope.evento.repeticion;
         calEntity.evenicon = $scope.evento.iconoEvento;   
-        calEntity.evenuscr = 1;   
-        calEntity.evenesta = 2;   
-        calEntity.evenvibu = vistoBueno;   
-        calEntity.evenffin = null;   
+        calEntity.evenuscr = $scope.evento.evenuscr;   
+        calEntity.evenfecr = $scope.evento.evenfecr;   
+        calEntity.evenesta = $scope.evento.evenesta;   
+        calEntity.evenvibu = $scope.evento.evenvibu;   
+        calEntity.evenffin = $scope.evento.evenffin;   
         calEntity.eventipo = $scope.evento.tipoEvento;   
         return calEntity;
       }

@@ -22,7 +22,7 @@ calendModController.controller('ObraEditarController', [
           for (var i = 0; i < data.length; i++) {
             $scope.vecMeses[i] = {
               opcion: data[i].tbclave+" - "+data[i].tbvalor,
-              value: data[i].tbclave
+              value: data[i].tbnumero
             }
           };
       });
@@ -44,11 +44,13 @@ calendModController.controller('ObraEditarController', [
             extCodif: dataImagen.IMCOEXTE,
             mes: dataImagen.IMAGMES,
             anho: dataImagen.IMAGANO,
+            estado: dataImagen.IMAGESTA,
             tema: dataImagen.IMAGTEMA,
             autor: dataImagen.IMAGAUTO,
             mensaje: dataImagen.IMAGMENS,
             archivo: dataImagen.IMAGCODI,
-            fechaCre: new Date(dataImagen.IMAGFECR)
+            fechaCre: new Date(dataImagen.IMAGFECR),
+            usuarioCre: new Date(dataImagen.IMAGUSCR)
           }
           $scope.bandera = true;
         },
@@ -67,7 +69,6 @@ calendModController.controller('ObraEditarController', [
               calImagService.updImagenes(obra).then(
                 function(resultObra){
                   $scope.bandera = true;
-                  console.log("guardo");
                   $location.path('/admin/obra/vista/'+resultObra.ID);
                 }
               );
@@ -94,8 +95,9 @@ calendModController.controller('ObraEditarController', [
         calEntity.imagmes = $scope.obra.mes;
         calEntity.imagauto = $scope.obra.autor;
         calEntity.imagmens = $scope.obra.mensaje;
-        calEntity.imagtema = $scope.obra.tema;   
-        calEntity.imaguscr = null;   
+        calEntity.imagtema = $scope.obra.tema;
+        calEntity.imagesta = $scope.obra.estado;   
+        calEntity.imaguscr = $scope.obra.usuarioCre
         calEntity.imagfecr = $scope.obra.fechaCre; 
         return calEntity;
       }

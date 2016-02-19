@@ -13,7 +13,10 @@ calendModService.service('calEvenService', [
                                               'getEventoId',
                                               'updEvento',
                                               'getEventosMesAno',
-  function ($q, allTipoImagen, allTipoEvento, allRepeticion, allImportancia, allInvitados, allEventosTipo, allAlertas, guardarEvento, guardarNotificacion, guardarInvitado, getEventoId, updEvento, getEventosMesAno) {
+                                              'updNotificacion',
+                                              'updInvitado',
+                                              'allEventosAdminTipo',
+  function ($q, allTipoImagen, allTipoEvento, allRepeticion, allImportancia, allInvitados, allEventosTipo, allAlertas, guardarEvento, guardarNotificacion, guardarInvitado, getEventoId, updEvento, getEventosMesAno, updNotificacion, updInvitado, allEventosAdminTipo) {
       
     this.getAllTipoEvento = function() {
       var response = $q.defer();
@@ -135,4 +138,33 @@ calendModService.service('calEvenService', [
       return response.promise;
     };
 
+    this.updNotificacion = function(notificacion) {
+      var response = $q.defer();
+      updNotificacion.update(notificacion, function(result) {
+        response.resolve(result);
+      }, function(error) {
+        response.reject(error);
+      });
+      return response.promise;
+    };
+
+    this.updInvitado = function(invitado) {
+      var response = $q.defer();
+      updInvitado.update(invitado, function(result) {
+        response.resolve(result);
+      }, function(error) {
+        response.reject(error);
+      });
+      return response.promise;
+    };
+
+    this.getAllEventosAdminTipo = function(tipo) {
+      var response = $q.defer();
+      allEventosAdminTipo.query({tipo:tipo}, function(result) {
+        response.resolve(result);
+      }, function(error) {
+        response.reject(error);
+      });
+      return response.promise;
+    };
 }]);

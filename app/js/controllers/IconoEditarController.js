@@ -4,8 +4,7 @@ calendModController.controller('IconoEditarController', [
                                                 '$uibModal', 
                                                 '$location', 
                                                 'calImagService',
-                                                'calendarioService',
-    function ($scope, $routeParams,  $uibModal, $location, calImagService, calendarioService) {
+    function ($scope, $routeParams,  $uibModal, $location, calImagService) {
 
       $scope.imagenId = $routeParams.idIcono;
       $scope.bandera = false;
@@ -25,7 +24,9 @@ calendModController.controller('IconoEditarController', [
             autor: dataImagen.IMAGAUTO,
             mensaje: dataImagen.IMAGMENS,
             archivo: dataImagen.IMAGCODI,
-            fechaCre: new Date(dataImagen.IMAGFECR)
+            estado: dataImagen.IMAGESTA,
+            fechaCre: new Date(dataImagen.IMAGFECR),
+            usuarioCre: new Date(dataImagen.IMAGUSCR)
           }
           $scope.bandera = true;
         },
@@ -44,7 +45,6 @@ calendModController.controller('IconoEditarController', [
               calImagService.updImagenes(icono).then(
                 function(resultIcono){
                   $scope.bandera = true;
-                  console.log("guardo");
                   $location.path('/admin/icono/vista/'+resultIcono.ID);
                 }
               );
@@ -66,12 +66,13 @@ calendModController.controller('IconoEditarController', [
           var calEntity = {};
           calEntity.imagcons = $scope.icono.id;        
           calEntity.imagimco = $scope.icono.idCodif;  
-          calEntity.imagano = null;
-          calEntity.imagmes = null;
-          calEntity.imagauto = null;
+          calEntity.imagano = $scope.icono.anho;
+          calEntity.imagmes = $scope.icono.mes;
+          calEntity.imagauto = $scope.icono.autor;
           calEntity.imagmens = $scope.icono.mensaje;
-          calEntity.imagtema = null;     
-          calEntity.imaguscr = null;     
+          calEntity.imagtema = $scope.icono.tema;     
+          calEntity.imagesta = $scope.icono.estado;     
+          calEntity.imaguscr = $scope.icono.usuarioCre;
           calEntity.imagfecr = $scope.icono.fechaCre;       
           return calEntity;
         }

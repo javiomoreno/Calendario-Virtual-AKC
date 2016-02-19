@@ -1,40 +1,56 @@
 calendModController.controller('CambiarTipoModalController', [
-                                                            '$scope', 
-                                                            '$uibModalInstance', 
-                                                            'idCambiar', 
-                                                            'localStorageService', 
-                                                            '$location', 
-                                                            '$route',
-    function ($scope, $uibModalInstance, idCambiar, localStorageService, $location, $route){
-          var todosInStore = localStorageService.get('eventos');
-          var anho, mes;
-          var meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+                                                              '$scope', 
+                                                              '$uibModalInstance', 
+                                                              'idCambiar', 
+                                                              '$location', 
+                                                              '$route',
+                                                              'calEvenService',
+    function ($scope, $uibModalInstance, idCambiar, $location, $route, calEvenService){
 
-          $scope.eventos = todosInStore || [];
+      $scope.evento = {};
 
-          $scope.$watch('eventos', function(){
-              localStorageService.add('eventos', $scope.eventos);
-          }, true);
+      calEvenService.getEventoId(idCambiar).then(
+        function(dataEvento){
+            $scope.evento = {
+              evencons: dataEvento[0].CAL_EVENTOS.evencons,
+              evendesc: dataEvento[0].CAL_EVENTOS.evendesc,
+              evenfein: dataEvento[0].CAL_EVENTOS.evenfein,
+              evenfefi: dataEvento[0].CAL_EVENTOS.evenfefi,
+              evenimpo: dataEvento[0].CAL_EVENTOS.evenimpo,
+              evenperi: dataEvento[0].CAL_EVENTOS.evenperi,
+              evenicon: dataEvento[0].CAL_EVENTOS.evenicon,
+              evenuscr: dataEvento[0].CAL_EVENTOS.evenuscr,
+              evenfecr: dataEvento[0].CAL_EVENTOS.evenfecr,
+              evenesta: dataEvento[0].CAL_EVENTOS.evenesta,
+              evenvibu: dataEvento[0].CAL_EVENTOS.evenvibu,
+              evenffin: dataEvento[0].CAL_EVENTOS.evenffin,
+              eventipo: dataEvento[0].CAL_EVENTOS.eventipo,
+            }
 
-          $scope.Cambiar = function () {
-              for(var i = 0; i < $scope.eventos.length; i ++){
-                  if($scope.eventos[i].id == idCambiar){
-                      if($scope.eventos[i].publicar == 1){
-                        $scope.eventos[i].publicar = 2;
-                      }
-                      else{
-                        $scope.eventos[i].publicar = 1;
-                      }
-                      anho = new Date($scope.eventos[i].fechaInicio).getFullYear();
-                      mes = meses[new Date($scope.eventos[i].fechaInicio).getMonth().valueOf()];
-                      break;
+            $scope.Cambiar = function () {
+                if($scope.evento.evenvibu === 2){
+                  $scope.evento.evenvibu = 1;
+                }
+                else{
+                  $scope.evento.evenvibu = 2;
+                }
+                calEvenService.updEvento($scope.evento).then(
+                  function(result){ 
+                    $route.reload();
+                    $uibModalInstance.close();
+                  },
+                  function(error){
+                      console.log(error.statusText);
                   }
-              }
-              $location.url('/admin/eventoPrivado/'+anho+"-"+mes);
-              $uibModalInstance.close();
-          };
+                );
+            };
 
-          $scope.Cancelar = function () {
-              $uibModalInstance.dismiss('no');
-          };
+            $scope.Cancelar = function () {
+                $uibModalInstance.dismiss('no');
+            };
+        },
+        function(error){
+            console.log(error.statusText);
+        }
+      );
 }]);

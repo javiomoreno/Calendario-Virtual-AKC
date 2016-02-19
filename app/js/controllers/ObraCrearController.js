@@ -20,7 +20,6 @@ calendModController.controller('ObraCrearController', [
               $scope.vecMeses[i] = {
                 id: i,
                 opcion: data[i].tbclave+" - "+data[i].tbvalor,
-                value: data[i].tbclave,
                 value: data[i].tbnumero
               }
             };
@@ -30,21 +29,21 @@ calendModController.controller('ObraCrearController', [
             for (var i = 0; i < data.length; i++) {
               $scope.vecAnhos[i] = {
                 id: i,
-                opcion: data[i].tbvalor,
-                value: data[i].tbnumero
+                opcion: data[i].tbvalor
               }
             };
         });
 
         $scope.guardarObra = function(){
         	if($scope.isValidarDatosObra()){
+            $scope.bandera = false; 
             var imagenCodif = $scope.buildImagenCodif();
             calImagService.guardarImagenCodificada(imagenCodif).then(
               function(result){
                 var obra = $scope.buildObra(result.id);
                 calImagService.guardarImagen(obra).then(
                   function(resultObra){
-                    console.log("guardo");
+                    $scope.bandera = true; 
                     $location.path('/admin/obra/vista/'+resultObra.id);
                   },
                   function(error){
@@ -80,6 +79,7 @@ calendModController.controller('ObraCrearController', [
           calEntity.imagauto = $scope.obra.autor;
           calEntity.imagmens = $scope.obra.mensaje;
           calEntity.imagtema = $scope.obra.tema;   
+          calEntity.imagesta = 2;
           calEntity.imaguscr = null;   
           calEntity.imagfecr = null;   
           return calEntity;

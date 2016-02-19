@@ -59,6 +59,21 @@ calendModFactory.factory('getEventosMesAno', function getEventosMesAno($resource
 	return $resource(baseURL + 'cal/eventosanomes/:anho/:mes', {anho:'@anho', mes:'@mes'});
 });
 
+/*Editar notificaciones del Evento*/
+calendModFactory.factory('updNotificacion', function updNotificacion($resource, baseURL) {
+	return $resource(baseURL + 'cal/notificacionupd ', null, {'update' : {method : 'PUT'}});
+});
+
+/*Editar invitados del Evento*/
+calendModFactory.factory('updInvitado', function updInvitado($resource, baseURL) {
+	return $resource(baseURL + 'cal/invitadoupd', null, {'update' : {method : 'PUT'}});
+});
+
+/*Consultar lista de Eventos por tipo*/
+calendModFactory.factory('allEventosAdminTipo', function allEventosAdminTipo($resource, baseURL) {
+	return $resource(baseURL + 'cal/totalEventos/:tipo', {tipo:'@tipo'});
+});
+
 
 
 

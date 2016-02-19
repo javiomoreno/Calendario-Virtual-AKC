@@ -15,7 +15,7 @@ calendModController.controller('ObraDetalleController', [
           calImagService.getImagenId($scope.imagenId).then(
             function(dataImagen){
               for (var i = 0; i < dataMeses.length; i++) {
-                if(dataMeses[i].tbclave == dataImagen.IMAGMES){
+                if(dataMeses[i].tbnumero == dataImagen.IMAGMES){
                   $scope.obra = {
                     id: dataImagen.IMAGCONS,
                     mes: dataMeses[i].tbvalor,

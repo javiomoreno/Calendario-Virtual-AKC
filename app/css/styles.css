@@ -280,7 +280,7 @@ a:-webkit-any-link {
 	overflow: hidden;
 	z-index: 2;
     margin-top: -100px;
-    width: 300px;
+    width: 350px;
     height: 100px;
 }
 
@@ -290,7 +290,7 @@ a:-webkit-any-link {
     padding-left: 70px;
     margin-left: -40px;
     opacity: 0.7;
-    width: 300px;
+    width: 350px;
     border-radius: 20px;
     margin-top: 25px;
     border-color: #A5FFE1;
@@ -303,6 +303,7 @@ a:-webkit-any-link {
 .mensaje{
 	-webkit-transform: rotate(-6deg);
 	padding-top: 5px;
+	padding-right: 50px;
 }
 
 .contenido-imagenDerecha{

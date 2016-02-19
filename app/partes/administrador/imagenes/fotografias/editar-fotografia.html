@@ -13,7 +13,7 @@
 			</div>
 			<div class="form-group col-sm-12 col-lg-6 blue">
 			    <label for="anho">* Año </label>
-			    <select class="form-control" id="anho" style="width:160px" ng-model="fotografia.anho" ng-options="opcion.value as opcion.opcion for opcion in vecAnhos | orderBy:'opcion' track by opcion.value" required>
+			    <select class="form-control" id="anho" style="width:160px" ng-model="fotografia.anho" ng-options="opcion.opcion as opcion.opcion for opcion in vecAnhos | orderBy:'opcion'" required>
 			      <option value="">Seleccione un Año</option>
 				</select>
 			</div>

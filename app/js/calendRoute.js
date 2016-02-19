@@ -42,7 +42,7 @@ appExpuestas.config(['$routeProvider', function ($routeProvider) {
       })
       .when('/admin/evento/editar/:idEvento', {
         templateUrl: 'views/administrador/eventos/editarEvento.html',
-        controller: 'EventosController'
+        controller: 'EventoEditarController'
       })
       .when('/admin/eventos/nuevo', {
         templateUrl: 'views/administrador/eventos/crearEvento.html',
@@ -50,11 +50,11 @@ appExpuestas.config(['$routeProvider', function ($routeProvider) {
       })
       .when('/admin/eventoPrivado/:camposEventoPrivado', {
         templateUrl: 'views/administrador/eventos-privados/vistaEventosMes.html',
-        controller: 'EventosPrivadosController'
+        controller: 'EventoPrivadoAnoMesController'
       })
       .when('/admin/eventoPrivado/vista/:idEventoPrivado', {
         templateUrl: 'views/administrador/eventos-privados/detalleEvento.html',
-        controller: 'EventosPrivadosController'
+        controller: 'EventoPrivadoDetalleController'
       })
       .when('/admin/icono/vista/:idIcono', {
         templateUrl: 'views/administrador/imagenes/iconos/detalleIcono.html',

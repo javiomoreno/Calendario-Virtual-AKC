@@ -9,6 +9,7 @@ calendModController.controller('FotografiaDetalleController', [
       $scope.imagenId = $routeParams.idFotografia;
       $scope.bandera = false;
       $scope.fotografia = {};
+      $scope.fotografia.archivo = null;
 
       calImagService.getAllMeses().then(
         function(dataMeses) {

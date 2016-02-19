@@ -11,13 +11,14 @@ calendModController.controller('IconoCrearController', [
 
         $scope.guardarIcono = function(){   
           if($scope.isValidarDatosIcono()){
+            $scope.bandera = false; 
             var imagenCodif = $scope.buildImagenCodif();
             calImagService.guardarImagenCodificada(imagenCodif).then(
               function(result){
                 var icono = $scope.buildIcono(result.id);
                 calImagService.guardarImagen(icono).then(
                   function(resultIcono){
-                    console.log("guardo");
+                    $scope.bandera = true; 
                     $location.path('/admin/icono/vista/'+resultIcono.id);
                   },
                   function(error){
@@ -54,6 +55,7 @@ calendModController.controller('IconoCrearController', [
           calEntity.imagauto = null;
           calEntity.imagmens = $scope.icono.mensaje;
           calEntity.imagtema = null;     
+          calEntity.imagesta = 2;     
           calEntity.imaguscr = null;     
           calEntity.imagfecr = null;      
           return calEntity;

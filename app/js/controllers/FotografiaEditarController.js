@@ -46,10 +46,12 @@ calendModController.controller('FotografiaEditarController', [
             mes: dataImagen.IMAGMES,
             anho: dataImagen.IMAGANO,
             tema: dataImagen.IMAGTEMA,
+            estado: dataImagen.IMAGESTA,
             autor: dataImagen.IMAGAUTO,
             mensaje: dataImagen.IMAGMENS,
             archivo: dataImagen.IMAGCODI,
-            fechaCre: new Date(dataImagen.IMAGFECR)
+            fechaCre: new Date(dataImagen.IMAGFECR),
+            usuarioCre: new Date(dataImagen.IMAGUSCR)
           }
           $scope.bandera = true;
         },
@@ -68,7 +70,6 @@ calendModController.controller('FotografiaEditarController', [
               calImagService.updImagenes(fotografia).then(
                 function(resultFotografia){
                   $scope.bandera = true;
-                  console.log("guardo");
                   $location.path('/admin/fotografia/vista/'+resultFotografia.ID);
                 }
               );
@@ -95,7 +96,8 @@ calendModController.controller('FotografiaEditarController', [
         calEntity.imagauto = $scope.fotografia.autor;
         calEntity.imagmens = $scope.fotografia.mensaje;
         calEntity.imagtema = $scope.fotografia.tema;   
-        calEntity.imaguscr = null;   
+        calEntity.imagesta = $scope.fotografia.estado; 
+        calEntity.imaguscr = $scope.fotografia.usuarioCre;
         calEntity.imagfecr = $scope.fotografia.fechaCre;   
         return calEntity;
       }
@@ -108,7 +110,6 @@ calendModController.controller('FotografiaEditarController', [
           angular.isUndefined($scope.fotografia.archivo) ||
           $scope.fotografia.anho == null ||
           $scope.fotografia.mes == null ||
-          $scope.fotografia.autor == null ||
           $scope.fotografia.mensaje == null ||
           $scope.fotografia.tema == null ||
           $scope.fotografia.archivo == null ||
