@@ -115,6 +115,10 @@ a:-webkit-any-link {
 	background-repeat: no-repeat;
 }
 
+.fondo-izquierda{
+	display: block;
+}
+
 .vaso{
 	margin-top: 60px;
 	z-index: 0;
@@ -660,12 +664,31 @@ td.fc-widget-content{
 	background-color: rgba(0,169,186,1);
 }*/
 
+
+@media screen and (max-width: 1199px) {
+	.logo-calidad{
+		display: none;
+	}
+}
+
 @media screen and (max-width: 991px) {
     .calendario {
     	padding-top: 90px;
 		margin-left: 0px;
     }
    .logo{
+		display: none;
+	}
+	.fondo-derecha{
+		display: none;
+	}
+	.fondo-izquierda{
+		display: none;
+	}
+	.img-banner{
+		display: none;
+	}
+	.logo-calidad{
 		display: none;
 	}
 }
@@ -681,6 +704,10 @@ td.fc-widget-content{
     	margin-top: -130px;
     	margin-right: 20px;
     }
+
+	.lema-calendario{
+		display: none;
+	}
 
 	.titulo-logo{
 		text-align: center;
