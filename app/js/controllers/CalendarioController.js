@@ -12,6 +12,8 @@ calendModController.controller('CalendarioController', [
   function ($scope, $compile, $rootScope, $routeParams, calEvenService, calImagService, localStorageService, $uibModal, $uibTooltip, uiCalendarConfig){
 
     $scope.banderaToda = false;
+    $scope.banderaFotografia = false;
+    $scope.banderaObra = false;
     var date = new Date();
     var d = date.getDate();
     var m = date.getMonth();
@@ -387,8 +389,10 @@ calendModController.controller('CalendarioController', [
                       var contaObras = 0;
                       var mes = $scope.uiConfig.calendar.monthNames[$rootScope.mes].toUpperCase();
 
+                      $scope.banderaFotografia = false;
                       calImagService.getImagenesTipoMesAñoCalendario($rootScope.anho, $rootScope.mes+1, 2101).then(
                         function(dataImagenes){
+                          $scope.banderaFotografia = true;
                           if (dataImagenes.cantidad > 0) {
                             contaFotografias = dataImagenes.cantidad;
                             for (var i = 0; i < dataImagenes.imagenes.length; i++) {
@@ -402,8 +406,10 @@ calendModController.controller('CalendarioController', [
                         }
                       );
 
+                      $scope.banderaObra = false;
                       calImagService.getImagenesTipoMesAñoCalendario($rootScope.anho, $rootScope.mes+1, 2103).then(
                         function(dataImagenes){
+                          $scope.banderaObra = true;
                           if (dataImagenes.cantidad > 0) {
                             contaObras = dataImagenes.cantidad;
                             for (var i = 0; i < dataImagenes.imagenes.length; i++) {

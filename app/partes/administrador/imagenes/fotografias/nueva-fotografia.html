@@ -40,7 +40,7 @@
 						</span>
 					</span>
 					<span ng-if="fotografia.archivo != null" class="ace-file-container">
-						<img src="{{fotografia.archivo}}" class="imagenVista" alt="">
+						<img  ng-src="{{fotografia.archivo != null && fotografia.archivo || ''}}" class="imagenVista" alt="">
 					</span>
 					<a class="remove" href="#">
 						<i class=" ace-icon fa fa-times"></i>

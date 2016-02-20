@@ -344,11 +344,11 @@ calendModController.controller('UsuarioCrearEventoController', [
         calEntity.evnocons = -1;        
         calEntity.evnoeven = idEvento;
         calEntity.evnofech = new Date($scope.evento.fechaInicio);
-        calEntity.evnotipo = 2901;
+        calEntity.evnotipo = 2801;
         calEntity.evnoaler = $scope.evento.alerta.aplicacion[posicion];
-        calEntity.evnoesta = null;
+        calEntity.evnoesta = 2;
         calEntity.evnodesc = null;
-        calEntity.evnouscr = 1;
+        calEntity.evnouscr = 2;
         calEntity.evnofecr = null;
         return calEntity;
       }

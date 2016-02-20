@@ -20,9 +20,8 @@ calendModController.controller('FotografiaEditarController', [
       calImagService.getAllMeses().then(function(data) {
           for (var i = 0; i < data.length; i++) {
             $scope.vecMeses[i] = {
-              id: i,
               opcion: data[i].tbclave+" - "+data[i].tbvalor,
-              value: data[i].tbclave
+              value: parseInt(data[i].tbclave)
             }
           };
       });
@@ -30,8 +29,7 @@ calendModController.controller('FotografiaEditarController', [
       calImagService.getAllAnhos().then(function(data) {
           for (var i = 0; i < data.length; i++) {
             $scope.vecAnhos[i] = {
-              id: i,
-              opcion: data[i].tbvalor
+              opcion: parseInt(data[i].tbvalor)
             }
           };
       });
@@ -45,13 +43,13 @@ calendModController.controller('FotografiaEditarController', [
             extCodif: dataImagen.IMCOEXTE,
             mes: dataImagen.IMAGMES,
             anho: dataImagen.IMAGANO,
-            tema: dataImagen.IMAGTEMA,
             estado: dataImagen.IMAGESTA,
+            tema: dataImagen.IMAGTEMA,
             autor: dataImagen.IMAGAUTO,
             mensaje: dataImagen.IMAGMENS,
             archivo: dataImagen.IMAGCODI,
             fechaCre: new Date(dataImagen.IMAGFECR),
-            usuarioCre: new Date(dataImagen.IMAGUSCR)
+            usuarioCre: dataImagen.IMAGUSCR
           }
           $scope.bandera = true;
         },
@@ -71,8 +69,14 @@ calendModController.controller('FotografiaEditarController', [
                 function(resultFotografia){
                   $scope.bandera = true;
                   $location.path('/admin/fotografia/vista/'+resultFotografia.ID);
+                },
+                function(error){
+                  console.log("Fotografia.", error.statusText);
                 }
               );
+            },
+            function(error){
+              console.log("imagenCodif.", error.statusText);
             }
           );
         }

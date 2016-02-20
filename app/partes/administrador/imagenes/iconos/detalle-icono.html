@@ -23,7 +23,8 @@
                             <div class="profile-info-row">
                                 <div class="profile-info-name"> Imagen </div>
                                 <div class="profile-info-value text-center">
-                                    <img src="{{icono.archivo}}" alt="{{icono.nombre}}" class="imagenVista" title="{{icono.nombre}}">
+                                    <img  ng-src="{{icono.archivo!= null && icono.archivo|| ''}}" class="imagenVista" alt="" alt="{{icono.nombre}}" class="imagenVista" title="{{icono.nombre}}">
+
                                 </div>
                             </div>
                         </div>

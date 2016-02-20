@@ -3,17 +3,17 @@
 		<small><em>Construyendo Vista</em></small>
 			<uib-progressbar class="progress-striped active" value="100" type="info">Cargando...</uib-progressbar>
 	</span>
-	<span ng-if="bandera == true">	
+	<span ng-if="bandera == true">
 		<form name="form">
 			<div class="form-group col-sm-12 col-lg-6 blue">
 			    <label for="mes">* Mes</label>
-			    <select class="form-control" id="mes" style="width:160px" ng-model="obra.mes" ng-options="opcion.value as opcion.opcion for opcion in vecMeses" required>
+			    <select class="form-control" id="mes" name="mes" style="width:160px" ng-model="obra.mes" required ng-options="opcion.value as opcion.opcion for opcion in vecMeses" >
 			      <option value="">Seleccione un Mes</option>
 				</select>
 			</div>
 			<div class="form-group col-sm-12 col-lg-6 blue">
 			    <label for="anho">* Año </label>
-			    <select class="form-control" id="anho" style="width:160px" ng-model="obra.anho" ng-options="opcion.opcion as opcion.opcion for opcion in vecAnhos | orderBy:'opcion.opcion'" required>
+			    <select class="form-control" id="anho" style="width:160px" ng-model="obra.anho" ng-options="opcion.opcion as opcion.opcion for opcion in vecAnhos" required>
 			      <option value="">Seleccione un Año</option>
 				</select>
 			</div>
@@ -45,7 +45,7 @@
 						</span>
 					</span>
 					<span ng-if="obra.archivo != null" class="ace-file-container">
-						<img src="{{obra.archivo}}" class="imagenVista" alt="">
+						<img  ng-src="{{obra.archivo != null && obra.archivo || ''}}" class="imagenVista" alt="">
 					</span>
 					<a class="remove" href="#">
 						<i class=" ace-icon fa fa-times"></i>

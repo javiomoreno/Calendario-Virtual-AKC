@@ -51,7 +51,7 @@
                             <div class="profile-info-row">
                                 <div class="profile-info-name"> Imagen </div>
                                 <div class="profile-info-value text-center">
-                                    <img src="{{obra.archivo}}" alt="{{obra.nombre}}" class="imagenVista" title="{{obra.nombre}}">
+                                    <img ng-src="{{obra.archivo != null && obra.archivo || ''}}" alt="{{obra.nombre}}" class="imagenVista" title="{{obra.nombre}}">
                                 </div>
                             </div>
                         </div>

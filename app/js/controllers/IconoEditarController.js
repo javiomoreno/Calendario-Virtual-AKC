@@ -26,7 +26,7 @@ calendModController.controller('IconoEditarController', [
             archivo: dataImagen.IMAGCODI,
             estado: dataImagen.IMAGESTA,
             fechaCre: new Date(dataImagen.IMAGFECR),
-            usuarioCre: new Date(dataImagen.IMAGUSCR)
+            usuarioCre: dataImagen.IMAGUSCR
           }
           $scope.bandera = true;
         },
@@ -46,8 +46,14 @@ calendModController.controller('IconoEditarController', [
                 function(resultIcono){
                   $scope.bandera = true;
                   $location.path('/admin/icono/vista/'+resultIcono.ID);
+                },
+                function(error){
+                  console.log("Icono.", error.statusText);
                 }
               );
+            },
+            function(error){
+              console.log("imagenCodif.", error.statusText);
             }
           );
         }

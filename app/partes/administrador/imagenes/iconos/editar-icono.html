@@ -12,25 +12,24 @@
 			</div>
 			<div class="form-group col-lg-12" style="text-align: -webkit-center;">
 				<div style="width:400px; margin:12px;">
-				<h3 class="header blue smaller lighter">
-					Cargar Archivo
-				</h3>
-				<label class="ace-file-input ace-file-multiple">
-					<input fileread="icono.archivo" type="file" placeholder="Please select file" class="form-control" accept="image/*"/>
-					<span ng-if="icono.archivo == null" class="ace-file-container" data-title="Seleccione el archivo">
-						<span  class="ace-file-name" data-title="No hay Achivo ...">
-							<i class=" ace-icon fa fa-upload"></i>
+					<h3 class="header blue smaller lighter">
+						Cargar Archivo
+					</h3>
+					<label class="ace-file-input ace-file-multiple">
+						<input fileread="icono.archivo" type="file" placeholder="Please select file" class="form-control" accept="image/*"/>
+						<span ng-if="icono.archivo == null" class="ace-file-container" data-title="Seleccione el archivo">
+							<span  class="ace-file-name" data-title="No hay Achivo ...">
+								<i class=" ace-icon fa fa-upload"></i>
+							</span>
 						</span>
-					</span>
-					<span ng-if="icono.archivo != null" class="ace-file-container">
-						<img src="{{icono.archivo}}" class="imagenVista" alt="">
-					</span>
-					<a class="remove" href="#">
-						<i class=" ace-icon fa fa-times"></i>
-					</a>
-				</label>
-			</div>
-			<!--<input uploader-model="archivo" type="file" placeholder="Please select file" class="form-control ng-isolate-scope" accept="image/*">-->
+						<span ng-if="icono.archivo != null" class="ace-file-container">
+							<img  ng-src="{{icono.archivo != null && icono.archivo || ''}}" class="imagenVista" alt="">
+						</span>
+						<a class="remove" href="#">
+							<i class=" ace-icon fa fa-times"></i>
+						</a>
+					</label>
+				</div>
 			</div>
 			<div class="form-group col-lg-12 text-center">
 				<button class="btn btn-primary" ng-click="editarIcono()">Guardar</button>

@@ -30,13 +30,21 @@ calendModController.controller('EventoCrearController', [
       $scope.evento.invitados = [];
 
       $scope.vecTipoEvento = [];
-      $scope.vecRepeticion= [];
-      $scope.vecImportancia= [];
+      $scope.vecRepeticion = [];
+      $scope.vecImportancia = [];
+      $scope.vecMeses = [];
 
       $rootScope.vecInvitados = [];
       $scope.vectorAlertas = [];
 
-
+      calImagService.getAllMeses().then(function(data) {
+            for (var i = 0; i < data.length; i++) {
+              $scope.vecMeses[i] = {
+                value: data[i].tbclave,
+                mes: data[i].tbvalor
+              }
+            };
+        });
 
       calEvenService.getAllAlertas().then(
         function (dataAlertas) {
@@ -321,6 +329,14 @@ calendModController.controller('EventoCrearController', [
               var banderaApli = false;
               var banderaCorr = false;
               var banderaInvi = false;
+              var mes = '', anho = '';
+              for (var i = 0; i < $scope.vecMeses.length; i++) {
+                if (parseInt($scope.vecMeses[i].value) === (new Date(evento.evenfein).getMonth()+1)) {
+                  mes = $scope.vecMeses[i].mes;
+                  anho = new Date(evento.evenfein).getFullYear();
+                  break;
+                }
+              }
               if ($scope.evento.alerta.aplicacion.length > 0) {
                 for (var i = 0; i < $scope.evento.alerta.aplicacion.length; i++) {
                   var notificacion = $scope.buildNotificacionAplicacion(resultEvento.ID, i);
@@ -330,7 +346,7 @@ calendModController.controller('EventoCrearController', [
                         banderaApli = true;
                       }
                       if (banderaApli && banderaInvi && banderaCorr) {
-                        $location.path('/admin/evento/vista/'+resultEvento.ID);
+                        $location.path('/admin/evento/'+anho+"-"+mes);
                       }
                     },
                     function(error){
@@ -350,7 +366,7 @@ calendModController.controller('EventoCrearController', [
                         banderaCorr = true;
                       }
                       if (banderaApli && banderaInvi && banderaCorr) {
-                        $location.path('/admin/evento/vista/'+resultEvento.ID);
+                        $location.path('/admin/evento/'+anho+"-"+mes);
                       }
                     },
                     function(error){
@@ -370,7 +386,7 @@ calendModController.controller('EventoCrearController', [
                         banderaInvi = true;
                       }
                       if (banderaApli && banderaInvi && banderaCorr) {
-                        $location.path('/admin/evento/vista/'+resultEvento.ID);
+                        $location.path('/admin/evento/'+anho+"-"+mes);
                       }
                     },
                     function(error){
@@ -382,7 +398,7 @@ calendModController.controller('EventoCrearController', [
                 banderaInvi = true;
               }
               if (banderaApli && banderaInvi && banderaCorr) {
-                $location.path('/admin/evento/vista/'+resultEvento.ID);
+                $location.path('/admin/evento/'+anho+"-"+mes);
               }
 
             },
@@ -405,9 +421,9 @@ calendModController.controller('EventoCrearController', [
         calEntity.evnocons = -1;        
         calEntity.evnoeven = idEvento;
         calEntity.evnofech = new Date($scope.evento.fechaInicio);
-        calEntity.evnotipo = 2901;
+        calEntity.evnotipo = 2801;
         calEntity.evnoaler = $scope.evento.alerta.aplicacion[posicion];
-        calEntity.evnoesta = null;
+        calEntity.evnoesta = 2;
         calEntity.evnodesc = null;
         calEntity.evnouscr = 1;
         calEntity.evnofecr = null;
@@ -419,9 +435,9 @@ calendModController.controller('EventoCrearController', [
         calEntity.evnocons = -1;        
         calEntity.evnoeven = idEvento;
         calEntity.evnofech = new Date($scope.evento.fechaInicio);
-        calEntity.evnotipo = 2902;
+        calEntity.evnotipo = 2802;
         calEntity.evnoaler = $scope.evento.alerta.correo[posicion];
-        calEntity.evnoesta = null;
+        calEntity.evnoesta = 2;
         calEntity.evnodesc = null;
         calEntity.evnouscr = 1;
         calEntity.evnofecr = null;

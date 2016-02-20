@@ -1,11 +1,12 @@
-calendModController.controller('ModalControllerObras', [
-                                                      '$scope', 
-                                                      '$uibModalInstance', 
-                                                      'idEliminar', 
-                                                      '$location', 
-                                                      'calImagService',
-                                                      'serveData',
-    function ($scope, $uibModalInstance, idEliminar, $location, calImagService, serveData){
+calendModController.controller('ModalControllerFotografias', [
+                                                          '$scope', 
+                                                          '$uibModalInstance', 
+                                                          'idEliminar', 
+                                                          '$location', 
+                                                          '$route',
+                                                          'calImagService',
+                                                          'serveData',
+    function ($scope, $uibModalInstance, idEliminar, $location, $route, calImagService, serveData){
 
       $scope. mes = {};
       $scope. anho = {};
@@ -32,7 +33,7 @@ calendModController.controller('ModalControllerObras', [
           }
           calImagService.updImagenes(idEliminar).then(
             function(result){ 
-              serveData.data.vista = 03;
+              serveData.data.vista = 01;
               $location.url('/admin');
               $uibModalInstance.close();
             },

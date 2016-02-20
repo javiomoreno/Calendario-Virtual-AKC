@@ -33,10 +33,10 @@
 											<div class="widget-main">
 												<dl id="dt-list-1">
 													<dt>Fuente</dt>
-													<dd>{{opcion.mensaje}}</dd>
+													<dd style="padding-right: 35px;">{{opcion.mensaje}}</dd>
 												</dl>
 												<div class="icono-vista-previa">
-													<img src="{{opcion.archivo}}" alt="" width="40px" height="40px">
+													<img ng-src="{{opcion.archivo != null && opcion.archivo || ''}}" class="imagenVista" alt="" width="40px" height="40px">
 												</div>
 											</div>
 										</div>

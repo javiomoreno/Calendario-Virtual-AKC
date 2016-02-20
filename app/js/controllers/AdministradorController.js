@@ -3,7 +3,10 @@ calendModController.controller('AdministradorController', [
                                                         '$timeout', 
                                                         '$scope', 
                                                         'calImagService', 
-    function ($location, $timeout, $scope, calImagService) {
+                                                        'serveData',
+    function ($location, $timeout, $scope, calImagService, serveData) {
+
+        $scope.vista = serveData.data.vista;
 
         $scope.opciones = [];
 

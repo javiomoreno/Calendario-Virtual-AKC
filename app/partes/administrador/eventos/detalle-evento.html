@@ -98,7 +98,7 @@
                             <div class="profile-info-row" ng-if="evento.iconoEvento != null">
                                 <div class="profile-info-name"> Icono </div>
                                 <div class="profile-info-value text-center">
-                                    <img src="{{evento.iconoEvento}}" class="imagenVista" title="{{evento.icono}}">
+                                    <img  ng-src="{{evento.iconoEvento != null && evento.iconoEvento || ''}}" class="imagenVista">
                                 </div>
                             </div>
                         </div>

@@ -142,11 +142,11 @@ calendModController.controller('EventoEditarController', [
             $scope.evento.alerta.correo = [];
             $scope.evento.alerta.aplicacion = [];
             for (var i = 0; i < dataEvento[0].CAL_EVENNOTI.length; i++) {
-              if (dataEvento[0].CAL_EVENNOTI[i].evnotipo === 2901 && dataEvento[0].CAL_EVENNOTI[i].evnoesta !== 5) {
+              if (dataEvento[0].CAL_EVENNOTI[i].evnotipo === 2801 && dataEvento[0].CAL_EVENNOTI[i].evnoesta !== 5) {
                   $scope.evento.alerta.aplicacion.push(dataEvento[0].CAL_EVENNOTI[i].evnoaler);
                   $scope.alertasAplicacion.push(dataEvento[0].CAL_EVENNOTI[i]);
               }
-              if (dataEvento[0].CAL_EVENNOTI[i].evnotipo === 2902 && dataEvento[0].CAL_EVENNOTI[i].evnoesta !== 5) {
+              if (dataEvento[0].CAL_EVENNOTI[i].evnotipo === 2802 && dataEvento[0].CAL_EVENNOTI[i].evnoesta !== 5) {
                   $scope.evento.alerta.correo.push(dataEvento[0].CAL_EVENNOTI[i].evnoaler);
                   $scope.alertasCorreo.push(dataEvento[0].CAL_EVENNOTI[i]);
               }
@@ -403,7 +403,7 @@ calendModController.controller('EventoEditarController', [
                     }
                   }
                   if (!banderaAgregarApli) {
-                    var notificacion = $scope.buildNotificacion(resultEvento.ID, $scope.evento.alerta.aplicacion[i], 2901);
+                    var notificacion = $scope.buildNotificacion(resultEvento.ID, $scope.evento.alerta.aplicacion[i], 2801);
                     calEvenService.guardarNotificacion(notificacion).then(
                       function(resultNotificacion){
                         $location.path('/admin/evento/vista/'+resultEvento.ID);                        
@@ -448,7 +448,7 @@ calendModController.controller('EventoEditarController', [
                     }
                   }
                   if (!banderaAgregarCorr) {
-                    var notificacion = $scope.buildNotificacion(resultEvento.ID, $scope.evento.alerta.correo[i], 2902);
+                    var notificacion = $scope.buildNotificacion(resultEvento.ID, $scope.evento.alerta.correo[i], 2802);
                     calEvenService.guardarNotificacion(notificacion).then(
                       function(resultNotificacion){
                         $location.path('/admin/evento/vista/'+resultEvento.ID);

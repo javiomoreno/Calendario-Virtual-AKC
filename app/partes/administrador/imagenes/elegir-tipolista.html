@@ -2,18 +2,18 @@
 	<div class="form-group col-sm-12 col-lg-12 header blue smaller lighter">
 	    <label for="tipo">Tipo de Imagen</label>
 	    <form action="">
-	      <select ng-model="opcion" ng-options="opcion.value as opcion.opcion for opcion in opciones">
+	      <select ng-model="vista" ng-options="opcion.value as opcion.opcion for opcion in opciones">
 	      	<option value="">Seleccione un Tipo de Imagen</option>
 	      </select>
 	     </form>
 	</div>
-	<span ng-if="opcion == 01">
+	<span ng-if="vista == 01">
 		<lista-fotografias></lista-fotografias>
 	</span>
-	<span ng-if="opcion == 02">
+	<span ng-if="vista == 02">
 		<lista-iconos></lista-iconos>
 	</span>
-	<span ng-if="opcion == 03">
+	<span ng-if="vista == 03">
 		<lista-obras></lista-obras>
 	</span>
 </span>

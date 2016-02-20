@@ -9,6 +9,7 @@ calendModController.controller('IconoDetalleController', [
       $scope.imagenId = $routeParams.idIcono;
       $scope.bandera = false;
       $scope.icono = {};
+      $scope.anular = {};
 
       
       calImagService.getImagenId($scope.imagenId).then(
@@ -17,6 +18,18 @@ calendModController.controller('IconoDetalleController', [
             id: dataImagen.IMAGCONS,
             mensaje: dataImagen.IMAGMENS,
             archivo: dataImagen.IMAGCODI
+          }
+          $scope.anular = {
+            imagcons: dataImagen.IMAGCONS,
+            imagimco: dataImagen.IMAGIMCO,
+            imagano: dataImagen.IMAGANO,
+            imagmes: dataImagen.IMAGMES,
+            imagauto: dataImagen.IMAGAUTO,
+            imagmens: dataImagen.IMAGMENS,
+            imagtema: dataImagen.IMAGTEMA,
+            imagesta: dataImagen.IMAGESTA,
+            imaguscr: dataImagen.IMAGUSCR,
+            imagfecr: new Date(dataImagen.IMAGFECR)
           }
           $scope.bandera = true;
         },
@@ -32,7 +45,7 @@ calendModController.controller('IconoDetalleController', [
       $scope.animationsEnabled = true;
 
       $scope.openModal = function (size) {
-        $scope.idEliminar = $scope.imagenId;
+        $scope.idEliminar = $scope.anular;
 
         var modalInstance = $uibModal.open({
           animation: $scope.animationsEnabled,

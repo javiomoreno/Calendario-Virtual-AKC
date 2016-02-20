@@ -46,14 +46,14 @@ calendModController.controller('EventoDetalleController', [
 					calEvenService.getAllAlertas().then(
 						function (dataAlertas) {
 							for (var i = 0; i < dataEvento[0].CAL_EVENNOTI.length; i++) {
-						  		if (dataEvento[0].CAL_EVENNOTI[i].evnotipo === 2901 && dataEvento[0].CAL_EVENNOTI[i].evnoesta !== 5) {
+						  		if (dataEvento[0].CAL_EVENNOTI[i].evnotipo === 2801 && dataEvento[0].CAL_EVENNOTI[i].evnoesta !== 5) {
 						  			for (var j = 0; j < dataAlertas.length; j++) {
 						  				if (dataEvento[0].CAL_EVENNOTI[i].evnoaler === dataAlertas[j].tbnumero) {
 						  					$scope.vecNotiAplicacion.push(dataAlertas[j].tbvalor);
 						  				}
 								  	};
 						  		}
-						  		if (dataEvento[0].CAL_EVENNOTI[i].evnotipo === 2902 && dataEvento[0].CAL_EVENNOTI[i].evnoesta !== 5) {
+						  		if (dataEvento[0].CAL_EVENNOTI[i].evnotipo === 2802 && dataEvento[0].CAL_EVENNOTI[i].evnoesta !== 5) {
 						  			for (var j = 0; j < dataAlertas.length; j++) {
 						  				if (dataEvento[0].CAL_EVENNOTI[i].evnoaler === dataAlertas[j].tbnumero) {
 						  					$scope.vecNotiCorreo.push(dataAlertas[j].tbvalor);

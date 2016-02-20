@@ -7,7 +7,7 @@
 		<form name="form">
 			<div class="form-group col-sm-12 col-lg-6 blue">
 			    <label for="mes">* Mes</label>
-			    <select class="form-control" id="mes" style="width:160px" ng-model="fotografia.mes" ng-options="opcion.value as opcion.opcion for opcion in vecMeses track by opcion.value" required>
+			    <select class="form-control" id="mes" style="width:160px" ng-model="fotografia.mes" ng-options="opcion.value as opcion.opcion for opcion in vecMeses" required>
 			      <option value="">Seleccione un Mes</option>
 				</select>
 			</div>
@@ -40,7 +40,7 @@
 						</span>
 					</span>
 					<span ng-if="fotografia.archivo != null" class="ace-file-container">
-						<img src="{{fotografia.archivo}}" class="imagenVista" alt="">
+						<img  ng-src="{{fotografia.archivo != null && fotografia.archivo || ''}}" class="imagenVista">
 					</span>
 					<a class="remove" href="#">
 						<i class=" ace-icon fa fa-times"></i>

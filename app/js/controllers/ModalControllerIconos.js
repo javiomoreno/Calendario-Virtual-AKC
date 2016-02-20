@@ -2,31 +2,31 @@ calendModController.controller('ModalControllerIconos', [
                                                         '$scope', 
                                                         '$uibModalInstance', 
                                                         'idEliminar', 
-                                                        'localStorageService', 
-                                                        '$location', 
-                                                        '$route',
-    function ($scope, $uibModalInstance, idEliminar, localStorageService, $location, $route){
+                                                        '$location',
+                                                        'calImagService', 
+                                                        'serveData',
+    function ($scope, $uibModalInstance, idEliminar, $location, calImagService, serveData){
 
-          var todosInStore = localStorageService.get('imagenes');
-
-          $scope.imagenes = todosInStore || [];
-
-          $scope.$watch('imagenes', function(){
-              localStorageService.add('imagenes', $scope.imagenes);
-          }, true);
-
-          $scope.Eliminar = function () {
-              for(var i = 0; i < $scope.imagenes.length; i ++){
-                  if($scope.imagenes[i].id == idEliminar){
-                      $scope.imagenes.splice(i, 1);
-                      break;
-                  }
-              }
-              $location.path('/admin');
+      $scope.Eliminar = function () {
+          if(idEliminar.imagesta === 2){
+            idEliminar.imagesta = 5;
+          }
+          else{
+            idEliminar.imagesta = 2;
+          }
+          calImagService.updImagenes(idEliminar).then(
+            function(result){ 
+              serveData.data.vista = 02;
+              $location.url('/admin');
               $uibModalInstance.close();
-          };
+            },
+            function(error){
+                console.log(error.statusText);
+            }
+          );
+      };
 
-          $scope.Cancelar = function () {
-              $uibModalInstance.dismiss('no');
-          };
+      $scope.Cancelar = function () {
+          $uibModalInstance.dismiss('no');
+      };
 }]);

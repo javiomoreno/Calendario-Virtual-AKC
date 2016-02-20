@@ -24,17 +24,27 @@
 		<div class="container-fluid">
 			<div>
 			  <div>
-			  	<div class="row">
-				    <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 fondo-izquierda" style="padding-right: 0px; padding-left: 0px;">
-					    <div class="maxIzquierda" ng-click="abrirImagenIzquierda(foto)">
-					    </div>
-				    	<img src="{{foto.IMAGCODI}}" alt="imagen" class="imagen-izquierda" >
-				    	<div class="caja-externa">
-					    	<img src="img/frase-institucional.png" alt="" width="160px" height="80px" style="margin: 40px auto auto auto;">  	
-					    	<p class="tema">{{foto.IMAGTEMA}}"</p>
-				    	</div>
+			  	<div class="row" ng-controller="CalendarioController as vm">
+					<div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 fondo-izquierda" style="padding-right: 0px; padding-left: 0px;">
+					    <span ng-if="banderaFotografia == false">
+			        		<div class="col-xs-12">
+								<h3 class="header smaller lighter blue">
+									<i class="ace-icon fa fa-spinner fa-spin blue bigger-125"></i>
+									Cargando Fotografía
+								</h3>
+							</div>
+					    </span>
+				    	<span ng-if="banderaFotografia == true">
+						    <div class="maxIzquierda" ng-click="abrirImagenIzquierda(foto)">
+						    </div>
+					    		<img src="{{foto.IMAGCODI}}" alt="imagen" class="imagen-izquierda" >
+					    	<div class="caja-externa">
+						    	<img src="img/frase-institucional.png" alt="" width="160px" height="80px" style="margin: 40px auto auto auto;">  	
+						    	<p class="tema">{{foto.IMAGTEMA}}"</p>
+					    	</div>
+			    		</span>
 					</div>
-					<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 calendario" ng-controller="CalendarioController as vm">
+					<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 calendario">
 							<div class="caja-busqueda">
 								<div class="b-titulo">
 									<p class="blue">Busqueda: </p>
@@ -71,12 +81,22 @@
 							</div>
 					</div>
 					<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 fondo-derecha">
-					    <div class="caja-obra">
-							<div class="maxDerecha" ng-click="abrirObra(obra)">
+						<span ng-if="banderaObra == false">
+					        <div class="col-xs-12">
+								<h3 class="header smaller lighter blue">
+									<i class="ace-icon fa fa-spinner fa-spin blue bigger-125"></i>
+									Cargando Obra
+								</h3>
+							</div>
+					    </span>
+					    <span ng-if="banderaObra == true">
+						    <div class="caja-obra">
+								<div class="maxDerecha" ng-click="abrirObra(obra)">
+							    </div>
+						    	<img src="{{obra.IMAGCODI}}" alt="imagen" class="imagen-derecha">
+						   	 	<img src="img/derecha/boton obra del mes.png" alt="imagen" class="tema-obra" width="190px" height="50px">
 						    </div>
-					    	<img src="{{obra.IMAGCODI}}" alt="imagen" class="imagen-derecha">
-					   	 	<img src="img/derecha/boton obra del mes.png" alt="imagen" class="tema-obra" width="190px" height="50px">
-					    </div>
+						</span>
 					    <div style="text-align: center;">
 					    	<div style="width: 100%">
 						    	<img src="img/derecha/logo salon del agua.png" alt="imagen" class="vaso" width="90px" height="260px">	
