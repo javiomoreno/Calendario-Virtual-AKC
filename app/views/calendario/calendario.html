@@ -37,7 +37,7 @@
 				    	<span ng-if="banderaFotografia == true">
 						    <div class="maxIzquierda" ng-click="abrirImagenIzquierda(foto)">
 						    </div>
-					    		<img src="{{foto.IMAGCODI}}" alt="imagen" class="imagen-izquierda" >
+						    	<img  ng-src="{{foto.IMAGCODI != null && foto.IMAGCODI || ''}}" alt="imagen" class="imagen-izquierda">
 					    	<div class="caja-externa">
 						    	<img src="img/frase-institucional.png" alt="" width="160px" height="80px" style="margin: 40px auto auto auto;">  	
 						    	<p class="tema">{{foto.IMAGTEMA}}"</p>
@@ -93,7 +93,7 @@
 						    <div class="caja-obra">
 								<div class="maxDerecha" ng-click="abrirObra(obra)">
 							    </div>
-						    	<img src="{{obra.IMAGCODI}}" alt="imagen" class="imagen-derecha">
+							    <img  ng-src="{{obra.IMAGCODI != null && obra.IMAGCODI || ''}}"  alt="imagen" class="imagen-derecha">
 						   	 	<img src="img/derecha/boton obra del mes.png" alt="imagen" class="tema-obra" width="190px" height="50px">
 						    </div>
 						</span>

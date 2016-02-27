@@ -17,38 +17,50 @@
 			      <option value="">Seleccione un Año</option>
 				</select>
 			</div>
-			  <div class="form-group col-sm-12 col-lg-6 blue">
-			    <label for="tema">* Titulo de Tema</label>
-			    <input type="text" class="form-control" id="tema" 
-		           placeholder="Titulo de Tema" ng-model="fotografia.tema"/>
-			  </div>
-			  <div class="form-group col-lg-12 blue">
-			    <label for="mensaje">* Mensaje</label>
-			    <textarea class="form-control" id="mensaje" 
-		           placeholder="Mensaje" ng-model="fotografia.mensaje"></textarea>
-			  </div>
-			  <div class="form-group col-lg-12" style="text-align: -webkit-center;">
-				<div style="width:400px; margin:12px;">
-				<h3 class="header blue smaller lighter">
-					* Cargar Archivo
-				</h3>
-				<label class="ace-file-input ace-file-multiple">
-					<input fileread="fotografia.archivo" type="file" placeholder="Please select file" class="form-control" accept="image/*"/>
-					<span ng-if="fotografia.archivo == null" class="ace-file-container" data-title="Seleccione el archivo">
-						<span  class="ace-file-name" data-title="No hay Achivo ...">
-							<i class=" ace-icon fa fa-upload"></i>
-						</span>
-					</span>
-					<span ng-if="fotografia.archivo != null" class="ace-file-container">
-						<img  ng-src="{{fotografia.archivo != null && fotografia.archivo || ''}}" class="imagenVista">
-					</span>
-					<a class="remove" href="#">
-						<i class=" ace-icon fa fa-times"></i>
-					</a>
-				</label>
+			<div class="form-group col-sm-12 col-lg-6 blue">
+				<label for="tema">* Titulo de Tema</label>
+				<input type="text" class="form-control" id="tema" 
+				   placeholder="Titulo de Tema" ng-model="fotografia.tema"/>
 			</div>
-			<div class="form-group col-lg-12">
-		  		<button class="btn btn-primary" ng-click="editarFotografia()">Editar</button>
+			<div class="form-group col-lg-12 blue">
+				<label for="mensaje">* Mensaje</label>
+				<textarea class="form-control" id="mensaje" 
+				   placeholder="Mensaje" ng-model="fotografia.mensaje"></textarea>
+			</div>
+		  	<div class="form-group col-lg-12" style="text-align: -webkit-center;">
+				<span ng-if="banderaFotografia == false">
+	                <div class="col-xs-12">
+	                    <h3 class="header smaller lighter blue">
+	                        <i class="ace-icon fa fa-spinner fa-spin blue bigger-125"></i>
+	                        Cargando Fotografía
+	                    </h3>
+	                </div>
+	            </span>
+	            <span ng-if="banderaFotografia == true">
+					<div style="width:400px; margin:12px;">
+						<h3 class="header blue smaller lighter">
+							* Cargar Archivo
+						</h3>
+						<label class="ace-file-input ace-file-multiple">
+							<input fileread="fotografia.archivo" type="file" placeholder="Please select file" class="form-control" accept="image/*"/>
+							<span ng-if="fotografia.archivo == null" class="ace-file-container" data-title="Seleccione el archivo">
+								<span  class="ace-file-name" data-title="No hay Achivo ...">
+									<i class=" ace-icon fa fa-upload"></i>
+								</span>
+							</span>
+		                    
+								<span ng-if="fotografia.archivo != null" class="ace-file-container">
+									<img  ng-src="{{fotografia.archivo != null && fotografia.archivo || ''}}" class="imagenVista">
+								</span>
+							<a class="remove" href="#">
+								<i class=" ace-icon fa fa-times"></i>
+							</a>
+						</label>
+					</div>
+				</span>
+				<div class="form-group col-lg-12">
+			  		<button class="btn btn-primary" ng-click="editarFotografia()">Editar</button>
+			  	</div>
 		  	</div>
 		</form><!-- /.col -->
 	</span>

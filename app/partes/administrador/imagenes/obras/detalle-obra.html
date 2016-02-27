@@ -51,7 +51,17 @@
                             <div class="profile-info-row">
                                 <div class="profile-info-name"> Imagen </div>
                                 <div class="profile-info-value text-center">
-                                    <img ng-src="{{obra.archivo != null && obra.archivo || ''}}" alt="{{obra.nombre}}" class="imagenVista" title="{{obra.nombre}}">
+                                    <span ng-if="banderaObra == false">
+                                        <div class="col-xs-12">
+                                            <h3 class="header smaller lighter blue">
+                                                <i class="ace-icon fa fa-spinner fa-spin blue bigger-125"></i>
+                                                Cargando Obra
+                                            </h3>
+                                        </div>
+                                    </span>
+                                    <span ng-if="banderaObra == true">
+                                        <img ng-src="{{obra.archivo != null && obra.archivo || ''}}" alt="{{obra.nombre}}" class="imagenVista" title="{{obra.nombre}}">
+                                    </span>
                                 </div>
                             </div>
                         </div>

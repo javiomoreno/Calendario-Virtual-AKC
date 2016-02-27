@@ -16,7 +16,12 @@ calendModFactory.factory('guardarImagenCodi', function guardarImagenCodi($resour
 
 /*Consultar Imagen por Id*/
 calendModFactory.factory('getImagenId', function getImagenId($resource, baseURL) {
-	return $resource(baseURL + 'cal/imagenId/:imagenId', {imagenId:'@imagenId'});
+	return $resource(baseURL + 'cal/imagcons/:imagenId', {imagenId:'@imagenId'});
+});
+
+/*Consultar ImagenCodificada por Id*/
+calendModFactory.factory('getImagenCodificadaId', function getImagenCodificadaId($resource, baseURL) {
+	return $resource(baseURL + 'cal/imcocons/:Id', {Id:'@Id'});
 });
 
 /*Consultar Imagenes por Año, Mes y Tipo*/
@@ -44,15 +49,25 @@ calendModFactory.factory('updImagenCodifi', function updImagenCodifi($resource, 
 	return $resource(baseURL + 'cal/imagcodiupd', null, {'update' : {method : 'PUT'}});
 });
 
-/*Consultar todos los meses*/
+/*Consultar todos los meses
 calendModFactory.factory('allMeses', function allMeses($resource, baseURL) {
 	return $resource(baseURL + 'aextablas/mes', {});
+});*/
+
+/*Consultar todos los meses*/
+calendModFactory.factory('allMeses', function allMeses($resource, baseURL) {
+	return $resource('mes.json', {});
 });
 
 /*Consultar todos los años*/
 calendModFactory.factory('allAnhos', function allAnhos($resource, baseURL) {
-	return $resource(baseURL + 'aextablas/ano', {});
+	return $resource('ano.json', {});
 });
+
+/*Consultar todos los años
+calendModFactory.factory('allAnhos', function allAnhos($resource, baseURL) {
+	return $resource(baseURL + 'aextablas/ano', {});
+});*/
 
 /*Consultar lista de Imagenes por Mes,Año y Tipo para el calendario*/
 calendModFactory.factory('getImagenesTipoMesAñoCalendario', function getImagenesTipoMesAñoCalendario($resource, baseURL) {

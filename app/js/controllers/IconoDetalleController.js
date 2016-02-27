@@ -8,30 +8,40 @@ calendModController.controller('IconoDetalleController', [
 
       $scope.imagenId = $routeParams.idIcono;
       $scope.bandera = false;
+      $scope.banderaIcono = false;
       $scope.icono = {};
       $scope.anular = {};
 
       
       calImagService.getImagenId($scope.imagenId).then(
         function(dataImagen){
-          $scope.icono = {
-            id: dataImagen.IMAGCONS,
-            mensaje: dataImagen.IMAGMENS,
-            archivo: dataImagen.IMAGCODI
-          }
-          $scope.anular = {
-            imagcons: dataImagen.IMAGCONS,
-            imagimco: dataImagen.IMAGIMCO,
-            imagano: dataImagen.IMAGANO,
-            imagmes: dataImagen.IMAGMES,
-            imagauto: dataImagen.IMAGAUTO,
-            imagmens: dataImagen.IMAGMENS,
-            imagtema: dataImagen.IMAGTEMA,
-            imagesta: dataImagen.IMAGESTA,
-            imaguscr: dataImagen.IMAGUSCR,
-            imagfecr: new Date(dataImagen.IMAGFECR)
-          }
           $scope.bandera = true;
+          $scope.icono = {
+            id: dataImagen.imagcons,
+            mensaje: dataImagen.imagmens
+          }
+          calImagService.getImagenCodificadaId(dataImagen.imagimco).then(
+            function(dataImagenCodificada){
+              $scope.banderaIcono = true;
+              $scope.icono.archivo = {};
+              $scope.icono.archivo = dataImagenCodificada.imagcodi;
+            },
+            function(error){
+              console.log("Imagen Codificada: ",error.statusText);
+            }
+          );
+          $scope.anular = {
+            imagcons: dataImagen.imagcons,
+            imagimco: dataImagen.imagimco,
+            imagano: dataImagen.imagano,
+            imagmes: dataImagen.imagmes,
+            imagauto: dataImagen.imagauto,
+            imagmens: dataImagen.imagmens,
+            imagtema: dataImagen.imagtema,
+            imagesta: dataImagen.imagesta,
+            imaguscr: dataImagen.imaguscr,
+            imagfecr: new Date(dataImagen.imagfecr)
+          }
         },
         function(error){
             console.log(error.statusText);

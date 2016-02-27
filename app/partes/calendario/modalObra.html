@@ -2,7 +2,7 @@
 	<div class="minDerecha" ng-click="$close()">
 	</div>
 		<div style="text-align: center;">
-			<img src="{{vm.archivo}}" class="imagenMaxDerecha" width="auto" height="500px">
+			<img  ng-src="{{vm.archivo != null && vm.archivo || ''}}" class="imagenMaxIzquierda" class="imagenMaxDerecha" width="auto" height="500px">
 		</div>
 		<div class="pieImagenDerecha">
 			<p class="temaObra">{{vm.tema}}</p>

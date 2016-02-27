@@ -17,7 +17,7 @@ calendModController.controller('UsuarioCrearEventoController', [
       $scope.evento.repeticion = '';
       $scope.evento.importancia = '';
       $scope.evento.alerta = {};
-      $scope.evento.alerta.aplicaion = {};
+      $scope.evento.alerta.aplicacion = {};
       $scope.evento.invitados = [];
 
       $scope.vectorAlertas = [];
@@ -289,6 +289,7 @@ calendModController.controller('UsuarioCrearEventoController', [
                         banderaApli = true;
                       }
                       if (banderaApli && banderaInvi) {
+                        serveData.data.vista = "calendario";
                         $route.reload();
                       }
                     },
@@ -309,6 +310,7 @@ calendModController.controller('UsuarioCrearEventoController', [
                         banderaInvi = true;
                       }
                       if (banderaApli && banderaInvi) {
+                        serveData.data.vista = "calendario";
                         $route.reload();
                       }
                     },
@@ -321,6 +323,7 @@ calendModController.controller('UsuarioCrearEventoController', [
                 banderaInvi = true;
               }
               if (banderaApli && banderaInvi) {
+                serveData.data.vista = "calendario";
                 $route.reload();
               }
 

@@ -7,28 +7,37 @@ calendModController.controller('IconoEditarController', [
     function ($scope, $routeParams,  $uibModal, $location, calImagService) {
 
       $scope.imagenId = $routeParams.idIcono;
+      $scope.banderaIcono = false;
       $scope.bandera = false;
       $scope.icono = {};
 
       
       calImagService.getImagenId($scope.imagenId).then(
         function(dataImagen){
-          $scope.icono = {
-            id: dataImagen.IMAGCONS,
-            idCodif: dataImagen.IMAGIMCO,
-            tipoCodif: dataImagen.IMCOTIPO,
-            extCodif: dataImagen.IMCOEXTE,
-            mes: dataImagen.IMAGMES,
-            anho: dataImagen.IMAGANO,
-            tema: dataImagen.IMAGTEMA,
-            autor: dataImagen.IMAGAUTO,
-            mensaje: dataImagen.IMAGMENS,
-            archivo: dataImagen.IMAGCODI,
-            estado: dataImagen.IMAGESTA,
-            fechaCre: new Date(dataImagen.IMAGFECR),
-            usuarioCre: dataImagen.IMAGUSCR
-          }
           $scope.bandera = true;
+          $scope.icono = {
+            id: dataImagen.imagcons,
+            mes: dataImagen.imagmes,
+            anho: dataImagen.imagano,
+            tema: dataImagen.imagtema,
+            autor: dataImagen.imagauto,
+            mensaje: dataImagen.imagmens,
+            estado: dataImagen.imagesta,
+            fechaCre: new Date(dataImagen.imagfecr),
+            usuarioCre: dataImagen.imaguscr
+          }
+          calImagService.getImagenCodificadaId(dataImagen.imagimco).then(
+            function(dataImagenCodificada){
+              $scope.banderaIcono = true;
+              $scope.icono.idCodif = dataImagen.imagimco;
+              $scope.icono.tipoCodif = dataImagenCodificada.imcotipo;
+              $scope.icono.extCodif = dataImagenCodificada.imcoexte;
+              $scope.icono.archivo = dataImagenCodificada.imagcodi;
+            },
+            function(error){
+              console.log("Imagen Codificada: ",error.statusText);
+            }
+          );
         },
         function(error){
             console.log(error.statusText);

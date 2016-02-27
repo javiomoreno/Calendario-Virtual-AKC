@@ -10,6 +10,7 @@ calendModController.controller('EventoPrivadoAnoMesController', [
       var campos = $routeParams.camposEventoPrivado;
       var vector = [];
       var contador = 0;
+      var publicar = "NO";
       vector = campos.split('-');
       $scope.anho = vector[0];
       $scope.mes = vector[1];
@@ -38,6 +39,7 @@ calendModController.controller('EventoPrivadoAnoMesController', [
                           {field: 'repeticion', displayName: 'Periodicidad'},
                           {field: 'tipoEvento', displayName: 'Tipo de Evento'},
                           {field: 'importancia', displayName: 'Importancia'},
+                          {field: 'publicar', displayName: 'Publicar'},
                           {field: 'estado', displayName: 'Estado'}
                       ]
                   };
@@ -63,6 +65,7 @@ calendModController.controller('EventoPrivadoAnoMesController', [
                                 var datos = [];
 
                                 for(var i = 0; i < dataEventos.length; i ++){
+                                  publicar = "NO";
                                   if (dataEventos[i].eventipo === 2202) {
                                     var importancia, tipoEvento, repeticion, estado;
                                     for (var j = 0; j < $scope.vectorTipoEvento.length; j++) {
@@ -83,9 +86,10 @@ calendModController.controller('EventoPrivadoAnoMesController', [
                                         break;
                                       }
                                     }
-                                    if (dataEventos[i].evenesta === 2) { estado = "ACTIVO" };
-                                    if (dataEventos[i].evenesta === 3) { estado = "INACTIVO" };
-                                    if (dataEventos[i].evenesta === 5) { estado = "ANULADO" };
+                                    if (parseInt(dataEventos[i].evenesta) === 2) { estado = "ACTIVO" };
+                                    if (parseInt(dataEventos[i].evenesta) === 3) { estado = "INACTIVO" };
+                                    if (parseInt(dataEventos[i].evenesta) === 5) { estado = "ANULADO" };
+                                    if (parseInt(dataEventos[i].evenvibu) === 1) { publicar = "SI"};
                                     datos[i] = {
                                         'id': dataEventos[i].evencons,
                                         'nombre': dataEventos[i].evendesc,
@@ -94,6 +98,7 @@ calendModController.controller('EventoPrivadoAnoMesController', [
                                         'repeticion': repeticion,
                                         'tipoEvento': tipoEvento,
                                         'importancia': importancia,
+                                        'publicar': publicar,
                                         'estado': estado
                                     }
                                   }

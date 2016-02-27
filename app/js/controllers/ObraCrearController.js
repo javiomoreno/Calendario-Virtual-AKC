@@ -20,7 +20,7 @@ calendModController.controller('ObraCrearController', [
               $scope.vecMeses[i] = {
                 id: i,
                 opcion: data[i].tbclave+" - "+data[i].tbvalor,
-                value: data[i].tbnumero
+                value: data[i].tbclave
               }
             };
         });

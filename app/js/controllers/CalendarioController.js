@@ -130,13 +130,13 @@ calendModController.controller('CalendarioController', [
                       };
                       contador++;
                     }
-                    if($scope.eventos[i].evenperi == 2304){
+                    if($scope.eventos[i].evenperi === 2304){
                       bandera = true;
                       for (var j = 1; j < 11 && bandera; j++) {
                         bandera = true;
                         var inicio = new Date(new Date($scope.eventos[i].evenfein).getFullYear() + j, new Date($scope.eventos[i].evenfein).getMonth(), new Date($scope.eventos[i].evenfein).getDate(), new Date($scope.eventos[i].evenfein).getHours(), new Date($scope.eventos[i].evenfein).getMinutes());
                         var fin = new Date(new Date($scope.eventos[i].evenfefi).getFullYear() + j, new Date($scope.eventos[i].evenfefi).getMonth(), new Date($scope.eventos[i].evenfefi).getDate(), new Date($scope.eventos[i].evenfefi).getHours(), new Date($scope.eventos[i].evenfefi).getMinutes());
-                        if ($scope.eventos[i].evenesta == 3){
+                        if (parseInt($scope.eventos[i].evenesta) === 3){
                           if(new Date(inicio) <= new Date($scope.eventos[i].evenffin)) {
                             bandera = true;
                           }
@@ -175,13 +175,13 @@ calendModController.controller('CalendarioController', [
                         };
                       };              
                     }
-                    else if($scope.eventos[i].evenperi == 2303){
+                    else if($scope.eventos[i].evenperi === 2303){
                       bandera = true;
                       for (var j = 1; j < 121 && bandera; j++) {
                         bandera = true;
                         var inicio = new Date(new Date($scope.eventos[i].evenfein).getFullYear(), new Date($scope.eventos[i].evenfein).getMonth() + j, new Date($scope.eventos[i].evenfein).getDate(), new Date($scope.eventos[i].evenfein).getHours(), new Date($scope.eventos[i].evenfein).getMinutes());
                         var fin = new Date(new Date($scope.eventos[i].evenfefi).getFullYear(), new Date($scope.eventos[i].evenfefi).getMonth() + j, new Date($scope.eventos[i].evenfefi).getDate(), new Date($scope.eventos[i].evenfefi).getHours(), new Date($scope.eventos[i].evenfefi).getMinutes());
-                        if ($scope.eventos[i].evenesta == 3){
+                        if (parseInt($scope.eventos[i].evenesta) === 3){
                           if(new Date(inicio) <= new Date($scope.eventos[i].evenffin)) {
                             bandera = true;
                           }
@@ -220,12 +220,12 @@ calendModController.controller('CalendarioController', [
                         }
                       };              
                     }
-                    else if($scope.eventos[i].evenperi == 2302){
+                    else if($scope.eventos[i].evenperi === 2302){
                       for (var j = 1; j < 521 && bandera; j++) {
                         bandera = true;
                         var inicio = new Date(new Date($scope.eventos[i].evenfein).getFullYear(), new Date($scope.eventos[i].evenfein).getMonth(), new Date($scope.eventos[i].evenfein).getDate() + (j*7), new Date($scope.eventos[i].evenfein).getHours(), new Date($scope.eventos[i].evenfein).getMinutes());
                         var fin = new Date(new Date($scope.eventos[i].evenfefi).getFullYear(), new Date($scope.eventos[i].evenfefi).getMonth(), new Date($scope.eventos[i].evenfefi).getDate() + (j*7), new Date($scope.eventos[i].evenfefi).getHours(), new Date($scope.eventos[i].evenfefi).getMinutes());
-                        if ($scope.eventos[i].evenesta == 3){
+                        if (parseInt($scope.eventos[i].evenesta) === 3){
                           if(new Date(inicio) <= new Date($scope.eventos[i].evenffin)) {
                             bandera = true;
                           }

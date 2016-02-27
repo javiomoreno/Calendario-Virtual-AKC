@@ -7,6 +7,7 @@ calendModController.controller('FotografiaEditarController', [
 
       $scope.imagenId = $routeParams.idFotografia;
       $scope.bandera = false;
+      $scope.banderaFotografia = false;
       $scope.fotografia = {};
       $scope.fotografia.mes = {};
       $scope.fotografia.anho = {},
@@ -36,22 +37,30 @@ calendModController.controller('FotografiaEditarController', [
 
       calImagService.getImagenId($scope.imagenId).then(
         function(dataImagen){
-          $scope.fotografia = {
-            id: dataImagen.IMAGCONS,
-            idCodif: dataImagen.IMAGIMCO,
-            tipoCodif: dataImagen.IMCOTIPO,
-            extCodif: dataImagen.IMCOEXTE,
-            mes: dataImagen.IMAGMES,
-            anho: dataImagen.IMAGANO,
-            estado: dataImagen.IMAGESTA,
-            tema: dataImagen.IMAGTEMA,
-            autor: dataImagen.IMAGAUTO,
-            mensaje: dataImagen.IMAGMENS,
-            archivo: dataImagen.IMAGCODI,
-            fechaCre: new Date(dataImagen.IMAGFECR),
-            usuarioCre: dataImagen.IMAGUSCR
-          }
           $scope.bandera = true;
+          $scope.fotografia = {
+            id: dataImagen.imagcons,
+            mes: dataImagen.imagmes,
+            anho: dataImagen.imagano,
+            estado: dataImagen.imagesta,
+            tema: dataImagen.imagtema,
+            autor: dataImagen.imagauto,
+            mensaje: dataImagen.imagmens,
+            fechaCre: new Date(dataImagen.imagfecr),
+            usuarioCre: dataImagen.imaguscr
+          }
+          calImagService.getImagenCodificadaId(dataImagen.imagimco).then(
+            function(dataImagenCodificada){
+              $scope.banderaFotografia = true;
+              $scope.fotografia.idCodif = dataImagen.imagimco;
+              $scope.fotografia.tipoCodif = dataImagenCodificada.imcotipo;
+              $scope.fotografia.extCodif = dataImagenCodificada.imcoexte;
+              $scope.fotografia.archivo = dataImagenCodificada.imagcodi;
+            },
+            function(error){
+              console.log("Imagen Codificada: ",error.statusText);
+            }
+          );
         },
         function(error){
             console.log(error.statusText);

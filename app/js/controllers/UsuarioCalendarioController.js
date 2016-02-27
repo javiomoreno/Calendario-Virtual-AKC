@@ -20,13 +20,13 @@ calendModController.controller('UsuarioCalendarioController', [
     if (serveData.data.vista === "nuevo") {
         $scope.vista.nuevo = true;
         $scope.vista.calendario = false;
+        $scope.renderCalendar = function() {
+           $timeout(function(){
+                uiCalendarConfig.calendars.Calendario.fullCalendar('render');
+            }, 0);
+        };
     };
 
-    $scope.renderCalendar = function() {
-       $timeout(function(){
-            uiCalendarConfig.calendars.Calendario.fullCalendar('render');
-        }, 0);
-    };
 
     var date = new Date();
     var d = date.getDate();

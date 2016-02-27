@@ -8,6 +8,7 @@ calendModController.controller('ObraDetalleController', [
 
       $scope.imagenId = $routeParams.idObra;
       $scope.bandera = false;
+      $scope.banderaObra = false;
       $scope.obra = {};
       $scope.anular = {};
 
@@ -15,33 +16,42 @@ calendModController.controller('ObraDetalleController', [
         function(dataMeses) {
           calImagService.getImagenId($scope.imagenId).then(
             function(dataImagen){
+              $scope.bandera = true;
               for (var i = 0; i < dataMeses.length; i++) {
-                if(dataMeses[i].tbclave == dataImagen.IMAGMES){
+                if(dataMeses[i].tbclave == dataImagen.imagmes){
                   $scope.obra = {
-                    id: dataImagen.IMAGCONS,
+                    id: dataImagen.imagcons,
                     mes: dataMeses[i].tbvalor,
-                    anho: dataImagen.IMAGANO,
-                    tema: dataImagen.IMAGTEMA,
-                    autor: dataImagen.IMAGAUTO,
-                    mensaje: dataImagen.IMAGMENS,
-                    archivo: dataImagen.IMAGCODI
+                    anho: dataImagen.imagano,
+                    tema: dataImagen.imagtema,
+                    autor: dataImagen.imagauto,
+                    mensaje: dataImagen.imagmens
                   }
-                  $scope.anular = {
-                    imagcons: dataImagen.IMAGCONS,
-                    imagimco: dataImagen.IMAGIMCO,
-                    imagano: dataImagen.IMAGANO,
-                    imagmes: dataImagen.IMAGMES,
-                    imagauto: dataImagen.IMAGAUTO,
-                    imagmens: dataImagen.IMAGMENS,
-                    imagtema: dataImagen.IMAGTEMA,
-                    imagesta: dataImagen.IMAGESTA,
-                    imaguscr: dataImagen.IMAGUSCR,
-                    imagfecr: new Date(dataImagen.IMAGFECR)
-                  }
-                  $scope.bandera = true;
                   break;
                 }
-              };
+              }
+              calImagService.getImagenCodificadaId(dataImagen.imagimco).then(
+                function(dataImagenCodificada){
+                  $scope.banderaObra = true;
+                  $scope.obra.archivo = {};
+                  $scope.obra.archivo = dataImagenCodificada.imagcodi;
+                },
+                function(error){
+                  console.log("Imagen Codificada: ",error.statusText);
+                }
+              );
+              $scope.anular = {
+                imagcons: dataImagen.imagcons,
+                imagimco: dataImagen.imagimco,
+                imagano: dataImagen.imagano,
+                imagmes: dataImagen.imagmes,
+                imagauto: dataImagen.imagauto,
+                imagmens: dataImagen.imagmens,
+                imagtema: dataImagen.imagtema,
+                imagesta: dataImagen.imagesta,
+                imaguscr: dataImagen.imaguscr,
+                imagfecr: new Date(dataImagen.imagfecr)
+              }
             },
             function(error){
                 console.log("Obra: ",error.statusText);

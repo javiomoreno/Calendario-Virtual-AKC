@@ -14,7 +14,7 @@ calendModController.controller('AdministradorController', [
           for (var i = 0; i < data.length; i++) {
             $scope.opciones[i] = {
               opcion: data[i].tbclave+" - "+data[i].tbvalor,
-              value: data[i].tbclave
+              value: parseInt(data[i].tbclave)
             }
           };
         });

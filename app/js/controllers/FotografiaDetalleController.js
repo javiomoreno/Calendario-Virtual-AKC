@@ -8,6 +8,7 @@ calendModController.controller('FotografiaDetalleController', [
 
       $scope.imagenId = $routeParams.idFotografia;
       $scope.bandera = false;
+      $scope.banderaFotografia = false;
       $scope.fotografia = {};
       $scope.anular = {};
       $scope.fotografia.archivo = null;
@@ -16,32 +17,41 @@ calendModController.controller('FotografiaDetalleController', [
         function(dataMeses) {
           calImagService.getImagenId($scope.imagenId).then(
             function(dataImagen){
+              $scope.bandera = true;
               for (var i = 0; i < dataMeses.length; i++) {
-                if(dataMeses[i].tbclave == dataImagen.IMAGMES){
+                if(dataMeses[i].tbclave == dataImagen.imagmes){
                   $scope.fotografia = {
-                    id: dataImagen.IMAGCONS,
+                    id: dataImagen.imagcons,
                     mes: dataMeses[i].tbvalor,
-                    anho: dataImagen.IMAGANO,
-                    tema: dataImagen.IMAGTEMA,
-                    mensaje: dataImagen.IMAGMENS,
-                    archivo: dataImagen.IMAGCODI
+                    anho: dataImagen.imagano,
+                    tema: dataImagen.imagtema,
+                    mensaje: dataImagen.imagmens                    
                   }
-                  $scope.anular = {
-                    imagcons: dataImagen.IMAGCONS,
-                    imagimco: dataImagen.IMAGIMCO,
-                    imagano: dataImagen.IMAGANO,
-                    imagmes: dataImagen.IMAGMES,
-                    imagauto: dataImagen.IMAGAUTO,
-                    imagmens: dataImagen.IMAGMENS,
-                    imagtema: dataImagen.IMAGTEMA,
-                    imagesta: dataImagen.IMAGESTA,
-                    imaguscr: dataImagen.IMAGUSCR,
-                    imagfecr: new Date(dataImagen.IMAGFECR)
-                  }
-                  $scope.bandera = true;
                   break;
                 }
-              };
+              }
+              calImagService.getImagenCodificadaId(dataImagen.imagimco).then(
+                function(dataImagenCodificada){
+                  $scope.banderaFotografia = true;
+                  $scope.fotografia.archivo = {};
+                  $scope.fotografia.archivo = dataImagenCodificada.imagcodi;
+                },
+                function(error){
+                  console.log("Imagen Codificada: ",error.statusText);
+                }
+              );
+              $scope.anular = {
+                imagcons: dataImagen.imagcons,
+                imagimco: dataImagen.imagimco,
+                imagano: dataImagen.imagano,
+                imagmes: dataImagen.imagmes,
+                imagauto: dataImagen.imagauto,
+                imagmens: dataImagen.imagmens,
+                imagtema: dataImagen.imagtema,
+                imagesta: dataImagen.imagesta,
+                imaguscr: dataImagen.imaguscr,
+                imagfecr: new Date(dataImagen.imagfecr)
+              }
             },
             function(error){
                 console.log("Imagen: ",error.statusText);

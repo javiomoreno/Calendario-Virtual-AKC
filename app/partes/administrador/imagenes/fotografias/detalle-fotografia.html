@@ -45,7 +45,17 @@
                             <div class="profile-info-row">
                                 <div class="profile-info-name"> fotografia </div>
                                 <div class="profile-info-value text-center">
-                                    <img  ng-src="{{fotografia.archivo != null && fotografia.archivo || ''}}" alt="{{fotografia.nombre}}" class="imagenVista" title="{{fotografia.nombre}}">
+                                    <span ng-if="banderaFotografia == false">
+                                        <div class="col-xs-12">
+                                            <h3 class="header smaller lighter blue">
+                                                <i class="ace-icon fa fa-spinner fa-spin blue bigger-125"></i>
+                                                Cargando Fotografía
+                                            </h3>
+                                        </div>
+                                    </span>
+                                    <span ng-if="banderaFotografia == true">
+                                        <img  ng-src="{{fotografia.archivo != null && fotografia.archivo || ''}}" alt="{{fotografia.nombre}}" class="imagenVista" title="{{fotografia.nombre}}">
+                                    </span>
                                 </div>
                             </div>
                         </div>

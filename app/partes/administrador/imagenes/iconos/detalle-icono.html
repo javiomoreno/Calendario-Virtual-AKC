@@ -23,8 +23,17 @@
                             <div class="profile-info-row">
                                 <div class="profile-info-name"> Imagen </div>
                                 <div class="profile-info-value text-center">
-                                    <img  ng-src="{{icono.archivo!= null && icono.archivo|| ''}}" class="imagenVista" alt="" alt="{{icono.nombre}}" class="imagenVista" title="{{icono.nombre}}">
-
+                                    <span ng-if="banderaIcono == false">
+                                        <div class="col-xs-12">
+                                            <h3 class="header smaller lighter blue">
+                                                <i class="ace-icon fa fa-spinner fa-spin blue bigger-125"></i>
+                                                Cargando Icono
+                                            </h3>
+                                        </div>
+                                    </span>
+                                    <span ng-if="banderaIcono == true">
+                                        <img  ng-src="{{icono.archivo!= null && icono.archivo|| ''}}" class="imagenVista" alt="" alt="{{icono.nombre}}" class="imagenVista" title="{{icono.nombre}}">
+                                    </span>
                                 </div>
                             </div>
                         </div>
