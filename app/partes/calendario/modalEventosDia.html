@@ -6,7 +6,7 @@
 		<span ng-if="vm.eventos.length > 0">
 			<span ng-repeat="evento in vm.eventos track by $index">
 				<ul>
-					<li>{{evento.nombre}} ({{evento.hora}})</li>
+					<li>{{evento.nombre}} (Hora Inicio: {{evento.horaInicio}}, Hora Fin: {{evento.horaFin}})</li>
 				</ul>
 			</span>
 			<hr/>

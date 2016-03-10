@@ -270,7 +270,7 @@ calendModController.controller('CalendarioController', [
                   if(event.icono != undefined){
                     element.css('background-image', "url('"+event.icono+"')");
                   }
-                    element.attr({'uib-tooltip': (event.title +' '+formatoAMPM(new Date(event.start))),
+                    element.attr({'uib-tooltip': (event.title +' Hora Inicio: '+formatoAMPM(new Date(event.start))+', Hora Fin: '+formatoAMPM(new Date(event.end))),
                                  'tooltip-append-to-body': true});
                     $compile(element)($scope);
                 };
@@ -297,7 +297,8 @@ calendModController.controller('CalendarioController', [
                       if(new Date($scope.events[i].start).getDate() == new Date(fechaToda).getDate() && new Date($scope.events[i].start).getMonth() == new Date(fechaToda).getMonth() && new Date($scope.events[i].start).getFullYear() == new Date(fechaToda).getFullYear() && bandera == true){
                           eventosLista[cont] = {
                             nombre: $scope.events[i].title,
-                            hora: formatoAMPM(new Date($scope.events[i].start)),
+                            horaInicio: formatoAMPM(new Date($scope.events[i].start)),
+                            horaFin: formatoAMPM(new Date($scope.events[i].end))
                           };
                           cont ++;
                       }
@@ -310,9 +311,11 @@ calendModController.controller('CalendarioController', [
 
                 $scope.eventClick = function( date, jsEvent, view){
                     var evento = {};
+                    var inicio = formatoAMPM(new Date(date.start));
+                    var fin = formatoAMPM(new Date(date.end));
                     evento = {
                       nombre: date.title,
-                      detalle: $scope.uiConfig.calendar.dayNamesShort[new Date(date.start).getDay()]+", "+ new Date(date.start).getDate()+" de "+$scope.uiConfig.calendar.monthNames[new Date(date.start).getMonth()]+". Hora: "+formatoAMPM(new Date(date.start))
+                      detalle: $scope.uiConfig.calendar.dayNamesShort[new Date(date.start).getDay()]+", "+ new Date(date.start).getDate()+" de "+$scope.uiConfig.calendar.monthNames[new Date(date.start).getMonth()]+". Hora Inicio: "+inicio+", Hora Fin: "+fin
                     };
                     for (var i = 0; i < $scope.eventos.length; i++) {
                       if($scope.eventos[i].evencons == date.id){

@@ -334,6 +334,7 @@ footer{
 .mensaje{
 	-webkit-transform: rotate(-6deg);
 	padding-top: 5px;
+	font-weight: bold;
 	padding-right: 50px;
 }
 
