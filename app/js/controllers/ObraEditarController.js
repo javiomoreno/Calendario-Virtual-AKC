@@ -1,7 +1,7 @@
 calendModController.controller('ObraEditarController', [
-                                                '$scope', 
+                                                '$scope',
                                                 '$routeParams',
-                                                '$location', 
+                                                '$location',
                                                 'calImagService',
     function ($scope, $routeParams, $location, calImagService) {
 
@@ -18,6 +18,7 @@ calendModController.controller('ObraEditarController', [
 
       $scope.vecMeses = [];
       $scope.vecAnhos = [];
+      $scope.alerts = [];
 
       calImagService.getAllMeses().then(
         function(data) {
@@ -73,10 +74,10 @@ calendModController.controller('ObraEditarController', [
 
       $scope.editarObra = function(){
         if($scope.isValidarDatosObra()){
-          $scope.bandera = false;        
+          $scope.bandera = false;
           var imagenCodif = $scope.buildImagenCodif();
           calImagService.updImagenCodifi(imagenCodif).then(
-            function(result){      
+            function(result){
               var obra = $scope.buildObra();
               calImagService.updImagenes(obra).then(
                 function(resultObra){
@@ -98,25 +99,25 @@ calendModController.controller('ObraEditarController', [
 
       $scope.buildImagenCodif = function(){
         var calEntity = {};
-        calEntity.imcocons = $scope.obra.idCodif;        
+        calEntity.imcocons = $scope.obra.idCodif;
         calEntity.imcotipo = $scope.obra.tipoCodif;
         calEntity.imcoexte = $scope.obra.extCodif;
-        calEntity.imagcodi = $scope.obra.archivo;    
+        calEntity.imagcodi = $scope.obra.archivo;
         return calEntity;
       }
 
       $scope.buildObra = function(){
         var calEntity = {};
-        calEntity.imagcons = $scope.obra.id;        
-        calEntity.imagimco = $scope.obra.idCodif;        
+        calEntity.imagcons = $scope.obra.id;
+        calEntity.imagimco = $scope.obra.idCodif;
         calEntity.imagano = $scope.obra.anho;
         calEntity.imagmes = $scope.obra.mes;
         calEntity.imagauto = $scope.obra.autor;
         calEntity.imagmens = $scope.obra.mensaje;
         calEntity.imagtema = $scope.obra.tema;
-        calEntity.imagesta = $scope.obra.estado;   
+        calEntity.imagesta = $scope.obra.estado;
         calEntity.imaguscr = $scope.obra.usuarioCre;
-        calEntity.imagfecr = $scope.obra.fechaCre; 
+        calEntity.imagfecr = $scope.obra.fechaCre;
         return calEntity;
       }
 
@@ -124,21 +125,19 @@ calendModController.controller('ObraEditarController', [
         if( angular.isUndefined($scope.obra.anho) ||
         	angular.isUndefined($scope.obra.mes) ||
           angular.isUndefined($scope.obra.autor) ||
-        	angular.isUndefined($scope.obra.mensaje) ||
         	angular.isUndefined($scope.obra.tema) ||
           angular.isUndefined($scope.obra.archivo) ||
           $scope.obra.anho == null ||
           $scope.obra.mes == null ||
           $scope.obra.autor == null ||
-          $scope.obra.mensaje == null ||
           $scope.obra.tema == null ||
           $scope.obra.archivo == null ||
           $scope.obra.anho == '' ||
           $scope.obra.mes == '' ||
           $scope.obra.autor == '' ||
-          $scope.obra.mensaje == '' ||
           $scope.obra.tema == ''
         ){
+          $scope.alerts.push({msg: 'Debe llenar todos Los campos como obligatorios *'});
           return false;
         }
         else{
@@ -150,4 +149,8 @@ calendModController.controller('ObraEditarController', [
         $location.path('/admin');
         $rootScope.vista = "icono";
       }
+
+      $scope.closeAlert = function(index) {
+        $scope.alerts.splice(index, 1);
+      };
 }]);

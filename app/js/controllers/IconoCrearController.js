@@ -1,25 +1,27 @@
 calendModController.controller('IconoCrearController', [
-                                                  '$scope', 
-                                                  'calImagService', 
+                                                  '$scope',
+                                                  'calImagService',
                                                   '$location',
-  function ($scope, calImagService, $location) {
+                                                  'serveData',
+  function ($scope, calImagService, $location, serveData) {
 
 
         $scope.icono = {};
         $scope.icono.mensaje = "";
         $scope.icono.archivo = null;
 
-        $scope.guardarIcono = function(){   
+        $scope.guardarIcono = function(){
           if($scope.isValidarDatosIcono()){
-            $scope.bandera = false; 
+            $scope.bandera = false;
             var imagenCodif = $scope.buildImagenCodif();
             calImagService.guardarImagenCodificada(imagenCodif).then(
               function(result){
                 var icono = $scope.buildIcono(result.id);
                 calImagService.guardarImagen(icono).then(
                   function(resultIcono){
-                    $scope.bandera = true; 
-                    $location.path('/admin/icono/vista/'+resultIcono.id);
+                    $scope.bandera = true;
+                    serveData.data.vista = 02;
+                    $location.path('/admin');
                   },
                   function(error){
                     console.log("Icono: ",error.statusText);
@@ -29,35 +31,35 @@ calendModController.controller('IconoCrearController', [
               function(error){
                 console.log("Imagen: ",error.statusText);
               }
-            ); 
-          }  
+            );
+          }
           else{
             console.log("debe llenar todos los campos")
           }
-          
+
         }
 
         $scope.buildImagenCodif = function(){
           var calEntity = {};
-          calEntity.imcocons = -1;        
+          calEntity.imcocons = -1;
           calEntity.imcotipo = 2102;
           calEntity.imcoexte = $scope.icono.archivo.split(';')[0].substr(5);
-          calEntity.imagcodi = $scope.icono.archivo;     
+          calEntity.imagcodi = $scope.icono.archivo;
           return calEntity;
         }
 
         $scope.buildIcono = function(imagimco){
           var calEntity = {};
-          calEntity.imagcons = -1;    
-          calEntity.imagimco = imagimco;     
+          calEntity.imagcons = -1;
+          calEntity.imagimco = imagimco;
           calEntity.imagano = null;
           calEntity.imagmes = null;
           calEntity.imagauto = null;
           calEntity.imagmens = $scope.icono.mensaje;
-          calEntity.imagtema = null;     
-          calEntity.imagesta = 2;     
-          calEntity.imaguscr = null;     
-          calEntity.imagfecr = null;      
+          calEntity.imagtema = null;
+          calEntity.imagesta = 2;
+          calEntity.imaguscr = null;
+          calEntity.imagfecr = null;
           return calEntity;
         }
 

@@ -1,8 +1,8 @@
 calendModController.controller('IconoEditarController', [
                                                 '$scope',
-                                                '$routeParams', 
-                                                '$uibModal', 
-                                                '$location', 
+                                                '$routeParams',
+                                                '$uibModal',
+                                                '$location',
                                                 'calImagService',
     function ($scope, $routeParams,  $uibModal, $location, calImagService) {
 
@@ -10,8 +10,9 @@ calendModController.controller('IconoEditarController', [
       $scope.banderaIcono = false;
       $scope.bandera = false;
       $scope.icono = {};
+      $scope.anular = {};
 
-      
+
       calImagService.getImagenId($scope.imagenId).then(
         function(dataImagen){
           $scope.bandera = true;
@@ -22,9 +23,21 @@ calendModController.controller('IconoEditarController', [
             tema: dataImagen.imagtema,
             autor: dataImagen.imagauto,
             mensaje: dataImagen.imagmens,
-            estado: dataImagen.imagesta,
+            imagesta: dataImagen.imagesta,
             fechaCre: new Date(dataImagen.imagfecr),
             usuarioCre: dataImagen.imaguscr
+          }
+          $scope.anular = {
+            imagcons: dataImagen.imagcons,
+            imagimco: dataImagen.imagimco,
+            imagano: dataImagen.imagano,
+            imagmes: dataImagen.imagmes,
+            imagauto: dataImagen.imagauto,
+            imagmens: dataImagen.imagmens,
+            imagtema: dataImagen.imagtema,
+            imagesta: dataImagen.imagesta,
+            imaguscr: dataImagen.imaguscr,
+            imagfecr: new Date(dataImagen.imagfecr)
           }
           calImagService.getImagenCodificadaId(dataImagen.imagimco).then(
             function(dataImagenCodificada){
@@ -49,7 +62,7 @@ calendModController.controller('IconoEditarController', [
           $scope.bandera = false;
           var imagenCodif = $scope.buildImagenCodif();
           calImagService.updImagenCodifi(imagenCodif).then(
-            function(result){    
+            function(result){
               var icono = $scope.buildIcono(result.ID);
               calImagService.updImagenes(icono).then(
                 function(resultIcono){
@@ -70,25 +83,25 @@ calendModController.controller('IconoEditarController', [
 
       $scope.buildImagenCodif = function(){
           var calEntity = {};
-          calEntity.imcocons = $scope.icono.idCodif;        
+          calEntity.imcocons = $scope.icono.idCodif;
           calEntity.imcotipo = $scope.icono.tipoCodif;
           calEntity.imcoexte = $scope.icono.extCodif;
-          calEntity.imagcodi = $scope.icono.archivo;     
+          calEntity.imagcodi = $scope.icono.archivo;
           return calEntity;
         }
 
         $scope.buildIcono = function(){
           var calEntity = {};
-          calEntity.imagcons = $scope.icono.id;        
-          calEntity.imagimco = $scope.icono.idCodif;  
+          calEntity.imagcons = $scope.icono.id;
+          calEntity.imagimco = $scope.icono.idCodif;
           calEntity.imagano = $scope.icono.anho;
           calEntity.imagmes = $scope.icono.mes;
           calEntity.imagauto = $scope.icono.autor;
           calEntity.imagmens = $scope.icono.mensaje;
-          calEntity.imagtema = $scope.icono.tema;     
-          calEntity.imagesta = $scope.icono.estado;     
+          calEntity.imagtema = $scope.icono.tema;
+          calEntity.imagesta = $scope.icono.imagesta;
           calEntity.imaguscr = $scope.icono.usuarioCre;
-          calEntity.imagfecr = $scope.icono.fechaCre;       
+          calEntity.imagfecr = $scope.icono.fechaCre;
           return calEntity;
         }
 
@@ -105,4 +118,22 @@ calendModController.controller('IconoEditarController', [
             return true;
           }
         }
+
+        $scope.animationsEnabled = true;
+
+        $scope.openModal = function (size) {
+          $scope.idEliminar = $scope.anular;
+
+          var modalInstance = $uibModal.open({
+            animation: $scope.animationsEnabled,
+            templateUrl: 'views/administrador/imagenes/iconos/eliminar.html',
+            controller: 'ModalControllerIconos',
+            size: size,
+            resolve: {
+                idEliminar : function(){
+                    return $scope.idEliminar;
+                }
+            }
+          });
+        };
 }]);

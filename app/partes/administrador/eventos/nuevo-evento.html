@@ -63,30 +63,50 @@
 			</h3>
 			<div class="row">
 				<div class="col-lg-6">
-					<h4 class="header blue smaller lighter" style="text-align: -webkit-center; text-align: -moz-center;">
-						Aplicación
-					</h4>
-					<span ng-repeat="alerta in vectorAlertas track by $index">
-			          	<div class="checkbox">
-							<label>
-								<input name="form-field-checkbox" class="ace ace-checkbox-2" type="checkbox" checklist-model="evento.alerta.aplicacion" checklist-value="alerta.id"/>
-								<span class="lbl"> {{alerta.value}}</span>
-							</label>
-						</div>
-			        </span>
+					<span ng-if="banAlertas == false">
+							<div class="col-xs-12">
+									<h5 class="header smaller lighter blue">
+											<i class="ace-icon fa fa-spinner fa-spin blue bigger-125"></i>
+											Cargando Notificaciones
+									</h5>
+							</div>
+					</span>
+					<span ng-if="banAlertas == true">
+						<h4 class="header blue smaller lighter" style="text-align: -webkit-center; text-align: -moz-center;">
+							Aplicación
+						</h4>
+						<span ng-repeat="alerta in vectorAlertas track by $index">
+				          	<div class="checkbox">
+								<label>
+									<input name="form-field-checkbox" class="ace ace-checkbox-2" type="checkbox" checklist-model="evento.alerta.aplicacion" checklist-value="alerta.id"/>
+									<span class="lbl"> {{alerta.value}}</span>
+								</label>
+							</div>
+			      </span>
+					</span>
 				</div>
 				<div class="col-lg-6">
-					<h4 class="header blue smaller lighter" style="text-align: -webkit-center; text-align: -moz-center;">
-						Correo
-					</h4>
-					<span ng-repeat="alerta in vectorAlertas track by $index">
-						<div class="checkbox">
-							<label>
-								<input name="form-field-checkbox" class="ace ace-checkbox-2" type="checkbox" checklist-model="evento.alerta.correo" checklist-value="alerta.id"/>
-								<span class="lbl"> {{alerta.value}}</span>
-							</label>
-						</div>
-			        </span>
+					<span ng-if="banAlertas == false">
+							<div class="col-xs-12">
+									<h5 class="header smaller lighter blue">
+											<i class="ace-icon fa fa-spinner fa-spin blue bigger-125"></i>
+											Cargando Notificaciones
+									</h5>
+							</div>
+					</span>
+					<span ng-if="banAlertas == true">
+						<h4 class="header blue smaller lighter" style="text-align: -webkit-center; text-align: -moz-center;">
+							Correo
+						</h4>
+						<span ng-repeat="alerta in vectorAlertas track by $index">
+							<div class="checkbox">
+								<label>
+									<input name="form-field-checkbox" class="ace ace-checkbox-2" type="checkbox" checklist-model="evento.alerta.correo" checklist-value="alerta.id"/>
+									<span class="lbl"> {{alerta.value}}</span>
+								</label>
+							</div>
+				    </span>
+					</span>
 				</div>
 		    </div>
 		</div>
@@ -115,17 +135,27 @@
 			</div>
 		</div>
 		<div class="form-group col-lg-12" style="text-align: -webkit-center; text-align: -moz-center;">
-			<h3 class="header blue smaller lighter">
-				Seleccionar Icono
-			</h3>
 			<div class="row">
-				<span ng-repeat="opcion in vectorIconos track by $index">
-					<div class="button col-lg-2">
-					    <input type="radio" ng-model="evento.iconoEvento" ng-value="{{opcion.id}}" id="{{opcion.id}}"/>
-					    <label for="{{opcion.id}}">
-					    	<img ng-src="{{opcion.icono.IMAGCODI != null && opcion.icono.IMAGCODI || ''}}" alt="" width="50px" height="50px">
-					    </label>
-					</div>
+				<span ng-if="banIconos == false">
+						<div class="col-xs-12">
+								<h3 class="header smaller lighter blue">
+										<i class="ace-icon fa fa-spinner fa-spin blue bigger-125"></i>
+										Cargando Iconos
+								</h3>
+						</div>
+				</span>
+				<span ng-if="banIconos == true">
+					<h3 class="header blue smaller lighter">
+						Seleccionar Icono
+					</h3>
+					<span ng-repeat="opcion in vectorIconos track by $index">
+						<div class="button col-lg-2">
+						    <input type="radio" ng-model="evento.iconoEvento" ng-value="{{opcion.id}}" id="{{opcion.id}}"/>
+						    <label for="{{opcion.id}}">
+						    	<img ng-src="{{opcion.icono.IMAGCODI != null && opcion.icono.IMAGCODI || ''}}" alt="" width="50px" height="50px">
+						    </label>
+						</div>
+					</span>
 				</span>
 			</div>
 		</div>

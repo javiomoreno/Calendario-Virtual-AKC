@@ -5,31 +5,35 @@
 	</span>
 	<span ng-if="bandera == true">
 		<form name="form">
+			<uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" dismiss-on-timeout="5000" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+			<p class="obligatorio">
+				* <p class="blue">Los Campos son Obligatorios</p>
+			</p>
 			<div class="form-group col-sm-12 col-lg-6 blue">
-			    <label for="mes">* Mes</label>
+			    <label for="mes"><p class="obligatorio">*</p> Mes</label>
 			    <select class="form-control" id="mes" name="mes" style="width:160px" ng-model="obra.mes" required ng-options="opcion.value as opcion.opcion for opcion in vecMeses" >
 			      <option value="">Seleccione un Mes</option>
 				</select>
 			</div>
 			<div class="form-group col-sm-12 col-lg-6 blue">
-			    <label for="anho">* Año </label>
+			    <label for="anho"><p class="obligatorio">*</p> Año </label>
 			    <select class="form-control" id="anho" style="width:160px" ng-model="obra.anho" ng-options="opcion.opcion as opcion.opcion for opcion in vecAnhos" required>
 			      <option value="">Seleccione un Año</option>
 				</select>
 			</div>
 			<div class="form-group col-sm-12 col-lg-6 blue">
-				<label for="tema">* Titulo de Tema</label>
-				<input type="text" class="form-control" id="tema" 
+				<label for="tema"><p class="obligatorio">*</p> Titulo de Tema</label>
+				<input type="text" class="form-control" id="tema"
 				   placeholder="Titulo de Tema" ng-model="obra.tema"/>
 			</div>
 			<div class="form-group col-sm-12 col-lg-6 blue">
-				<label for="tema">* Autor</label>
-				<input type="text" class="form-control" id="autor" 
+				<label for="tema"><p class="obligatorio">*</p> Autor</label>
+				<input type="text" class="form-control" id="autor"
 				   placeholder="Autor de Obra de Arte" ng-model="obra.autor" required/>
 			</div>
 			<div class="form-group col-lg-12 blue">
 				<label for="mensaje">Mensaje</label>
-				<textarea class="form-control" id="mensaje" 
+				<textarea class="form-control" id="mensaje"
 				   placeholder="Mensaje" ng-model="obra.mensaje"></textarea>
 			</div>
 		  	<div class="form-group col-lg-12" style="text-align: -webkit-center;">
@@ -44,7 +48,7 @@
 				<span ng-if="banderaObra == true">
 					<div style="width:400px; margin:12px;">
 						<h3 class="header blue smaller lighter">
-							* Cargar Archivo
+							<p class="obligatorio">*</p> Cargar Archivo
 						</h3>
 						<label class="ace-file-input ace-file-multiple">
 							<input fileread="obra.archivo" type="file" placeholder="Please select file" class="form-control" accept="image/*"/>
@@ -68,4 +72,5 @@
 			</div>
 		</form><!-- /.col -->
 	</span>
+	</script>
 </div>

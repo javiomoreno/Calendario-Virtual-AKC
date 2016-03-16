@@ -3,11 +3,11 @@
 		<small><em>Construyendo Vista</em></small>
 			<uib-progressbar class="progress-striped active" value="100" type="info">Cargando...</uib-progressbar>
 	</span>
-	<span ng-if="bandera == true">	
+	<span ng-if="bandera == true">
 		<form name="form">
 			<div class="form-group col-lg-12 blue">
 			<label for="fuente">Fuente del Icono</label>
-			<textarea class="form-control" id="fuente" 
+			<textarea class="form-control" id="fuente"
 			   placeholder="Fuente del Icono" ng-model="icono.mensaje"></textarea>
 			</div>
 			<div class="form-group col-lg-12" style="text-align: -webkit-center;">
@@ -41,6 +41,7 @@
 					</div>
 				</span>
 				<div class="form-group col-lg-12 text-center">
+					<button class="btn btn-primary btn-danger" ng-click="openModal('sm')">Anular</button>
 					<button class="btn btn-primary" ng-click="editarIcono()">Guardar</button>
 				</div>
 			</div>

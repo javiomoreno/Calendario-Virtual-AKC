@@ -1,13 +1,13 @@
 calendModController.controller('EventoDetalleController', [
                                                 '$scope',
-                                                '$routeParams', 
-                                                '$uibModal', 
-                                                '$location', 
+                                                '$routeParams',
+                                                '$uibModal',
+                                                '$location',
                                                 'calImagService',
                                                 'calEvenService',
     function ($scope, $routeParams,  $uibModal, $location, calImagService, calEvenService) {
 
-      	$scope.eventoId = $routeParams.idEvento;
+    $scope.eventoId = $routeParams.idEvento;
 		$scope.bandera = false;
 		$scope.evento = {};
 		$scope.checkboxModel = {};
@@ -22,15 +22,15 @@ calendModController.controller('EventoDetalleController', [
 				    id: dataEvento[0].CAL_EVENTOS.evencons,
 				    nombre: dataEvento[0].CAL_EVENTOS.evendesc,
 				    fechaInicio: new Date(dataEvento[0].CAL_EVENTOS.evenfein).getDate()+"/"+((new Date(dataEvento[0].CAL_EVENTOS.evenfein).getMonth().valueOf())+1)+"/"+new Date(dataEvento[0].CAL_EVENTOS.evenfein).getFullYear(),
-                  	fechaFin: new Date(dataEvento[0].CAL_EVENTOS.evenfefi).getDate()+"/"+((new Date(dataEvento[0].CAL_EVENTOS.evenfefi).getMonth().valueOf())+1)+"/"+new Date(dataEvento[0].CAL_EVENTOS.evenfefi).getFullYear()
-			  	}	
+            fechaFin: new Date(dataEvento[0].CAL_EVENTOS.evenfefi).getDate()+"/"+((new Date(dataEvento[0].CAL_EVENTOS.evenfefi).getMonth().valueOf())+1)+"/"+new Date(dataEvento[0].CAL_EVENTOS.evenfefi).getFullYear(),
+			  	}
 			  	if (dataEvento[0].CAL_EVENINVI !== undefined) {
 				  	for (var i = 0; i < dataEvento[0].CAL_EVENINVI.length; i++) {
 				  		if (dataEvento[0].CAL_EVENINVI[i].evinesta !== 5) {
 				  			$scope.vecInvitados.push(dataEvento[0].CAL_EVENINVI[i]);
 				  		}
 				  	}
-				}			  	
+				}
 			  	if(dataEvento[0].CAL_EVENTOS.evenesta == 3){
 					$scope.checkboxModel = {
 					   value : true
@@ -46,29 +46,27 @@ calendModController.controller('EventoDetalleController', [
 					calEvenService.getAllAlertas().then(
 						function (dataAlertas) {
 							for (var i = 0; i < dataEvento[0].CAL_EVENNOTI.length; i++) {
-						  		if (dataEvento[0].CAL_EVENNOTI[i].evnotipo === 2801 && dataEvento[0].CAL_EVENNOTI[i].evnoesta !== 5) {
-						  			for (var j = 0; j < dataAlertas.length; j++) {
-						  				if (dataEvento[0].CAL_EVENNOTI[i].evnoaler === dataAlertas[j].tbnumero) {
-						  					$scope.vecNotiAplicacion.push(dataAlertas[j].tbvalor);
-						  				}
-								  	};
-						  		}
-						  		if (dataEvento[0].CAL_EVENNOTI[i].evnotipo === 2802 && dataEvento[0].CAL_EVENNOTI[i].evnoesta !== 5) {
-						  			for (var j = 0; j < dataAlertas.length; j++) {
-						  				if (dataEvento[0].CAL_EVENNOTI[i].evnoaler === dataAlertas[j].tbnumero) {
-						  					$scope.vecNotiCorreo.push(dataAlertas[j].tbvalor);
-						  				}
-								  	};
-						  		}
+					  		if (dataEvento[0].CAL_EVENNOTI[i].evnotipo === 2801 && dataEvento[0].CAL_EVENNOTI[i].evnoesta !== 5) {
+					  			for (var j = 0; j < dataAlertas.length; j++) {
+					  				if (dataEvento[0].CAL_EVENNOTI[i].evnoaler === dataAlertas[j].tbnumero) {
+					  					$scope.vecNotiAplicacion.push(dataAlertas[j].tbvalor);
+					  				}
+							  	};
 					  		}
-						  	
-						  	
+					  		if (dataEvento[0].CAL_EVENNOTI[i].evnotipo === 2802 && dataEvento[0].CAL_EVENNOTI[i].evnoesta !== 5) {
+					  			for (var j = 0; j < dataAlertas.length; j++) {
+					  				if (dataEvento[0].CAL_EVENNOTI[i].evnoaler === dataAlertas[j].tbnumero) {
+					  					$scope.vecNotiCorreo.push(dataAlertas[j].tbvalor);
+					  				}
+							  	};
+					  		}
+					  	}
 						},
 						function(error){
 						    console.log(error.statusText);
 						}
 					);
-				}		
+				}
 
 				if (dataEvento[0].CAL_EVENTOS.evenicon !== null) {
 				  	calImagService.getImagenId(dataEvento[0].CAL_EVENTOS.evenicon).then(

@@ -1,20 +1,21 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////// APLICACIONES EXPUESTAS ////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-var appExpuestas = angular.module('AppExp', 
+var appExpuestas = angular.module('AppExp',
                                 [
                                   'ngRoute',
                                   'LocalStorageModule',
                                   'ngResource',
+                                  'ngAnimate',
                                   //DEPENDENCIA BOOTSTRAP
-                                  'ui.bootstrap', 
+                                  'ui.bootstrap',
                                   //DEPENDENCIAS UI-GRID
-                                  'ui.grid', 
-                                  'ui.grid.selection', 
+                                  'ui.grid',
+                                  'ui.grid.selection',
                                   'ui.calendar',
                                   // MODULES CHECKLIST
                                   'checklist-model',
-                                  // MODULES CALENDARIO VIRTUAL                                  
+                                  // MODULES CALENDARIO VIRTUAL
                                   'calendModules'
                                 ]);
 
@@ -23,4 +24,3 @@ appExpuestas.config(['localStorageServiceProvider', function(localStorageService
 }]);
 
 appExpuestas.constant('baseURL', 'http://pruebas.akc.co:8089/appexp/servlet/');
-

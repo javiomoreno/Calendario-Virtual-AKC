@@ -1,12 +1,12 @@
 calendModController.controller('CalendarioController', [
-                                                      '$scope', 
-                                                      '$compile', 
-                                                      '$rootScope', 
-                                                      '$routeParams', 
-                                                      'calEvenService', 
+                                                      '$scope',
+                                                      '$compile',
+                                                      '$rootScope',
+                                                      '$routeParams',
+                                                      'calEvenService',
                                                       'calImagService',
-                                                      'localStorageService', 
-                                                      '$uibModal', 
+                                                      'localStorageService',
+                                                      '$uibModal',
                                                       '$uibTooltip',
                                                       'uiCalendarConfig',
   function ($scope, $compile, $rootScope, $routeParams, calEvenService, calImagService, localStorageService, $uibModal, $uibTooltip, uiCalendarConfig){
@@ -44,14 +44,14 @@ calendModController.controller('CalendarioController', [
           select: i,
           opcion: data[i].tbclave+" - "+data[i].tbvalor,
           value: data[i].tbnumero
-        } 
+        }
       };
     });
 
     $scope.checkImportancia = false;
     $scope.checkDescripcion = false;
-    
-    
+
+
     $scope.cambiarImportancia = function(){
       if($scope.checkImportancia == true){
         $scope.checkDescripcion = false;
@@ -82,7 +82,7 @@ calendModController.controller('CalendarioController', [
           $rootScope.vectorIconos[dataImagen[i].IMAGCONS] = {
             id: dataImagen[i].IMAGCONS,
             archivo: dataImagen[i].IMAGCODI,
-            mensaje: dataImagen[i].IMAGMENS                
+            mensaje: dataImagen[i].IMAGMENS
           };
         }
         calEvenService.getAllEventosTipo(2202, y).then(
@@ -101,7 +101,9 @@ calendModController.controller('CalendarioController', [
                 }
                 $scope.banderaToda = true;
                 var bandera = true;
+                var banderaFinalizacion = true;
                 for (var i = 0; i < $scope.eventos.length; i++) {
+                    banderaFinalizacion = true;
                     var idEvento = $scope.eventos[i].evencons;
                     if ($scope.eventos[i].evenicon != null){
                       $scope.events[contador] = {
@@ -173,7 +175,7 @@ calendModController.controller('CalendarioController', [
                             contador++;
                           }
                         };
-                      };              
+                      };
                     }
                     else if($scope.eventos[i].evenperi === 2303){
                       bandera = true;
@@ -218,9 +220,10 @@ calendModController.controller('CalendarioController', [
                             contador++;
                           }
                         }
-                      };              
+                      };
                     }
                     else if($scope.eventos[i].evenperi === 2302){
+                      bandera = true;
                       for (var j = 1; j < 521 && bandera; j++) {
                         bandera = true;
                         var inicio = new Date(new Date($scope.eventos[i].evenfein).getFullYear(), new Date($scope.eventos[i].evenfein).getMonth(), new Date($scope.eventos[i].evenfein).getDate() + (j*7), new Date($scope.eventos[i].evenfein).getHours(), new Date($scope.eventos[i].evenfein).getMinutes());
@@ -262,11 +265,11 @@ calendModController.controller('CalendarioController', [
                             contador++;
                           }
                         }
-                      };              
+                      };
                     }
                 }
 
-                $scope.eventRender = function( event, element, view ) { 
+                $scope.eventRender = function( event, element, view ) {
                   if(event.icono != undefined){
                     element.css('background-image', "url('"+event.icono+"')");
                   }
@@ -276,7 +279,7 @@ calendModController.controller('CalendarioController', [
                 };
 
                 $scope.diaClick = function(event, element, view ){
-                  
+
                     var eventosLista = [];
                     var cont = 0;
                     var fechaToda = new Date(event._d).setTime( new Date(event._d).getTime()+1*24*60*60*1000);
@@ -319,7 +322,7 @@ calendModController.controller('CalendarioController', [
                     };
                     for (var i = 0; i < $scope.eventos.length; i++) {
                       if($scope.eventos[i].evencons == date.id){
-                          
+
                           break;
                       }
                     }
@@ -373,10 +376,10 @@ calendModController.controller('CalendarioController', [
                     buttonIcons: {
                       prev: 'boton-izquierdo',
                       next: 'boton-derecho'
-                    }, 
+                    },
                     viewRender: function(view, element) {
                       var dias = Math.floor((new Date(view.end).getTime() - new Date(view.start).getTime()) / (1000 * 60 * 60 * 24));
-                      if(dias == 42){ 
+                      if(dias == 42){
                         var fecha = new Date(view.start).setDate(new Date(view.start).getDate() + 15);
                         $rootScope.mes = new Date(fecha).getMonth();
                         $rootScope.anho = new Date(fecha).getFullYear();
@@ -454,7 +457,7 @@ calendModController.controller('CalendarioController', [
                             };
                             contador ++;
                           }
-                        }                
+                        }
                       };
                     }
                   }

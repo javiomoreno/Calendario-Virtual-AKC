@@ -1,9 +1,9 @@
 calendModController.controller('ModalControllerIconos', [
-                                                        '$scope', 
-                                                        '$uibModalInstance', 
-                                                        'idEliminar', 
+                                                        '$scope',
+                                                        '$uibModalInstance',
+                                                        'idEliminar',
                                                         '$location',
-                                                        'calImagService', 
+                                                        'calImagService',
                                                         'serveData',
     function ($scope, $uibModalInstance, idEliminar, $location, calImagService, serveData){
 
@@ -15,9 +15,9 @@ calendModController.controller('ModalControllerIconos', [
             idEliminar.imagesta = 2;
           }
           calImagService.updImagenes(idEliminar).then(
-            function(result){ 
+            function(result){
               serveData.data.vista = 02;
-              $location.url('/admin');
+              $location.path('/admin');
               $uibModalInstance.close();
             },
             function(error){

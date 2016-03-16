@@ -239,7 +239,7 @@ footer{
 	bottom: -1px;
 	bottom: 0 !important;
 	position: absolute;
-	width: 100%; 
+	width: 100%;
 	background: #ffffff;
 }
 
@@ -404,7 +404,7 @@ footer{
 	color: #28B910;
 }
 
-.imagenVista { 
+.imagenVista {
     max-width: 200px;
     max-height: 400px;
     margin-left: -35px;
@@ -631,7 +631,7 @@ button[type="button"].fc-agendaWeek-button{
 
 .caja-invitados{
 	font-size: 14px;
-	width:70%; 
+	width:70%;
 	padding-left: 15px;
 }
 
@@ -646,6 +646,12 @@ button[type="button"].fc-agendaWeek-button{
 .nuevo-evento-usuario{
 	padding: 0px 40px 0px 40px;
 }
+
+.obligatorio{
+  color: red !important;
+  float: left;
+  padding-right: 5px;
+}
 /*
 .fc-row.fc-week.fc-widget-content{
 	height: 90px !important;
@@ -657,7 +663,7 @@ td.fc-widget-content{
 
 /*.cal-row-head [class*=cal-cell]{
 	border-color: #BCD4E5;
-	border-style: 
+	border-style:
 }*/
 
 

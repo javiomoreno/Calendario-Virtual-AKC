@@ -5,7 +5,7 @@ calModDirective.directive('menuAdmin', function () {
       };
     });
 
-calModDirective.directive('submenuAdmin', 
+calModDirective.directive('submenuAdmin',
   function () {
       return {
         restrict: 'E',
@@ -20,7 +20,7 @@ calModDirective.directive('menuUsuario', function () {
       };
     });
 
-calModDirective.directive('submenuUsuario', 
+calModDirective.directive('submenuUsuario',
   function () {
       return {
         restrict: 'E',
@@ -28,7 +28,7 @@ calModDirective.directive('submenuUsuario',
       };
     });
 
-calModDirective.directive('calendarioUsuario', 
+calModDirective.directive('calendarioUsuario',
   function () {
       return {
         restrict: 'E',
@@ -36,7 +36,7 @@ calModDirective.directive('calendarioUsuario',
       };
     });
 
-calModDirective.directive('nuevoEventoUsuario', 
+calModDirective.directive('nuevoEventoUsuario',
   function () {
       return {
         restrict: 'E',
@@ -44,7 +44,7 @@ calModDirective.directive('nuevoEventoUsuario',
       };
     });
 
-calModDirective.directive('nuevoEvento', 
+calModDirective.directive('nuevoEvento',
   function () {
       return {
         restrict: 'E',
@@ -52,7 +52,7 @@ calModDirective.directive('nuevoEvento',
       };
     });
 
-calModDirective.directive('listaEventos', 
+calModDirective.directive('listaEventos',
   function () {
       return {
         restrict: 'E',
@@ -60,7 +60,7 @@ calModDirective.directive('listaEventos',
       };
     });
 
-calModDirective.directive('eventosMes', 
+calModDirective.directive('eventosMes',
   function () {
       return {
         restrict: 'E',
@@ -68,7 +68,7 @@ calModDirective.directive('eventosMes',
       };
     });
 
-calModDirective.directive('detalleEvento', 
+calModDirective.directive('detalleEvento',
   function () {
       return {
         restrict: 'E',
@@ -76,7 +76,7 @@ calModDirective.directive('detalleEvento',
       };
     });
 
-calModDirective.directive('editarEvento', 
+calModDirective.directive('editarEvento',
   function () {
       return {
         restrict: 'E',
@@ -84,7 +84,7 @@ calModDirective.directive('editarEvento',
       };
     });
 
-calModDirective.directive('elegirTipolista', 
+calModDirective.directive('elegirTipolista',
   function () {
       return {
         restrict: 'E',
@@ -92,7 +92,7 @@ calModDirective.directive('elegirTipolista',
       };
     });
 
-calModDirective.directive('listaFotografias', 
+calModDirective.directive('listaFotografias',
   function () {
       return {
         restrict: 'E',
@@ -100,7 +100,7 @@ calModDirective.directive('listaFotografias',
       };
     });
 
-calModDirective.directive('listaObras', 
+calModDirective.directive('listaObras',
   function () {
       return {
         restrict: 'E',
@@ -108,7 +108,7 @@ calModDirective.directive('listaObras',
       };
     });
 
-calModDirective.directive('obrasMes', 
+calModDirective.directive('obrasMes',
   function () {
       return {
         restrict: 'E',
@@ -116,7 +116,7 @@ calModDirective.directive('obrasMes',
       };
     });
 
-calModDirective.directive('detalleObra', 
+calModDirective.directive('detalleObra',
   function () {
       return {
         restrict: 'E',
@@ -125,7 +125,7 @@ calModDirective.directive('detalleObra',
     });
 
 
-calModDirective.directive('listaIconos', 
+calModDirective.directive('listaIconos',
   function () {
       return {
         restrict: 'E',
@@ -133,7 +133,7 @@ calModDirective.directive('listaIconos',
       };
     });
 
-calModDirective.directive('fotografiasMes', 
+calModDirective.directive('fotografiasMes',
   function () {
       return {
         restrict: 'E',
@@ -141,7 +141,7 @@ calModDirective.directive('fotografiasMes',
       };
     });
 
-calModDirective.directive('detalleFotografia', 
+calModDirective.directive('detalleFotografia',
   function () {
       return {
         restrict: 'E',
@@ -149,7 +149,7 @@ calModDirective.directive('detalleFotografia',
       };
     });
 
-calModDirective.directive('detalleIcono', 
+calModDirective.directive('detalleIcono',
   function () {
       return {
         restrict: 'E',
@@ -157,7 +157,7 @@ calModDirective.directive('detalleIcono',
       };
     });
 
-calModDirective.directive('editarIcono', 
+calModDirective.directive('editarIcono',
   function () {
       return {
         restrict: 'E',
@@ -166,7 +166,7 @@ calModDirective.directive('editarIcono',
     });
 
 
-calModDirective.directive('editarFotografia', 
+calModDirective.directive('editarFotografia',
   function () {
       return {
         restrict: 'E',
@@ -174,7 +174,7 @@ calModDirective.directive('editarFotografia',
       };
     });
 
-calModDirective.directive('editarObra', 
+calModDirective.directive('editarObra',
   function () {
       return {
         restrict: 'E',
@@ -182,7 +182,7 @@ calModDirective.directive('editarObra',
       };
     });
 
-calModDirective.directive('elegirTipo', 
+calModDirective.directive('elegirTipo',
   function () {
       return {
         restrict: 'E',
@@ -190,7 +190,7 @@ calModDirective.directive('elegirTipo',
       };
     });
 
-calModDirective.directive('nuevaFotografia', 
+calModDirective.directive('nuevaFotografia',
   function () {
       return {
         restrict: 'E',
@@ -198,7 +198,7 @@ calModDirective.directive('nuevaFotografia',
       };
     });
 
-calModDirective.directive('nuevoIcono', 
+calModDirective.directive('nuevoIcono',
   function () {
       return {
         restrict: 'E',
@@ -206,7 +206,7 @@ calModDirective.directive('nuevoIcono',
       };
     });
 
-calModDirective.directive('nuevaObra', 
+calModDirective.directive('nuevaObra',
   function () {
       return {
         restrict: 'E',
@@ -214,7 +214,7 @@ calModDirective.directive('nuevaObra',
       };
     });
 
-calModDirective.directive('listaEventosPrivados', 
+calModDirective.directive('listaEventosPrivados',
   function () {
       return {
         restrict: 'E',
@@ -222,7 +222,7 @@ calModDirective.directive('listaEventosPrivados',
       };
     });
 
-calModDirective.directive('eventosPrivadosMes', 
+calModDirective.directive('eventosPrivadosMes',
   function () {
       return {
         restrict: 'E',
@@ -230,7 +230,7 @@ calModDirective.directive('eventosPrivadosMes',
       };
     });
 
-calModDirective.directive('detalleEventoPrivado', 
+calModDirective.directive('detalleEventoPrivado',
   function () {
       return {
         restrict: 'E',
@@ -238,7 +238,7 @@ calModDirective.directive('detalleEventoPrivado',
       };
     });
 
-calModDirective.directive("fileread", 
+calModDirective.directive("fileread",
   function () {
       return {
         scope: {
