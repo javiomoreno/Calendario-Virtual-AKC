@@ -19,41 +19,47 @@
                     </li>
                 </ul>
             </div>
-            <div class="page-content">
+            <div class="page-content" ng-controller="AdministradorController">
                 <div class="col-sm-12">
                     <uib-tabset class="tabs-left">
-                        <uib-tab>
+                        <uib-tab active="true" select="a.pestanaImagenes = true">
                           <uib-tab-heading>
                             <i class="menu-icon fa fa-desktop"></i> Imágenes
                           </uib-tab-heading>
                           <div class="col-md-8 col-lg-9 blue">
                               <h2>Obras por Mes</h2>
                           </div>
-                          <div class="col-md-4 col-lg-3" ng-controller="AdministradorController">
+                          <div class="col-md-4 col-lg-3">
                               <button class="btn btn-sm btn-primary" ng-click="crearObra()"><i class="menu-icon fa fa-plus"></i> Nueva Obra</button>
                           </div>
-                          <obras-mes></obras-mes>
+                          <span ng-if="a.pestanaImagenes == true">
+                            <obras-mes></obras-mes>
+                          </span>
                         </uib-tab>
-                        <uib-tab>
+                        <uib-tab active="false" select="a.pestanaEventos = true">
                           <uib-tab-heading>
                             <i class="menu-icon fa fa-calendar"></i> Eventos
                           </uib-tab-heading>
                           <div class="col-xs-12 col-sm-6 col-md-8 col-lg-9 blue">
                               <h2>Lista de Eventos</h2>
                           </div>
-                          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" ng-controller="AdministradorController">
+                          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
                               <button class="btn btn-sm btn-primary" ng-click="crearEvento()"><i class="menu-icon fa fa-plus"></i> Nuevo Evento</button>
                           </div>
-                          <lista-eventos></lista-eventos>
+                          <span ng-if="a.pestanaEventos == true">
+                              <lista-eventos></lista-eventos>
+                          </span>
                         </uib-tab>
-                        <uib-tab>
+                        <uib-tab active="false" select="a.pestanaEventosPrivados = true">
                           <uib-tab-heading>
-                            <i class="ace-icon fa fa-bullhorn"></i> Eventos Privados
+                            <i class="ace-icon fa fa-bullhorn"></i>Eventos Privados
                           </uib-tab-heading>
                           <div class="col-xs-12 col-sm-6 col-md-8 col-lg-9 blue">
                               <h2>Lista de Eventos Privados</h2>
                           </div>
-                          <lista-eventos-privados></lista-eventos-privados>
+                          <span ng-if="a.pestanaEventosPrivados == true">
+                              <lista-eventos-privados></lista-eventos-privados>
+                          </span>
                         </uib-tab>
                     </uib-tabset>
                 </div>

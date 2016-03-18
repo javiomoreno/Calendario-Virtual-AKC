@@ -1,6 +1,6 @@
 calendModController.controller('FotografiaListaController', [
                                                 '$scope',
-                                                '$routeParams', 
+                                                '$routeParams',
                                                 'calImagService',
     function ($scope, $routeParams, calImagService) {
 

@@ -2,7 +2,7 @@ calendModController.controller('EventoEditarController', [
                                                       '$scope',
                                                       '$rootScope',
                                                       '$routeParams',
-                                                      '$log', 
+                                                      '$log',
                                                       'localStorageService',
                                                       'calEvenService',
                                                       '$location',
@@ -11,11 +11,7 @@ calendModController.controller('EventoEditarController', [
 
       $scope.eventoId = $routeParams.idEvento;
 
-      $scope.banTipo = false; 
-      $scope.banImportancia = false; 
-      $scope.banPeriodicidad = false; 
-      $scope.banAlertas = false; 
-      $scope.banInvitados = false; 
+      $scope.banAlertas = false;
       $scope.banIconos = false;
       $scope.evento = {};
       $scope.evento.nombre = "";
@@ -44,7 +40,6 @@ calendModController.controller('EventoEditarController', [
           for (var i = 0; i < dataInvitados.length; i++) {
             $rootScope.vecInvitados.push(dataInvitados[i]);
           };
-          $scope.banInvitados = true;
       });
 
       calEvenService.getAllAlertas().then(
@@ -71,7 +66,6 @@ calendModController.controller('EventoEditarController', [
               opcion: data[i].tbclave+" - "+data[i].tbvalor,
               value: data[i].tbnumero
             }
-            $scope.banTipo = true;
           }
         },
         function(error){
@@ -88,7 +82,6 @@ calendModController.controller('EventoEditarController', [
               value: data[i].tbnumero
             }
           };
-          $scope.banPeriodicidad = true;
       });
 
       calEvenService.getAllImportancia().then(
@@ -100,7 +93,6 @@ calendModController.controller('EventoEditarController', [
               value: data[i].tbnumero
             }
           };
-          $scope.banImportancia = true;
         }
       );
 
@@ -122,7 +114,7 @@ calendModController.controller('EventoEditarController', [
             evenesta: dataEvento[0].CAL_EVENTOS.evenesta,
             evenvibu: dataEvento[0].CAL_EVENTOS.evenvibu,
             evenffin: dataEvento[0].CAL_EVENTOS.evenffin,
-          } 
+          }
 
           if (dataEvento[0].CAL_EVENINVI !== undefined) {
               $scope.evento.invitados = [];
@@ -151,9 +143,9 @@ calendModController.controller('EventoEditarController', [
                   $scope.alertasCorreo.push(dataEvento[0].CAL_EVENNOTI[i]);
               }
             }
-          } 
+          }
         }
-      );  
+      );
 
       $rootScope.suggestions = [];
       $rootScope.selectedIndex = -1;
@@ -272,7 +264,7 @@ calendModController.controller('EventoEditarController', [
           for (var i = 0; i < dataImagen.length; i++) {
             $scope.vectorIconos[i] = {
               id: dataImagen[i].IMAGCONS,
-              icono: dataImagen[i]             
+              icono: dataImagen[i]
             };
           }
           $scope.banIconos = true;
@@ -369,7 +361,7 @@ calendModController.controller('EventoEditarController', [
         if($scope.isValidarDatosEvento()){
           var evento = $scope.buildEvento();
           calEvenService.updEvento(evento).then(
-            function(resultEvento){ 
+            function(resultEvento){
               var banderaApli = false;
               var banderaCorr = false;
               var banderaInvi = false;
@@ -406,7 +398,7 @@ calendModController.controller('EventoEditarController', [
                     var notificacion = $scope.buildNotificacion(resultEvento.ID, $scope.evento.alerta.aplicacion[i], 2801);
                     calEvenService.guardarNotificacion(notificacion).then(
                       function(resultNotificacion){
-                        $location.path('/admin/evento/vista/'+resultEvento.ID);                        
+                        $location.path('/admin/evento/vista/'+resultEvento.ID);
                       },
                       function(error){
                         console.log("Notificacion aplicacion: ",error.statusText);
@@ -420,7 +412,7 @@ calendModController.controller('EventoEditarController', [
               }
               if ($scope.alertasCorreo.length > 0) {
                 for (var j = 0; j < $scope.alertasCorreo.length; j++) {
-                  var banderaEliminarCorr = false;              
+                  var banderaEliminarCorr = false;
                   for (var i = 0; i < $scope.evento.alerta.correo.length; i++) {
                     if ($scope.alertasCorreo[j].evnoaler === $scope.evento.alerta.correo[i]) {
                       banderaEliminarCorr = true;
@@ -516,8 +508,8 @@ calendModController.controller('EventoEditarController', [
             function(error){
               console.log("Evento: ",error.statusText);
             }
-          ); 
-        }  
+          );
+        }
         else{
           console.log("debe llenar todos los campos")
         }
@@ -529,7 +521,7 @@ calendModController.controller('EventoEditarController', [
 
       $scope.buildNotificacionAnular = function(notificacion){
         var calEntity = {};
-        calEntity.evnocons = notificacion.evnocons;        
+        calEntity.evnocons = notificacion.evnocons;
         calEntity.evnoeven = notificacion.evnoeven;
         calEntity.evnofech = notificacion.evnofech;
         calEntity.evnotipo = notificacion.evnotipo;
@@ -543,7 +535,7 @@ calendModController.controller('EventoEditarController', [
 
       $scope.buildNotificacion = function(idEvento, notificacion, tipo){
         var calEntity = {};
-        calEntity.evnocons = -1;        
+        calEntity.evnocons = -1;
         calEntity.evnoeven = idEvento;
         calEntity.evnofech = new Date();
         calEntity.evnotipo = tipo;
@@ -557,7 +549,7 @@ calendModController.controller('EventoEditarController', [
 
       $scope.buildInvitadoAnular = function(invitado){
         var calEntity = {};
-        calEntity.evincons = invitado.evincons;        
+        calEntity.evincons = invitado.evincons;
         calEntity.evineven = invitado.evineven;
         calEntity.evinusua = invitado.evinusua;
         calEntity.evinnomb = invitado.evinnomb;
@@ -567,7 +559,7 @@ calendModController.controller('EventoEditarController', [
 
       $scope.buildInvitado = function(idEvento, invitado){
         var calEntity = {};
-        calEntity.evincons = -1;        
+        calEntity.evincons = -1;
         calEntity.evineven = idEvento;
         calEntity.evinusua = invitado.id;
         calEntity.evinnomb = invitado.nombre;
@@ -582,19 +574,19 @@ calendModController.controller('EventoEditarController', [
         var fechaF = new Date($scope.evento.fechaInicio).setHours(new Date($scope.evento.horaFin).getHours());
         fechaF = new Date(fechaF).setMinutes(new Date($scope.evento.horaFin).getMinutes());
         var calEntity = {};
-        calEntity.evencons = $scope.evento.id;        
-        calEntity.evendesc = $scope.evento.nombre;        
+        calEntity.evencons = $scope.evento.id;
+        calEntity.evendesc = $scope.evento.nombre;
         calEntity.evenfein = new Date(fechaI);
         calEntity.evenfefi = new Date(fechaF);
         calEntity.evenimpo = $scope.evento.importancia;
         calEntity.evenperi = $scope.evento.repeticion;
-        calEntity.evenicon = $scope.evento.iconoEvento;   
-        calEntity.evenuscr = $scope.evento.evenuscr;   
-        calEntity.evenfecr = $scope.evento.evenfecr;   
-        calEntity.evenesta = $scope.evento.evenesta;   
-        calEntity.evenvibu = $scope.evento.evenvibu;   
-        calEntity.evenffin = $scope.evento.evenffin;   
-        calEntity.eventipo = $scope.evento.tipoEvento;   
+        calEntity.evenicon = $scope.evento.iconoEvento;
+        calEntity.evenuscr = $scope.evento.evenuscr;
+        calEntity.evenfecr = $scope.evento.evenfecr;
+        calEntity.evenesta = $scope.evento.evenesta;
+        calEntity.evenvibu = $scope.evento.evenvibu;
+        calEntity.evenffin = $scope.evento.evenffin;
+        calEntity.eventipo = $scope.evento.tipoEvento;
         return calEntity;
       }
 

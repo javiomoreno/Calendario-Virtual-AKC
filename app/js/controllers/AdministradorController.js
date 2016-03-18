@@ -2,33 +2,21 @@ calendModController.controller('AdministradorController', [
                                                         '$location',
                                                         '$timeout',
                                                         '$scope',
+                                                        '$rootScope',
                                                         'calImagService',
                                                         'serveData',
-    function ($location, $timeout, $scope, calImagService, serveData) {
+    function ($location, $timeout, $scope, $rootScope, calImagService, serveData) {
 
-        $scope.vista = serveData.data.vista;
-
-        $scope.opciones = [];
-
-        calImagService.getAllTipoImagen().then(function(data) {
-          for (var i = 0; i < data.length; i++) {
-            $scope.opciones[i] = {
-              opcion: data[i].tbclave+" - "+data[i].tbvalor,
-              value: parseInt(data[i].tbclave)
-            }
-          };
-        });
-
-        $scope.cargarEventos = function(){
-          
+        if ($rootScope.a === undefined) {
+          $rootScope.a = {};
+          $rootScope.a.pestanaImagenes = false;
+          $rootScope.a.pestanaEventos = false;
+          $rootScope.a.pestanaEventosPrivados = false;
         }
-
-        $scope.cargarValores = function(){
-          $scope.opciones = $scope.opciones;
-        }
-
-        $scope.Enviar = function(data){
-          console.log(data);
+        else {
+          $rootScope.a.pestanaImagenes = false;
+          $rootScope.a.pestanaEventos = false;
+          $rootScope.a.pestanaEventosPrivados = false;
         }
 
         $scope.crearImagen = function(){
