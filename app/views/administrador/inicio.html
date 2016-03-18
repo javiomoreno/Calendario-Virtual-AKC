@@ -19,7 +19,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="page-content">
+            <div class="page-content" ng-controller="AdministradorController">
                 <div class="col-sm-12">
                     <uib-tabset class="tabs-left">
                         <uib-tab>
@@ -28,14 +28,14 @@
                           </uib-tab-heading>
                           <elegir-tipolista></elegir-tipolista>
                         </uib-tab>
-                        <uib-tab select="cargarEventos()">
+                        <uib-tab ng-show="false">
                           <uib-tab-heading>
                             <i class="menu-icon fa fa-calendar"></i> Eventos
                           </uib-tab-heading>
                           <div class="col-xs-12 col-sm-6 col-md-8 col-lg-9 blue">
                               <h2>Lista de Eventos</h2>
                           </div>
-                          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" ng-controller="AdministradorController">
+                          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
                               <button class="btn btn-sm btn-primary" ng-click="crearEvento()"><i class="menu-icon fa fa-plus"></i> Nuevo Evento</button>
                           </div>
                           <lista-eventos></lista-eventos>

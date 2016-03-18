@@ -1,8 +1,8 @@
 calendModController.controller('AdministradorController', [
-                                                        '$location', 
-                                                        '$timeout', 
-                                                        '$scope', 
-                                                        'calImagService', 
+                                                        '$location',
+                                                        '$timeout',
+                                                        '$scope',
+                                                        'calImagService',
                                                         'serveData',
     function ($location, $timeout, $scope, calImagService, serveData) {
 
@@ -18,6 +18,10 @@ calendModController.controller('AdministradorController', [
             }
           };
         });
+
+        $scope.cargarEventos = function(){
+          
+        }
 
         $scope.cargarValores = function(){
           $scope.opciones = $scope.opciones;
