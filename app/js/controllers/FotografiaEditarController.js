@@ -1,7 +1,7 @@
 calendModController.controller('FotografiaEditarController', [
-                                                '$scope', 
+                                                '$scope',
                                                 '$routeParams',
-                                                '$location', 
+                                                '$location',
                                                 'calImagService',
     function ($scope, $routeParams, $location, calImagService) {
 
@@ -17,6 +17,7 @@ calendModController.controller('FotografiaEditarController', [
 
       $scope.vecMeses = [];
       $scope.vecAnhos = [];
+      $scope.alerts = [];
 
       calImagService.getAllMeses().then(function(data) {
           for (var i = 0; i < data.length; i++) {
@@ -69,10 +70,10 @@ calendModController.controller('FotografiaEditarController', [
 
       $scope.editarFotografia = function(){
         if($scope.isValidarDatosFotografia()){
-          $scope.bandera = false;        
+          $scope.bandera = false;
           var imagenCodif = $scope.buildImagenCodif();
           calImagService.updImagenCodifi(imagenCodif).then(
-            function(result){      
+            function(result){
               var fotografia = $scope.buildFotografia();
               calImagService.updImagenes(fotografia).then(
                 function(resultFotografia){
@@ -93,25 +94,25 @@ calendModController.controller('FotografiaEditarController', [
 
       $scope.buildImagenCodif = function(){
         var calEntity = {};
-        calEntity.imcocons = $scope.fotografia.idCodif;        
+        calEntity.imcocons = $scope.fotografia.idCodif;
         calEntity.imcotipo = $scope.fotografia.tipoCodif;
         calEntity.imcoexte = $scope.fotografia.extCodif;
-        calEntity.imagcodi = $scope.fotografia.archivo;     
+        calEntity.imagcodi = $scope.fotografia.archivo;
         return calEntity;
       }
 
       $scope.buildFotografia = function(){
         var calEntity = {};
-        calEntity.imagcons = $scope.fotografia.id;        
-        calEntity.imagimco = $scope.fotografia.idCodif;        
+        calEntity.imagcons = $scope.fotografia.id;
+        calEntity.imagimco = $scope.fotografia.idCodif;
         calEntity.imagano = $scope.fotografia.anho;
         calEntity.imagmes = $scope.fotografia.mes;
         calEntity.imagauto = $scope.fotografia.autor;
         calEntity.imagmens = $scope.fotografia.mensaje;
-        calEntity.imagtema = $scope.fotografia.tema;   
-        calEntity.imagesta = $scope.fotografia.estado; 
+        calEntity.imagtema = $scope.fotografia.tema;
+        calEntity.imagesta = $scope.fotografia.estado;
         calEntity.imaguscr = $scope.fotografia.usuarioCre;
-        calEntity.imagfecr = $scope.fotografia.fechaCre;   
+        calEntity.imagfecr = $scope.fotografia.fechaCre;
         return calEntity;
       }
 
@@ -131,6 +132,7 @@ calendModController.controller('FotografiaEditarController', [
             $scope.fotografia.mensaje == '' ||
             $scope.fotografia.tema == ''
         ){
+          $scope.alerts.push({msg: 'Debe llenar todos Los campos como obligatorios *'});
           return false;
         }
         else{
@@ -142,4 +144,8 @@ calendModController.controller('FotografiaEditarController', [
         $location.path('/admin');
         $rootScope.vista = "fotografia";
       }
+
+      $scope.closeAlert = function(index) {
+        $scope.alerts.splice(index, 1);
+      };
 }]);

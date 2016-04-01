@@ -5,8 +5,12 @@
 	</span>
 	<span ng-if="bandera == true">
 		<form name="form">
+			<uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" dismiss-on-timeout="5000" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+			<p class="obligatorio">
+				* <p class="blue">Los Campos son Obligatorios</p>
+			</p>
 			<div class="form-group col-lg-12 blue">
-			<label for="fuente">Fuente del Icono</label>
+			<label for="fuente"><p class="obligatorio">*</p> Fuente del Icono</label>
 			<textarea class="form-control" id="fuente"
 			   placeholder="Fuente del Icono" ng-model="icono.mensaje"></textarea>
 			</div>
@@ -22,7 +26,7 @@
 	            <span ng-if="banderaIcono == true">
 					<div style="width:400px; margin:12px;">
 						<h3 class="header blue smaller lighter">
-							Cargar Archivo
+							<p class="obligatorio">*</p> Cargar Archivo
 						</h3>
 						<label class="ace-file-input ace-file-multiple">
 							<input fileread="icono.archivo" type="file" placeholder="Please select file" class="form-control" accept="image/*"/>

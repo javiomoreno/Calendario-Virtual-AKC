@@ -56,10 +56,6 @@ appExpuestas.config(['$routeProvider', function ($routeProvider) {
         templateUrl: 'views/administrador/eventos-privados/detalleEvento.html',
         controller: 'EventoPrivadoDetalleController'
       })
-      .when('/admin/icono/vista/:idIcono', {
-        templateUrl: 'views/administrador/imagenes/iconos/detalleIcono.html',
-        controller: 'IconoDetalleController'
-      })
       .when('/admin/icono/editar/:idIcono', {
         templateUrl: 'views/administrador/imagenes/iconos/editarIcono.html',
         controller: 'IconoEditarController'

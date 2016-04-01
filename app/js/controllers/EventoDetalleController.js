@@ -8,7 +8,8 @@ calendModController.controller('EventoDetalleController', [
     function ($scope, $routeParams,  $uibModal, $location, calImagService, calEvenService) {
 
     $scope.eventoId = $routeParams.idEvento;
-		$scope.bandera = false;
+    $scope.bandera = false;
+		$scope.banderaIcono = false;
 		$scope.evento = {};
 		$scope.checkboxModel = {};
 		$scope.vecInvitados = [];
@@ -70,8 +71,17 @@ calendModController.controller('EventoDetalleController', [
 
 				if (dataEvento[0].CAL_EVENTOS.evenicon !== null) {
 				  	calImagService.getImagenId(dataEvento[0].CAL_EVENTOS.evenicon).then(
-				        function(dataImagen){
-							$scope.evento.iconoEvento = dataImagen.IMAGCODI;
+		            function(dataImagen){
+                    calImagService.getImagenCodificadaId(dataImagen.imagimco).then(
+                      function(dataImagenCodificada){
+                        $scope.evento.iconoEvento = dataImagenCodificada.imagcodi;
+                        $scope.banderaIcono = true;
+                      },
+                      function(error){
+                        console.log("Imagen Codificada: ",error.statusText);
+                      }
+                    );
+
 				        },
 				        function(error){
 				            console.log(error.statusText);

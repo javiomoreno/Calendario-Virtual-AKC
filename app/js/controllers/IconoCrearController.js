@@ -9,6 +9,7 @@ calendModController.controller('IconoCrearController', [
         $scope.icono = {};
         $scope.icono.mensaje = "";
         $scope.icono.archivo = null;
+        $scope.alerts = [];
 
         $scope.guardarIcono = function(){
           if($scope.isValidarDatosIcono()){
@@ -32,9 +33,6 @@ calendModController.controller('IconoCrearController', [
                 console.log("Imagen: ",error.statusText);
               }
             );
-          }
-          else{
-            console.log("debe llenar todos los campos")
           }
 
         }
@@ -70,10 +68,15 @@ calendModController.controller('IconoCrearController', [
             $scope.icono.archivo == null ||
               $scope.icono.mensaje == ''
           ){
+            $scope.alerts.push({msg: 'Debe llenar todos Los campos como obligatorios *'});
             return false;
           }
           else{
             return true;
           }
         }
+
+        $scope.closeAlert = function(index) {
+          $scope.alerts.splice(index, 1);
+        };
 }]);

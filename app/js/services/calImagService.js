@@ -1,6 +1,6 @@
 calendModService.service('calImagService', [
-                                              '$q', 
-                                              'guardarImagen', 
+                                              '$q',
+                                              'guardarImagen',
                                               'guardarImagenCodi',
                                               'getImagenId',
                                               'getImagenCodificadaId',
@@ -10,29 +10,27 @@ calendModService.service('calImagService', [
                                               'updImagenes',
                                               'updImagenCodifi',
                                               'allMeses',
-                                              'allAnhos', 
+                                              'allAnhos',
                                               'allTipoImagen',
                                               'getImagenesTipoMesAñoCalendario',
   function ($q, guardarImagen, guardarImagenCodi, getImagenId, getImagenCodificadaId, getImagenesAnoMesTipo, getImagenesTipo, getIconos, updImagenes, updImagenCodifi, allMeses, allAnhos, allTipoImagen, getImagenesTipoMesAñoCalendario) {
   	this.guardarImagenCodificada = function(imagenCodif){
 		var response = $q.defer();
 		guardarImagenCodi.save(imagenCodif, function(result){
-			console.log(result);
 			response.resolve(result);
 		}, function(error){
 			response.reject(error);
-		});				
+		});
 		return response.promise;
 	};
 
 	this.guardarImagen = function(imagen){
 		var response = $q.defer();
 		guardarImagen.save(imagen, function(result){
-			console.log(result);
 			response.resolve(result);
 		}, function(error){
 			response.reject(error);
-		});				
+		});
 		return response.promise;
 	};
 

@@ -95,10 +95,20 @@
                                 </div>
                             </div>
 
-                            <div class="profile-info-row" ng-if="evento.iconoEvento != null">
+                            <div class="profile-info-row">
                                 <div class="profile-info-name"> Icono </div>
                                 <div class="profile-info-value text-center">
-                                    <img  ng-src="{{evento.iconoEvento != null && evento.iconoEvento || ''}}" class="imagenVista">
+                                    <span ng-if="banderaIcono == false">
+                                        <div class="col-xs-12">
+                                            <h3 class="header smaller lighter blue">
+                                                <i class="ace-icon fa fa-spinner fa-spin blue bigger-125"></i>
+                                                Cargando Icono
+                                            </h3>
+                                        </div>
+                                    </span>
+                                    <span ng-if="banderaIcono == true">
+                                        <img  ng-src="{{evento.iconoEvento != null && evento.iconoEvento || ''}}" alt="{{fotografia.nombre}}" class="imagenVista" title="{{fotografia.nombre}}">
+                                    </span>
                                 </div>
                             </div>
                         </div>

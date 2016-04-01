@@ -5,26 +5,30 @@
 	</span>
 	<span ng-if="bandera == true">
 		<form name="form">
+			<uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" dismiss-on-timeout="5000" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+			<p class="obligatorio">
+				* <p class="blue">Los Campos son Obligatorios</p>
+			</p>
 			<div class="form-group col-sm-12 col-lg-6 blue">
-			    <label for="mes">* Mes</label>
+			    <label for="mes"><p class="obligatorio">*</p> Mes</label>
 			    <select class="form-control" id="mes" style="width:160px" ng-model="fotografia.mes" ng-options="opcion.value as opcion.opcion for opcion in vecMeses" required>
 			      <option value="">Seleccione un Mes</option>
 				</select>
 			</div>
 			<div class="form-group col-sm-12 col-lg-6 blue">
-			    <label for="anho">* Año </label>
+			    <label for="anho"><p class="obligatorio">*</p> Año </label>
 			    <select class="form-control" id="anho" style="width:160px" ng-model="fotografia.anho" ng-options="opcion.opcion as opcion.opcion for opcion in vecAnhos | orderBy:'opcion'" required>
 			      <option value="">Seleccione un Año</option>
 				</select>
 			</div>
 			<div class="form-group col-sm-12 col-lg-6 blue">
-				<label for="tema">* Titulo de Tema</label>
-				<input type="text" class="form-control" id="tema" 
+				<label for="tema"><p class="obligatorio">*</p> Titulo de Tema</label>
+				<input type="text" class="form-control" id="tema"
 				   placeholder="Titulo de Tema" ng-model="fotografia.tema"/>
 			</div>
 			<div class="form-group col-lg-12 blue">
-				<label for="mensaje">* Mensaje</label>
-				<textarea class="form-control" id="mensaje" 
+				<label for="mensaje"><p class="obligatorio">*</p> Mensaje</label>
+				<textarea class="form-control" id="mensaje"
 				   placeholder="Mensaje" ng-model="fotografia.mensaje"></textarea>
 			</div>
 		  	<div class="form-group col-lg-12" style="text-align: -webkit-center;">
@@ -39,7 +43,7 @@
 	            <span ng-if="banderaFotografia == true">
 					<div style="width:400px; margin:12px;">
 						<h3 class="header blue smaller lighter">
-							* Cargar Archivo
+							<p class="obligatorio">*</p> Cargar Archivo
 						</h3>
 						<label class="ace-file-input ace-file-multiple">
 							<input fileread="fotografia.archivo" type="file" placeholder="Please select file" class="form-control" accept="image/*"/>
@@ -48,7 +52,7 @@
 									<i class=" ace-icon fa fa-upload"></i>
 								</span>
 							</span>
-		                    
+
 								<span ng-if="fotografia.archivo != null" class="ace-file-container">
 									<img  ng-src="{{fotografia.archivo != null && fotografia.archivo || ''}}" class="imagenVista">
 								</span>

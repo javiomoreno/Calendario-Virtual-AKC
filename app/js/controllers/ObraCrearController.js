@@ -57,9 +57,6 @@ calendModController.controller('ObraCrearController', [
               }
             );
           }
-          else{
-            console.log("debe llenar todos los campos")
-          }
         };
 
         $scope.buildImagenCodif = function(){

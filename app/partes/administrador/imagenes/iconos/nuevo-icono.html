@@ -1,30 +1,38 @@
-<form name="form" ng-controller="IconoCrearController">
-	  <div class="form-group col-lg-12 blue">
-	    <label for="fuente">* Fuente del Icono</label>
-	    <textarea class="form-control" id="fuente" 
-           placeholder="Fuente del Icono" ng-model="icono.mensaje"></textarea>
-	  </div>
-	  <div class="form-group col-lg-12 text-center" style="text-align: -webkit-center; text-align: -moz-center;">
-		<div style="width:400px; margin:12px;">
-		<h3 class="header blue smaller lighter">
-			* Cargar Archivo
-		</h3>
-		<label class="ace-file-input ace-file-multiple">
-			<input fileread="icono.archivo" type="file" placeholder="Seleccione el archivo" class="form-control" accept="image/*"/>
-			<span ng-if="icono.archivo == null" class="ace-file-container" data-title="Seleccione el archivo">
-				<span  class="ace-file-name" data-title="No hay Achivo ...">
-					<i class=" ace-icon fa fa-upload"></i>
+<div class="col-sm-12" ng-controller="IconoCrearController">
+	<form name="form" >
+			<div class="">
+				<uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" dismiss-on-timeout="5000" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+			</div>
+			<p class="obligatorio">
+				*<p class="blue"> Los Campos son Obligatorios</p>
+			</p>
+		  <div class="form-group col-lg-12 blue">
+		    <label for="fuente"><p class="obligatorio">*</p> Fuente del Icono</label>
+		    <textarea class="form-control" id="fuente"
+	           placeholder="Fuente del Icono" ng-model="icono.mensaje"></textarea>
+		  </div>
+		  <div class="form-group col-lg-12 text-center" style="text-align: -webkit-center; text-align: -moz-center;">
+			<div style="width:400px; margin:12px;">
+			<h3 class="header blue smaller lighter">
+				<p class="obligatorio">*</p> Cargar Archivo
+			</h3>
+			<label class="ace-file-input ace-file-multiple">
+				<input fileread="icono.archivo" type="file" placeholder="Seleccione el archivo" class="form-control" accept="image/*"/>
+				<span ng-if="icono.archivo == null" class="ace-file-container" data-title="Seleccione el archivo">
+					<span  class="ace-file-name" data-title="No hay Achivo ...">
+						<i class=" ace-icon fa fa-upload"></i>
+					</span>
 				</span>
-			</span>
-			<span ng-if="icono.archivo != null" class="ace-file-container">
-				<img  ng-src="{{icono.archivo != null && icono.archivo || ''}}" class="imagenVista" alt="">
-			</span>
-			<a class="remove" href="#">
-				<i class=" ace-icon fa fa-times"></i>
-			</a>
-		</label>
-	</div>
-	<div class="form-group col-lg-12 text-center">
-  		<button class="btn btn-primary" ng-click="guardarIcono()">Guardar</button>
-  	</div>
-</form>
+				<span ng-if="icono.archivo != null" class="ace-file-container">
+					<img  ng-src="{{icono.archivo != null && icono.archivo || ''}}" class="imagenVista" alt="">
+				</span>
+				<a class="remove" href="#">
+					<i class=" ace-icon fa fa-times"></i>
+				</a>
+			</label>
+		</div>
+		<div class="form-group col-lg-12 text-center">
+	  		<button class="btn btn-primary" ng-click="guardarIcono()">Guardar</button>
+	  	</div>
+	</form>
+</div>

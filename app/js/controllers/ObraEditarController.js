@@ -147,7 +147,7 @@ calendModController.controller('ObraEditarController', [
 
       $scope.Atras = function(){
         $location.path('/admin');
-        $rootScope.vista = "icono";
+        $rootScope.vista = "obra";
       }
 
       $scope.closeAlert = function(index) {
